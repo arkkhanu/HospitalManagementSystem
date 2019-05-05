@@ -60,9 +60,24 @@ public class receptionist_optdetail extends javax.swing.JFrame {
            
     }
     
+    private void fillcombo(){
+        try{
+            String query = "select * from rk";
+            DBConnection conn = new DBConnection();
+            conn.OpenConnection();
+            conn.GetData(query);
+            while(conn.rst.next()){
+                String value = conn.rst.getString("c2");
+                optidcombo.addItem(value);
+            }
+            conn.CloseConnection();
+        }catch(SQLException e ){System.out.println(e);}
+    }
+    
     public receptionist_optdetail() {
         initComponents();
         show_user();
+        fillcombo();
     }
 
     /**
@@ -90,7 +105,7 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_opt = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        optidcombo = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
         searching = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
@@ -199,10 +214,15 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(20, 190, 630, 270);
 
-        jComboBox1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "OPT-ID", "Phone No" }));
-        jPanel1.add(jComboBox1);
-        jComboBox1.setBounds(90, 130, 130, 30);
+        optidcombo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        optidcombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "OPT-ID", "Phone No" }));
+        optidcombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optidcomboActionPerformed(evt);
+            }
+        });
+        jPanel1.add(optidcombo);
+        optidcombo.setBounds(90, 130, 130, 30);
 
         jTextField1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jPanel1.add(jTextField1);
@@ -242,6 +262,14 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void optidcomboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optidcomboActionPerformed
+        
+        String ss = optidcombo.getSelectedItem().toString();
+        patientidd1.setText(ss);
+        
+        
+    }//GEN-LAST:event_optidcomboActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,7 +315,6 @@ public class receptionist_optdetail extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -298,6 +325,7 @@ public class receptionist_optdetail extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable_opt;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JComboBox<String> optidcombo;
     private javax.swing.JLabel patientidd1;
     private javax.swing.JLabel patientidd2;
     private javax.swing.JButton searching;

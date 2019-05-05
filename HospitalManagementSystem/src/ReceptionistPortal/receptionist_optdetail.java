@@ -5,17 +5,64 @@
  */
 package ReceptionistPortal;
 
+import DBConnectionP.DBConnection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author AbdulRehman
  */
 public class receptionist_optdetail extends javax.swing.JFrame {
 
-    /**
-     * Creates new form receptionist_optdetail
-     */
+   
+    public ArrayList<receptionist_optdetailjavaclass> userlist(){
+        ArrayList<receptionist_optdetailjavaclass> userList = new ArrayList<>();
+        try{
+            DBConnectionP.DBConnection conn = new DBConnection();
+            conn.OpenConnection();
+            String sql = "select * from ark";
+            conn.GetData(sql);
+            receptionist_optdetailjavaclass rpd ;
+            while(conn.rst.next()){
+                rpd = new receptionist_optdetailjavaclass(
+                        conn.rst.getInt("optid"),
+                        conn.rst.getInt("pid"),
+                        conn.rst.getInt("age"),
+                        conn.rst.getString("pfn"),
+                        conn.rst.getString("pln"),
+                        conn.rst.getString("gender"),
+                        conn.rst.getString("doctor")
+                );
+               userList.add(rpd);
+            }
+            
+        }catch(SQLException e ){System.out.println(e);}
+     return userList;   
+    }
+    
+    public void show_user(){
+    
+        ArrayList<receptionist_optdetailjavaclass> list = userlist();
+        DefaultTableModel model = (DefaultTableModel) jTable_opt.getModel();
+        Object[] row = new Object[7];
+        for(int i=0 ; i<list.size() ; i++){
+            row[0] = list.get(i).getOptid();
+            row[1] = list.get(i).getPno();
+            row[2] = list.get(i).getP_f_name();
+            row[3] = list.get(i).getP_l_name();
+            row[4] = list.get(i).getAe();
+            row[5] = list.get(i).getGender();
+            row[6] = list.get(i).getDoctorname();
+            model.addRow(row);
+        }
+           
+    }
+    
     public receptionist_optdetail() {
         initComponents();
+        show_user();
     }
 
     /**
@@ -42,7 +89,7 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         timegetting = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable_opt = new javax.swing.JTable();
         jComboBox1 = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
         searching = new javax.swing.JButton();
@@ -139,18 +186,18 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(null);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_opt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "OptID", "P-F-Name", "P-L-Name", "Age", "P No", "Gender", "Doctor"
+                "OptID", "P No", "P-F-Name", "P-L-Name", "Age", "Gender", "Doctor"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTable_opt);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 190, 630, 210);
+        jScrollPane1.setBounds(20, 190, 630, 270);
 
         jComboBox1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "OPT-ID", "Phone No" }));
@@ -249,7 +296,7 @@ public class receptionist_optdetail extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable_opt;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel patientidd1;
     private javax.swing.JLabel patientidd2;

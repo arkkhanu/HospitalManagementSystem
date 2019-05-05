@@ -5,6 +5,8 @@
  */
 package ReceptionistPortal;
 
+import java.awt.event.MouseEvent;
+
 /**
  *
  * @author AbdulRehman
@@ -49,8 +51,8 @@ public class receptionist_checkroom extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         reset = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        wardcat = new javax.swing.JComboBox<>();
+        roomcat = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         chkavailblity4 = new javax.swing.JButton();
 
@@ -205,15 +207,15 @@ public class receptionist_checkroom extends javax.swing.JFrame {
         jPanel1.add(jLabel5);
         jLabel5.setBounds(170, 100, 110, 20);
 
-        jComboBox2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox2);
-        jComboBox2.setBounds(160, 130, 120, 30);
+        wardcat.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        wardcat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(wardcat);
+        wardcat.setBounds(160, 130, 120, 30);
 
-        jComboBox1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox1);
-        jComboBox1.setBounds(40, 130, 100, 30);
+        roomcat.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        roomcat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "WardA", "WardB", "WardC" }));
+        jPanel1.add(roomcat);
+        roomcat.setBounds(40, 130, 100, 30);
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel3.setText("Room Category  ");
@@ -245,7 +247,8 @@ public class receptionist_checkroom extends javax.swing.JFrame {
     }//GEN-LAST:event_resetActionPerformed
 
     private void chkavailblity4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkavailblity4ActionPerformed
-        // TODO add your handling code here:
+        
+
     }//GEN-LAST:event_chkavailblity4ActionPerformed
 
     /**
@@ -293,8 +296,6 @@ public class receptionist_checkroom extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -309,6 +310,8 @@ public class receptionist_checkroom extends javax.swing.JFrame {
     private javax.swing.JLabel patientidd1;
     private javax.swing.JLabel patientidd2;
     private javax.swing.JButton reset;
+    private javax.swing.JComboBox<String> roomcat;
     private javax.swing.JLabel timegetting;
+    private javax.swing.JComboBox<String> wardcat;
     // End of variables declaration//GEN-END:variables
 }

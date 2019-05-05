@@ -38,6 +38,15 @@ public class receptionist_admitpatientdetail extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jTextField1 = new javax.swing.JTextField();
+        searching = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        patientidd1 = new javax.swing.JLabel();
+        patientidd2 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(947, 708));
@@ -126,6 +135,54 @@ public class receptionist_admitpatientdetail extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(null);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "AdmitID", "PatID", "P-F-Name", "P-L-Name", "RoomNo", "Ward", "Status", "Nurse"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(10, 180, 640, 180);
+
+        jComboBox1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "OPT-ID", "Phone No" }));
+        jPanel1.add(jComboBox1);
+        jComboBox1.setBounds(60, 120, 130, 30);
+
+        jTextField1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jPanel1.add(jTextField1);
+        jTextField1.setBounds(230, 120, 130, 30);
+
+        searching.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        searching.setText("Search");
+        jPanel1.add(searching);
+        searching.setBounds(380, 120, 130, 30);
+
+        jLabel17.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel17.setText("Reception ID : ");
+        jPanel1.add(jLabel17);
+        jLabel17.setBounds(460, 30, 100, 20);
+
+        patientidd1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        patientidd1.setText("Null");
+        jPanel1.add(patientidd1);
+        patientidd1.setBounds(580, 30, 50, 20);
+
+        patientidd2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        patientidd2.setText("Null");
+        jPanel1.add(patientidd2);
+        patientidd2.setBounds(580, 60, 50, 20);
+
+        jLabel18.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel18.setText("Reception Name : ");
+        jPanel1.add(jLabel18);
+        jLabel18.setBounds(460, 60, 110, 20);
+
         jPanel4.add(jPanel1);
         jPanel1.setBounds(260, 170, 660, 490);
 
@@ -183,11 +240,20 @@ public class receptionist_admitpatientdetail extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel patientidd1;
+    private javax.swing.JLabel patientidd2;
+    private javax.swing.JButton searching;
     private javax.swing.JLabel timegetting;
     // End of variables declaration//GEN-END:variables
 }

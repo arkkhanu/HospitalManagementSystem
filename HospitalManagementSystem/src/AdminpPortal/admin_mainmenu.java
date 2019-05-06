@@ -27,130 +27,256 @@ public class admin_mainmenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        adminlogout = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        timegetting = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton4 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jButton12 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        gender = new javax.swing.JComboBox<>();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(870, 540));
+        setPreferredSize(new java.awt.Dimension(947, 708));
         setResizable(false);
-        setSize(new java.awt.Dimension(870, 540));
+        setSize(new java.awt.Dimension(947, 708));
         getContentPane().setLayout(null);
 
-        adminlogout.setBackground(new java.awt.Color(255, 255, 255));
-        adminlogout.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        adminlogout.setForeground(new java.awt.Color(0, 102, 153));
-        adminlogout.setText("Logout");
-        adminlogout.setAlignmentX(2.0F);
-        adminlogout.setAlignmentY(2.5F);
-        adminlogout.setAutoscrolls(true);
-        adminlogout.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        adminlogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adminlogoutActionPerformed(evt);
-            }
-        });
-        getContentPane().add(adminlogout);
-        adminlogout.setBounds(720, 40, 130, 40);
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(0, 0, 0)));
+        jPanel4.setLayout(null);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pictures/admin (1).png"))); // NOI18N
+        jPanel4.add(jLabel1);
+        jLabel1.setBounds(50, 10, 130, 150);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
+        jPanel2.setLayout(null);
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton2.setText("Doctor");
+        jButton2.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton2);
+        jButton2.setBounds(10, 60, 190, 40);
+
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton3.setText("Nurse");
+        jButton3.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton3);
+        jButton3.setBounds(10, 200, 190, 40);
+
+        jButton7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton7.setText("Details");
+        jButton7.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton7);
+        jButton7.setBounds(10, 410, 190, 40);
+
+        jButton8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton8.setText("Salary");
+        jButton8.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton8);
+        jButton8.setBounds(10, 270, 190, 40);
+
+        jButton9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton9.setText("Receptionist");
+        jButton9.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton9);
+        jButton9.setBounds(10, 130, 190, 40);
+
+        jButton13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton13.setText("Patient");
+        jButton13.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton13);
+        jButton13.setBounds(10, 340, 190, 40);
+
+        jPanel4.add(jPanel2);
+        jPanel2.setBounds(20, 170, 210, 490);
+
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jButton1.setText("Logout");
+        jButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 0, 51)));
+        jPanel4.add(jButton1);
+        jButton1.setBounds(760, 70, 150, 30);
 
         jLabel6.setBackground(new java.awt.Color(0, 102, 153));
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("                Admin Portal");
+        jLabel6.setText("                      ADMIN Portal");
+        jLabel6.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 0, 0)));
         jLabel6.setOpaque(true);
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(190, 20, 680, 70);
+        jPanel4.add(jLabel6);
+        jLabel6.setBounds(230, 50, 710, 70);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        timegetting.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        timegetting.setText("Time");
+        jPanel4.add(timegetting);
+        timegetting.setBounds(440, 10, 120, 30);
+
+        jPanel1.setBackground(new java.awt.Color(0, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(null);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pictures/admin1.PNG"))); // NOI18N
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "DID", "D-F-Name", "D-L-Name"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(450, 70, 210, 360);
+
+        jButton4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton4.setText("Delete");
+        jButton4.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(jButton4);
+        jButton4.setBounds(310, 440, 100, 30);
+
+        jButton6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton6.setText("Add");
+        jButton6.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(jButton6);
+        jButton6.setBounds(50, 440, 90, 30);
+
+        jButton11.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton11.setText("Update");
+        jButton11.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(jButton11);
+        jButton11.setBounds(180, 440, 100, 30);
+
+        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel1.add(jTextField1);
+        jTextField1.setBounds(450, 30, 90, 30);
+
+        jButton12.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton12.setText("Search");
+        jButton12.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(jButton12);
+        jButton12.setBounds(570, 30, 90, 30);
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel2.setText("L-Name");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(10, 0, 220, 190);
+        jLabel2.setBounds(10, 120, 50, 30);
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(30, 110, 250, 190);
+        jTextField2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextField2.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(jTextField2);
+        jTextField2.setBounds(80, 120, 130, 30);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(null);
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel3.setText("DOB");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(270, 80, 40, 30);
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pictures/admin2.PNG"))); // NOI18N
-        jPanel2.add(jLabel7);
-        jLabel7.setBounds(30, 0, 190, 190);
+        jTextField3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextField3.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(jTextField3);
+        jTextField3.setBounds(80, 80, 130, 30);
 
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(310, 110, 250, 190);
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel4.setText("Doctor ID");
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(10, 40, 60, 30);
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setLayout(null);
+        jTextField4.setEditable(false);
+        jTextField4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextField4.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(jTextField4);
+        jTextField4.setBounds(80, 40, 40, 30);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pictures/admin3.PNG"))); // NOI18N
-        jLabel3.setText("jLabel3");
-        jPanel3.add(jLabel3);
-        jLabel3.setBounds(20, 0, 220, 190);
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel5.setText("Age");
+        jPanel1.add(jLabel5);
+        jLabel5.setBounds(30, 160, 30, 30);
 
-        getContentPane().add(jPanel3);
-        jPanel3.setBounds(590, 110, 250, 190);
+        jTextField5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextField5.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(jTextField5);
+        jTextField5.setBounds(80, 160, 30, 30);
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setPreferredSize(new java.awt.Dimension(190, 160));
-        jPanel4.setLayout(null);
+        gender.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        gender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gender" }));
+        jPanel1.add(gender);
+        gender.setBounds(120, 160, 90, 30);
+        jPanel1.add(jDateChooser1);
+        jDateChooser1.setBounds(320, 80, 110, 30);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pictures/admin4.PNG"))); // NOI18N
-        jLabel4.setText("jLabel4");
-        jPanel4.add(jLabel4);
-        jLabel4.setBounds(20, 0, 220, 190);
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel8.setText("F-Name");
+        jPanel1.add(jLabel8);
+        jLabel8.setBounds(10, 80, 50, 30);
+
+        jPanel4.add(jPanel1);
+        jPanel1.setBounds(250, 170, 670, 490);
 
         getContentPane().add(jPanel4);
-        jPanel4.setBounds(30, 330, 250, 190);
-
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setLayout(null);
-
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pictures/admin5.PNG"))); // NOI18N
-        jLabel8.setText("jLabel8");
-        jPanel5.add(jLabel8);
-        jLabel8.setBounds(20, 0, 220, 190);
-
-        getContentPane().add(jPanel5);
-        jPanel5.setBounds(310, 330, 250, 190);
-
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setLayout(null);
-
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pictures/admin6.PNG"))); // NOI18N
-        jLabel9.setText("jLabel9");
-        jPanel6.add(jLabel9);
-        jLabel9.setBounds(10, 0, 230, 190);
-
-        getContentPane().add(jPanel6);
-        jPanel6.setBounds(590, 330, 250, 190);
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pictures/r9.PNG"))); // NOI18N
-        jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 870, 540);
+        jPanel4.setBounds(0, 0, 940, 680);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void adminlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminlogoutActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_adminlogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,20 +312,36 @@ public class admin_mainmenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton adminlogout;
+    private javax.swing.JComboBox<String> gender;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JLabel timegetting;
     // End of variables declaration//GEN-END:variables
 }

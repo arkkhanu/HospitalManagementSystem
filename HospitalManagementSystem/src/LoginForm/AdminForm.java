@@ -79,6 +79,11 @@ public class AdminForm extends javax.swing.JFrame {
         adminloginbtn.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         adminloginbtn.setForeground(new java.awt.Color(0, 51, 51));
         adminloginbtn.setText("Login");
+        adminloginbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminloginbtnActionPerformed(evt);
+            }
+        });
         getContentPane().add(adminloginbtn);
         adminloginbtn.setBounds(380, 380, 90, 30);
 
@@ -118,6 +123,10 @@ public class AdminForm extends javax.swing.JFrame {
         mainloginform.setVisible(true);
         dispose();
     }//GEN-LAST:event_admincancel_btnActionPerformed
+
+    private void adminloginbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminloginbtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_adminloginbtnActionPerformed
 
     /**
      * @param args the command line arguments

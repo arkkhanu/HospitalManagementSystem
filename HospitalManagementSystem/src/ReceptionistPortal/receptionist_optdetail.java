@@ -112,6 +112,7 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         patientidd1 = new javax.swing.JLabel();
         patientidd2 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(947, 708));
@@ -215,7 +216,7 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         jScrollPane1.setBounds(20, 190, 630, 270);
 
         optidcombo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        optidcombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "OPT-ID", "Phone No" }));
+        optidcombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select one" }));
         optidcombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 optidcomboActionPerformed(evt);
@@ -234,9 +235,9 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         searching.setBounds(410, 130, 130, 30);
 
         jLabel17.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel17.setText("Reception ID : ");
+        jLabel17.setText("OPT ID/Contact NO");
         jPanel1.add(jLabel17);
-        jLabel17.setBounds(450, 30, 100, 20);
+        jLabel17.setBounds(90, 100, 130, 20);
 
         patientidd1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         patientidd1.setText("Null");
@@ -253,6 +254,11 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         jPanel1.add(jLabel18);
         jLabel18.setBounds(450, 60, 110, 20);
 
+        jLabel19.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel19.setText("Reception ID : ");
+        jPanel1.add(jLabel19);
+        jLabel19.setBounds(450, 30, 100, 20);
+
         jPanel4.add(jPanel1);
         jPanel1.setBounds(260, 170, 660, 490);
 
@@ -265,8 +271,16 @@ public class receptionist_optdetail extends javax.swing.JFrame {
 
     private void optidcomboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optidcomboActionPerformed
         
-        String ss = optidcombo.getSelectedItem().toString();
-        patientidd1.setText(ss);
+//        String ss = optidcombo.getSelectedItem().toString();
+//        patientidd1.setText(ss);
+          
+          String data = optidcombo.getSelectedItem().toString();
+          if(!data.equals("Select one")){
+             patientidd2.setText(data);
+          }
+          else{
+              patientidd2.setText(data);
+          }
         
         
     }//GEN-LAST:event_optidcomboActionPerformed
@@ -318,6 +332,7 @@ public class receptionist_optdetail extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

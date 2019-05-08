@@ -79,7 +79,6 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         registrationdate = new javax.swing.JTextField();
         patientidd = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -214,11 +213,6 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
         patientidd.setText("Null");
         jPanel3.add(patientidd);
         patientidd.setBounds(120, 60, 150, 20);
-
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel4.setText("First Name");
-        jPanel3.add(jLabel4);
-        jLabel4.setBounds(20, 100, 90, 30);
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel5.setText("Last Name");
@@ -566,22 +560,16 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(receptionist_mainmenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(receptionist_mainmenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(receptionist_mainmenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(receptionist_mainmenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new receptionist_mainmenu().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new receptionist_mainmenu().setVisible(true);
         });
     }
 
@@ -611,7 +599,6 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

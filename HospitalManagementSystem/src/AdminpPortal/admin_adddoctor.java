@@ -32,7 +32,6 @@ public class admin_adddoctor extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
@@ -98,57 +97,46 @@ public class admin_adddoctor extends javax.swing.JFrame {
         jPanel2.setLayout(null);
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton2.setText("ADD Doctor");
+        jButton2.setText("Doctor");
         jButton2.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel2.add(jButton2);
-        jButton2.setBounds(10, 30, 190, 40);
+        jButton2.setBounds(10, 50, 190, 40);
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton3.setText("ADD Nurse");
+        jButton3.setText("Nurse");
         jButton3.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel2.add(jButton3);
-        jButton3.setBounds(10, 150, 190, 40);
-
-        jButton7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton7.setText("Room/Ward");
-        jButton7.setBorder(new javax.swing.border.MatteBorder(null));
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton7);
-        jButton7.setBounds(10, 420, 190, 40);
+        jButton3.setBounds(10, 170, 190, 40);
 
         jButton8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton8.setText("Salary");
         jButton8.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel2.add(jButton8);
-        jButton8.setBounds(10, 200, 190, 40);
+        jButton8.setBounds(10, 230, 190, 40);
 
         jButton9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton9.setText("ADD Receptionist");
+        jButton9.setText("Receptionist");
         jButton9.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel2.add(jButton9);
-        jButton9.setBounds(10, 90, 190, 40);
+        jButton9.setBounds(10, 110, 190, 40);
 
         jButton13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton13.setText("Patient");
         jButton13.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel2.add(jButton13);
-        jButton13.setBounds(10, 250, 190, 40);
+        jButton13.setBounds(10, 290, 190, 40);
 
         jButton10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton10.setText("Details");
         jButton10.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel2.add(jButton10);
-        jButton10.setBounds(10, 310, 190, 40);
+        jButton10.setBounds(10, 350, 190, 40);
 
         jButton14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton14.setText("Qualification");
+        jButton14.setText("Internal");
         jButton14.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel2.add(jButton14);
-        jButton14.setBounds(10, 370, 190, 40);
+        jButton14.setBounds(10, 410, 190, 40);
 
         jPanel4.add(jPanel2);
         jPanel2.setBounds(10, 160, 210, 500);
@@ -415,15 +403,21 @@ public class admin_adddoctor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton12ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
-
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
        
+         try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(admin_optdetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
        
         java.awt.EventQueue.invokeLater(() -> {
             new admin_adddoctor().setVisible(true);
@@ -444,7 +438,6 @@ public class admin_adddoctor extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox1;

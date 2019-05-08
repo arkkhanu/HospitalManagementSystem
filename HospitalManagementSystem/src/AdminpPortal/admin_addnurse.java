@@ -11,9 +11,6 @@ package AdminpPortal;
  */
 public class admin_addnurse extends javax.swing.JFrame {
 
-    /**
-     * Creates new form admin_addnurse
-     */
     public admin_addnurse() {
         initComponents();
     }
@@ -29,14 +26,6 @@ public class admin_addnurse extends javax.swing.JFrame {
 
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
@@ -75,6 +64,14 @@ public class admin_addnurse extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jTextField8 = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(947, 708));
@@ -89,55 +86,6 @@ public class admin_addnurse extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pictures/admin (1).png"))); // NOI18N
         jPanel4.add(jLabel1);
         jLabel1.setBounds(50, 10, 130, 130);
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
-        jPanel2.setLayout(null);
-
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton2.setText("Doctor");
-        jButton2.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton2);
-        jButton2.setBounds(10, 60, 190, 40);
-
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton3.setText("Nurse");
-        jButton3.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton3);
-        jButton3.setBounds(10, 200, 190, 40);
-
-        jButton7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton7.setText("Qualification");
-        jButton7.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton7);
-        jButton7.setBounds(10, 440, 190, 40);
-
-        jButton8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton8.setText("Salary");
-        jButton8.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton8);
-        jButton8.setBounds(10, 270, 190, 40);
-
-        jButton9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton9.setText("Receptionist");
-        jButton9.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton9);
-        jButton9.setBounds(10, 130, 190, 40);
-
-        jButton13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton13.setText("Patient");
-        jButton13.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton13);
-        jButton13.setBounds(10, 340, 190, 40);
-
-        jButton10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton10.setText("Details");
-        jButton10.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton10);
-        jButton10.setBounds(10, 390, 190, 40);
-
-        jPanel4.add(jPanel2);
-        jPanel2.setBounds(10, 160, 210, 500);
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
@@ -225,7 +173,7 @@ public class admin_addnurse extends javax.swing.JFrame {
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel1.add(jTextField1);
-        jTextField1.setBounds(490, 40, 90, 30);
+        jTextField1.setBounds(480, 40, 100, 30);
 
         jButton12.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jButton12.setText("Search");
@@ -375,6 +323,55 @@ public class admin_addnurse extends javax.swing.JFrame {
         jPanel4.add(jPanel1);
         jPanel1.setBounds(230, 160, 700, 500);
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
+        jPanel2.setLayout(null);
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton2.setText("Doctor");
+        jButton2.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton2);
+        jButton2.setBounds(10, 50, 190, 40);
+
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton3.setText("Nurse");
+        jButton3.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton3);
+        jButton3.setBounds(10, 170, 190, 40);
+
+        jButton8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton8.setText("Salary");
+        jButton8.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton8);
+        jButton8.setBounds(10, 230, 190, 40);
+
+        jButton9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton9.setText("Receptionist");
+        jButton9.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton9);
+        jButton9.setBounds(10, 110, 190, 40);
+
+        jButton13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton13.setText("Patient");
+        jButton13.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton13);
+        jButton13.setBounds(10, 290, 190, 40);
+
+        jButton10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton10.setText("Details");
+        jButton10.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton10);
+        jButton10.setBounds(10, 350, 190, 40);
+
+        jButton14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton14.setText("Internal");
+        jButton14.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton14);
+        jButton14.setBounds(10, 410, 190, 40);
+
+        jPanel4.add(jPanel2);
+        jPanel2.setBounds(10, 160, 210, 500);
+
         getContentPane().add(jPanel4);
         jPanel4.setBounds(0, 0, 940, 680);
 
@@ -391,6 +388,17 @@ public class admin_addnurse extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         
+         try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(admin_optdetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        
         java.awt.EventQueue.invokeLater(() -> {
             new admin_addnurse().setVisible(true);
         });
@@ -404,11 +412,11 @@ public class admin_addnurse extends javax.swing.JFrame {
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox1;

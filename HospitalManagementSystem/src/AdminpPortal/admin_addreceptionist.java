@@ -6,13 +6,15 @@
 
 package AdminpPortal;
 
+import AdminpPortal.admin_detailsclasses.admin_details_opt;
+
 /**
  *
  * @author AbdulRehman
  */
 public class admin_addreceptionist extends javax.swing.JFrame {
 
-    /** Creates new form admin_addreceptionist */
+    
     public admin_addreceptionist() {
         initComponents();
     }
@@ -69,11 +71,9 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
+        jButton15 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(947, 708));
@@ -341,12 +341,6 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         jPanel2.add(jButton3);
         jButton3.setBounds(10, 170, 190, 40);
 
-        jButton8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton8.setText("Salary");
-        jButton8.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton8);
-        jButton8.setBounds(10, 230, 190, 40);
-
         jButton9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton9.setText("Receptionist");
         jButton9.setBorder(new javax.swing.border.MatteBorder(null));
@@ -354,22 +348,16 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         jButton9.setBounds(10, 110, 190, 40);
 
         jButton13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton13.setText("Patient");
+        jButton13.setText("Details");
         jButton13.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel2.add(jButton13);
         jButton13.setBounds(10, 290, 190, 40);
 
-        jButton10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton10.setText("Details");
-        jButton10.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton10);
-        jButton10.setBounds(10, 350, 190, 40);
-
-        jButton14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton14.setText("Internal");
-        jButton14.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton14);
-        jButton14.setBounds(10, 410, 190, 40);
+        jButton15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton15.setText("Salary");
+        jButton15.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton15);
+        jButton15.setBounds(10, 230, 190, 40);
 
         jPanel4.add(jPanel2);
         jPanel2.setBounds(10, 160, 210, 500);
@@ -398,7 +386,7 @@ public class admin_addreceptionist extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(admin_optdetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(admin_details_opt.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
       
         java.awt.EventQueue.invokeLater(() -> {
@@ -410,16 +398,14 @@ public class admin_addreceptionist extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> city1;
     private javax.swing.JComboBox<String> gender;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;

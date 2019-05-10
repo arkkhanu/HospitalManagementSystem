@@ -33,40 +33,17 @@ public class admin_internal extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
-        salarytype = new javax.swing.JComboBox<>();
-        jTextField10 = new javax.swing.JTextField();
-        jButton7 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jTextField14 = new javax.swing.JTextField();
-        jButton12 = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        jTextField15 = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        jTextField16 = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jTextField17 = new javax.swing.JTextField();
         jButton15 = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
-        jButton16 = new javax.swing.JButton();
         jButton17 = new javax.swing.JButton();
+        jButton18 = new javax.swing.JButton();
+        jButton19 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(947, 708));
@@ -107,170 +84,35 @@ public class admin_internal extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(null);
 
-        jButton6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton6.setText("Generate Salary");
-        jButton6.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton6);
-        jButton6.setBounds(110, 430, 140, 30);
-
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel4.setText("Status");
-        jPanel1.add(jLabel4);
-        jLabel4.setBounds(50, 370, 40, 30);
-
         jTextField4.setEditable(false);
         jTextField4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jTextField4.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel1.add(jTextField4);
         jTextField4.setBounds(260, 20, 140, 30);
 
-        salarytype.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        salarytype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Type", "Doctor", "Receptionist", "Nurse" }));
-        jPanel1.add(salarytype);
-        salarytype.setBounds(110, 80, 140, 30);
-
-        jTextField10.setEditable(false);
-        jTextField10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField10.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jTextField10);
-        jTextField10.setBounds(110, 240, 140, 30);
-
-        jButton7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton7.setText("Check");
-        jButton7.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton7);
-        jButton7.setBounds(190, 160, 60, 30);
-
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel5.setText("ID of Employee ");
-        jPanel1.add(jLabel5);
-        jLabel5.setBounds(310, 90, 94, 20);
-
-        jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel7.setText("E-F-Name");
-        jPanel1.add(jLabel7);
-        jLabel7.setBounds(30, 200, 60, 30);
-
-        jTextField11.setEditable(false);
-        jTextField11.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField11.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jTextField11);
-        jTextField11.setBounds(110, 280, 140, 30);
-
-        jTextField12.setEditable(false);
-        jTextField12.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField12.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jTextField12);
-        jTextField12.setBounds(110, 200, 140, 30);
-
-        jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel8.setText("E-L-Name");
-        jPanel1.add(jLabel8);
-        jLabel8.setBounds(30, 240, 60, 30);
-
-        jTextField13.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField13.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jTextField13);
-        jTextField13.setBounds(110, 160, 70, 30);
-
-        jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel9.setText("Salary");
-        jPanel1.add(jLabel9);
-        jLabel9.setBounds(50, 280, 40, 30);
-
-        jTextField14.setEditable(false);
-        jTextField14.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField14.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jTextField14);
-        jTextField14.setBounds(110, 370, 140, 30);
-
-        jButton12.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton12.setText("Get");
-        jButton12.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton12);
-        jButton12.setBounds(210, 330, 40, 30);
-
-        jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel10.setText("Date");
-        jPanel1.add(jLabel10);
-        jLabel10.setBounds(60, 330, 30, 30);
-
-        jTextField15.setEditable(false);
-        jTextField15.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField15.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jTextField15);
-        jTextField15.setBounds(110, 330, 90, 30);
-
-        jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel11.setText("Salary ID");
-        jPanel1.add(jLabel11);
-        jLabel11.setBounds(30, 120, 60, 30);
-
-        jTextField16.setEditable(false);
-        jTextField16.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField16.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jTextField16);
-        jTextField16.setBounds(110, 120, 140, 30);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "SalID", "E-ID", "Month", "Salary", "Status"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
-        jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(310, 160, 370, 300);
-
-        jTextField17.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField17.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jTextField17);
-        jTextField17.setBounds(310, 120, 100, 30);
-
-        jButton15.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton15.setText("Print");
+        jButton15.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jButton15.setText("Room Cate");
         jButton15.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel1.add(jButton15);
-        jButton15.setBounds(600, 120, 60, 30);
+        jButton15.setBounds(170, 240, 150, 40);
 
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel12.setText("ID of Employee ");
-        jPanel1.add(jLabel12);
-        jLabel12.setBounds(10, 160, 94, 30);
-
-        jButton16.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton16.setText("Check");
-        jButton16.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton16);
-        jButton16.setBounds(430, 120, 60, 30);
-
-        jButton17.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton17.setText("Reset");
+        jButton17.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jButton17.setText("Qualification");
         jButton17.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel1.add(jButton17);
-        jButton17.setBounds(520, 120, 60, 30);
+        jButton17.setBounds(170, 170, 150, 40);
+
+        jButton18.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jButton18.setText("Ward");
+        jButton18.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(jButton18);
+        jButton18.setBounds(360, 170, 150, 40);
+
+        jButton19.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jButton19.setText("Rooms");
+        jButton19.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(jButton19);
+        jButton19.setBounds(360, 240, 150, 40);
 
         jPanel4.add(jPanel1);
         jPanel1.setBounds(230, 160, 700, 500);
@@ -291,12 +133,6 @@ public class admin_internal extends javax.swing.JFrame {
         jPanel2.add(jButton3);
         jButton3.setBounds(10, 170, 190, 40);
 
-        jButton8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton8.setText("Salary");
-        jButton8.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton8);
-        jButton8.setBounds(10, 230, 190, 40);
-
         jButton9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton9.setText("Receptionist");
         jButton9.setBorder(new javax.swing.border.MatteBorder(null));
@@ -304,22 +140,16 @@ public class admin_internal extends javax.swing.JFrame {
         jButton9.setBounds(10, 110, 190, 40);
 
         jButton13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton13.setText("Patient");
+        jButton13.setText("Details");
         jButton13.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel2.add(jButton13);
         jButton13.setBounds(10, 290, 190, 40);
 
-        jButton10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton10.setText("Details");
-        jButton10.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton10);
-        jButton10.setBounds(10, 350, 190, 40);
-
-        jButton14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton14.setText("Internal");
-        jButton14.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton14);
-        jButton14.setBounds(10, 410, 190, 40);
+        jButton11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton11.setText("Salary");
+        jButton11.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton11);
+        jButton11.setBounds(10, 230, 190, 40);
 
         jPanel4.add(jPanel2);
         jPanel2.setBounds(10, 160, 210, 500);
@@ -362,44 +192,21 @@ public class admin_internal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
+    private javax.swing.JButton jButton18;
+    private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField16;
-    private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JComboBox<String> salarytype;
     private javax.swing.JLabel timegetting;
     // End of variables declaration//GEN-END:variables
 }

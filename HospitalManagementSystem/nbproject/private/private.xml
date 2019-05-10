@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/AbdulRehman/Desktop/Projects_Work/Myproject/HospitalManagementSystem/src/AdminpPortal/admin_optdetails.java</file>
-            <file>file:/C:/Users/AbdulRehman/Desktop/Projects_Work/Myproject/HospitalManagementSystem/src/AdminpPortal/admin_internal.java</file>
-            <file>file:/C:/Users/AbdulRehman/Desktop/Projects_Work/Myproject/HospitalManagementSystem/src/AdminpPortal/admin_patient.java</file>
+            <file>file:/C:/Users/AbdulRehman/Desktop/Projects_Work/Myproject/HospitalManagementSystem/src/AdminpPortal/admin_internalclasses/admin_internal_qualification.java</file>
+            <file>file:/C:/Users/AbdulRehman/Desktop/Projects_Work/Myproject/HospitalManagementSystem/src/AdminpPortal/admin_internalclasses/admin_internal_roomcate.java</file>
+            <file>file:/C:/Users/AbdulRehman/Desktop/Projects_Work/Myproject/HospitalManagementSystem/src/AdminpPortal/admin_internalclasses/admin_internal_ward.java</file>
+            <file>file:/C:/Users/AbdulRehman/Desktop/Projects_Work/Myproject/HospitalManagementSystem/src/AdminpPortal/admin_internalclasses/admin_internal_rooms.java</file>
         </group>
     </open-files>
 </project-private>

@@ -5,6 +5,8 @@
  */
 package AdminpPortal;
 
+import AdminpPortal.admin_detailsclasses.admin_details_opt;
+
 /**
  *
  * @author AbdulRehman
@@ -56,22 +58,15 @@ public class admin_addnurse extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jTextField11 = new javax.swing.JTextField();
         jTextField12 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel14 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
+        jButton15 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(947, 708));
@@ -242,12 +237,12 @@ public class admin_addnurse extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel10.setText("City");
         jPanel1.add(jLabel10);
-        jLabel10.setBounds(40, 230, 30, 30);
+        jLabel10.setBounds(40, 240, 30, 30);
 
         city1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         city1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select City" }));
         jPanel1.add(city1);
-        city1.setBounds(90, 230, 130, 30);
+        city1.setBounds(90, 240, 130, 30);
 
         qualification.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         qualification.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Qual" }));
@@ -278,47 +273,22 @@ public class admin_addnurse extends javax.swing.JFrame {
         jTextField12.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jTextField12.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel1.add(jTextField12);
-        jTextField12.setBounds(340, 350, 130, 30);
-
-        jTextField9.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField9.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jTextField9);
-        jTextField9.setBounds(90, 350, 180, 30);
+        jTextField12.setBounds(340, 240, 130, 30);
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel11.setText("Address");
         jPanel1.add(jLabel11);
-        jLabel11.setBounds(30, 270, 50, 30);
-
-        jComboBox1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "@gmail.com", "@hotmail.com", "@outlook.com" }));
-        jPanel1.add(jComboBox1);
-        jComboBox1.setBounds(340, 310, 130, 30);
-
-        jLabel14.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel14.setText("Password");
-        jPanel1.add(jLabel14);
-        jLabel14.setBounds(20, 350, 60, 30);
+        jLabel11.setBounds(30, 290, 50, 30);
 
         jLabel17.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel17.setText("Salary");
         jPanel1.add(jLabel17);
-        jLabel17.setBounds(290, 350, 40, 30);
-
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel12.setText("Email");
-        jPanel1.add(jLabel12);
-        jLabel12.setBounds(40, 310, 40, 30);
-
-        jTextField8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField8.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jTextField8);
-        jTextField8.setBounds(90, 310, 230, 30);
+        jLabel17.setBounds(280, 240, 40, 30);
 
         jTextField7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jTextField7.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel1.add(jTextField7);
-        jTextField7.setBounds(90, 270, 380, 30);
+        jTextField7.setBounds(90, 290, 380, 30);
 
         jPanel4.add(jPanel1);
         jPanel1.setBounds(230, 160, 700, 500);
@@ -339,12 +309,6 @@ public class admin_addnurse extends javax.swing.JFrame {
         jPanel2.add(jButton3);
         jButton3.setBounds(10, 170, 190, 40);
 
-        jButton8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton8.setText("Salary");
-        jButton8.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton8);
-        jButton8.setBounds(10, 230, 190, 40);
-
         jButton9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton9.setText("Receptionist");
         jButton9.setBorder(new javax.swing.border.MatteBorder(null));
@@ -352,22 +316,16 @@ public class admin_addnurse extends javax.swing.JFrame {
         jButton9.setBounds(10, 110, 190, 40);
 
         jButton13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton13.setText("Patient");
+        jButton13.setText("Details");
         jButton13.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel2.add(jButton13);
         jButton13.setBounds(10, 290, 190, 40);
 
-        jButton10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton10.setText("Details");
-        jButton10.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton10);
-        jButton10.setBounds(10, 350, 190, 40);
-
-        jButton14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton14.setText("Internal");
-        jButton14.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton14);
-        jButton14.setBounds(10, 410, 190, 40);
+        jButton15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton15.setText("Salary");
+        jButton15.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton15);
+        jButton15.setBounds(10, 230, 190, 40);
 
         jPanel4.add(jPanel2);
         jPanel2.setBounds(10, 160, 210, 500);
@@ -396,7 +354,7 @@ public class admin_addnurse extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(admin_optdetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(admin_details_opt.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         
         java.awt.EventQueue.invokeLater(() -> {
@@ -408,24 +366,19 @@ public class admin_addnurse extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> city1;
     private javax.swing.JComboBox<String> gender;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -449,8 +402,6 @@ public class admin_addnurse extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JComboBox<String> qualification;
     private javax.swing.JLabel timegetting;
     // End of variables declaration//GEN-END:variables

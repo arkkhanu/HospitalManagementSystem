@@ -5,11 +5,14 @@
  */
 package ReceptionistPortal;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
@@ -18,11 +21,12 @@ import javax.swing.JOptionPane;
 public class receptionist_billforadmit extends javax.swing.JFrame {
 
     String dischargedatee = null;
-    String todaydata = null;
+    String todaydate = null;
   
     public receptionist_billforadmit() {
         initComponents();
-        getdate();
+        showtime();
+        showdate();
     }
 
     /**
@@ -40,20 +44,14 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         dischargedate = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jComboBox3 = new javax.swing.JComboBox<>();
-        jLabel13 = new javax.swing.JLabel();
         chkamount = new javax.swing.JButton();
         chkavailblity2 = new javax.swing.JButton();
-        jTextField3 = new javax.swing.JTextField();
+        admitid = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        patientidd1 = new javax.swing.JLabel();
-        patientidd2 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
         days = new javax.swing.JTextField();
         chkavailblity3 = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
@@ -62,17 +60,23 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        receptionistname = new javax.swing.JLabel();
+        receptionistid = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        registrationdate = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        rp_registration_btn = new javax.swing.JButton();
+        rp_admit_btn = new javax.swing.JButton();
+        rp_bill_for_admit = new javax.swing.JButton();
+        rp_opt_details = new javax.swing.JButton();
+        rp_admit_details = new javax.swing.JButton();
+        rp_chk_room = new javax.swing.JButton();
+        rp_opt_btn = new javax.swing.JButton();
+        rp_appointment_btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(947, 708));
@@ -107,23 +111,19 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         timegetting.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         timegetting.setText("Time");
         jPanel4.add(timegetting);
-        timegetting.setBounds(440, 10, 120, 30);
+        timegetting.setBounds(470, 10, 120, 30);
 
         jPanel1.setBackground(new java.awt.Color(0, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(null);
 
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel4.setText("Null");
-        jPanel1.add(jLabel4);
-        jLabel4.setBounds(140, 100, 70, 30);
-
         jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel10.setText("Bill ID");
+        jLabel10.setText("Admit ID");
         jPanel1.add(jLabel10);
-        jLabel10.setBounds(20, 100, 70, 30);
+        jLabel10.setBounds(20, 150, 70, 30);
 
         dischargedate.setEditable(false);
+        dischargedate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel1.add(dischargedate);
         dischargedate.setBounds(140, 270, 170, 30);
 
@@ -137,13 +137,9 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         jPanel1.add(jComboBox3);
         jComboBox3.setBounds(330, 320, 60, 30);
 
-        jLabel13.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel13.setText("Today Date");
-        jPanel1.add(jLabel13);
-        jLabel13.setBounds(140, 60, 100, 30);
-
         chkamount.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         chkamount.setText("Get");
+        chkamount.setBorder(new javax.swing.border.MatteBorder(null));
         chkamount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkamountActionPerformed(evt);
@@ -154,6 +150,7 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
 
         chkavailblity2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         chkavailblity2.setText("Check Out");
+        chkavailblity2.setBorder(new javax.swing.border.MatteBorder(null));
         chkavailblity2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkavailblity2ActionPerformed(evt);
@@ -161,40 +158,29 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         });
         jPanel1.add(chkavailblity2);
         chkavailblity2.setBounds(490, 420, 130, 40);
-        jPanel1.add(jTextField3);
-        jTextField3.setBounds(140, 150, 70, 30);
+
+        admitid.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        admitid.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                admitidKeyTyped(evt);
+            }
+        });
+        jPanel1.add(admitid);
+        admitid.setBounds(140, 150, 70, 30);
 
         jLabel14.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel14.setText("Patient ID");
         jPanel1.add(jLabel14);
         jLabel14.setBounds(20, 210, 70, 30);
 
-        jLabel17.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel17.setText("Reception ID : ");
-        jPanel1.add(jLabel17);
-        jLabel17.setBounds(440, 10, 100, 20);
-
-        patientidd1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        patientidd1.setText("Null");
-        jPanel1.add(patientidd1);
-        patientidd1.setBounds(560, 10, 50, 20);
-
-        patientidd2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        patientidd2.setText("Null");
-        jPanel1.add(patientidd2);
-        patientidd2.setBounds(560, 40, 50, 20);
-
-        jLabel18.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel18.setText("Reception Name : ");
-        jPanel1.add(jLabel18);
-        jLabel18.setBounds(440, 40, 110, 20);
-
         days.setEditable(false);
+        days.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel1.add(days);
         days.setBounds(140, 320, 70, 30);
 
         chkavailblity3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         chkavailblity3.setText("Check ");
+        chkavailblity3.setBorder(new javax.swing.border.MatteBorder(null));
         chkavailblity3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkavailblity3ActionPerformed(evt);
@@ -209,11 +195,13 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         jLabel15.setBounds(250, 320, 60, 30);
 
         amountbox.setEditable(false);
+        amountbox.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel1.add(amountbox);
         amountbox.setBounds(140, 370, 170, 30);
 
         dischargedateget.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         dischargedateget.setText("Get");
+        dischargedateget.setBorder(new javax.swing.border.MatteBorder(null));
         dischargedateget.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dischargedategetActionPerformed(evt);
@@ -228,6 +216,7 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         jLabel16.setBounds(20, 320, 70, 30);
 
         jTextField6.setEditable(false);
+        jTextField6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel1.add(jTextField6);
         jTextField6.setBounds(140, 210, 170, 30);
 
@@ -236,73 +225,145 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         jPanel1.add(jLabel19);
         jLabel19.setBounds(20, 270, 100, 30);
 
-        jLabel20.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel20.setText("Today Date");
-        jPanel1.add(jLabel20);
-        jLabel20.setBounds(20, 60, 100, 30);
+        receptionistname.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        receptionistname.setText("Null");
+        jPanel1.add(receptionistname);
+        receptionistname.setBounds(530, 50, 120, 20);
+
+        receptionistid.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        receptionistid.setText("Null");
+        jPanel1.add(receptionistid);
+        receptionistid.setBounds(530, 20, 120, 20);
+
+        jLabel21.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel21.setText("Reception ID : ");
+        jPanel1.add(jLabel21);
+        jLabel21.setBounds(420, 20, 90, 20);
+
+        jLabel18.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel18.setText("Reception Name : ");
+        jPanel1.add(jLabel18);
+        jLabel18.setBounds(410, 50, 110, 20);
+
+        registrationdate.setEditable(false);
+        registrationdate.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        registrationdate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        registrationdate.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPanel1.add(registrationdate);
+        registrationdate.setBounds(200, 20, 140, 30);
+
+        jTextField4.setEditable(false);
+        jTextField4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(jTextField4);
+        jTextField4.setBounds(140, 100, 70, 30);
+
+        jLabel13.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel13.setText("Bill ID");
+        jPanel1.add(jLabel13);
+        jLabel13.setBounds(20, 100, 70, 30);
 
         jPanel4.add(jPanel1);
         jPanel1.setBounds(250, 170, 670, 490);
+
+        jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel11.setText("Bill For Admit");
+        jPanel4.add(jLabel11);
+        jLabel11.setBounds(440, 130, 160, 40);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
         jPanel2.setLayout(null);
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton2.setText("Register Patient");
-        jButton2.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton2);
-        jButton2.setBounds(10, 20, 190, 40);
+        rp_registration_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        rp_registration_btn.setText("Register Patient");
+        rp_registration_btn.setBorder(new javax.swing.border.MatteBorder(null));
+        rp_registration_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rp_registration_btnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(rp_registration_btn);
+        rp_registration_btn.setBounds(10, 20, 190, 40);
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton3.setText("Admit Patient");
-        jButton3.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton3);
-        jButton3.setBounds(10, 200, 190, 40);
+        rp_admit_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        rp_admit_btn.setText("Admit Patient");
+        rp_admit_btn.setBorder(new javax.swing.border.MatteBorder(null));
+        rp_admit_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rp_admit_btnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(rp_admit_btn);
+        rp_admit_btn.setBounds(10, 200, 190, 40);
 
-        jButton5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton5.setText("Bill for Admit");
-        jButton5.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton5);
-        jButton5.setBounds(10, 260, 190, 40);
+        rp_bill_for_admit.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        rp_bill_for_admit.setText("Bill for Admit");
+        rp_bill_for_admit.setBorder(new javax.swing.border.MatteBorder(null));
+        rp_bill_for_admit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rp_bill_for_admitActionPerformed(evt);
+            }
+        });
+        jPanel2.add(rp_bill_for_admit);
+        rp_bill_for_admit.setBounds(10, 260, 190, 40);
 
-        jButton7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton7.setText("OPT Patient Detail");
-        jButton7.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton7);
-        jButton7.setBounds(10, 440, 190, 40);
+        rp_opt_details.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        rp_opt_details.setText("OPT Patient Detail");
+        rp_opt_details.setBorder(new javax.swing.border.MatteBorder(null));
+        rp_opt_details.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rp_opt_detailsActionPerformed(evt);
+            }
+        });
+        jPanel2.add(rp_opt_details);
+        rp_opt_details.setBounds(10, 440, 190, 40);
 
-        jButton8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton8.setText("Admited Patient Detail");
-        jButton8.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton8);
-        jButton8.setBounds(10, 380, 190, 40);
+        rp_admit_details.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        rp_admit_details.setText("Admited Patient Detail");
+        rp_admit_details.setBorder(new javax.swing.border.MatteBorder(null));
+        rp_admit_details.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rp_admit_detailsActionPerformed(evt);
+            }
+        });
+        jPanel2.add(rp_admit_details);
+        rp_admit_details.setBounds(10, 380, 190, 40);
 
-        jButton9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton9.setText("Check Room");
-        jButton9.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton9);
-        jButton9.setBounds(10, 320, 190, 40);
+        rp_chk_room.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        rp_chk_room.setText("Check Room");
+        rp_chk_room.setBorder(new javax.swing.border.MatteBorder(null));
+        rp_chk_room.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rp_chk_roomActionPerformed(evt);
+            }
+        });
+        jPanel2.add(rp_chk_room);
+        rp_chk_room.setBounds(10, 320, 190, 40);
 
-        jButton10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton10.setText("Add OPT");
-        jButton10.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton10);
-        jButton10.setBounds(10, 80, 190, 40);
+        rp_opt_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        rp_opt_btn.setText("Add OPT");
+        rp_opt_btn.setBorder(new javax.swing.border.MatteBorder(null));
+        rp_opt_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rp_opt_btnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(rp_opt_btn);
+        rp_opt_btn.setBounds(10, 80, 190, 40);
 
-        jButton11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton11.setText("Appoinment");
-        jButton11.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton11);
-        jButton11.setBounds(10, 140, 190, 40);
+        rp_appointment_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        rp_appointment_btn.setText("Appoinment");
+        rp_appointment_btn.setBorder(new javax.swing.border.MatteBorder(null));
+        rp_appointment_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rp_appointment_btnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(rp_appointment_btn);
+        rp_appointment_btn.setBounds(10, 140, 190, 40);
 
         jPanel4.add(jPanel2);
         jPanel2.setBounds(20, 170, 210, 490);
-
-        jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel11.setText("Bill For Admit");
-        jPanel4.add(jLabel11);
-        jLabel11.setBounds(480, 130, 160, 40);
 
         getContentPane().add(jPanel4);
         jPanel4.setBounds(0, 0, 940, 680);
@@ -311,13 +372,25 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    String getdate(){
-        Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
-        todaydata = sdf.format(date);
-        jLabel13.setText(todaydata);
-    return todaydata;
+    
+    void showtime(){
+        new Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("hh:mm:ss a");
+            timegetting.setText(t.format(d));
+        }).start();   
     }
+    
+    void showdate(){
+        new Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd");
+            registrationdate.setText(t.format(d));
+            todaydate=registrationdate.getText();
+        }).start(); 
+    }
+    
+    
     
     private void chkamountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkamountActionPerformed
         
@@ -353,7 +426,7 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         dischargedate.setText(dischargedatee);
         
 //        String dd1 = dischargedate.getText();
-        String dd1 = todaydata;
+        String dd1 = todaydate;
         String dd2 = "2019-05-01";
         long diff =-1;
         try{
@@ -369,6 +442,63 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         
         System.out.println(diff);
     }//GEN-LAST:event_dischargedategetActionPerformed
+
+    private void admitidKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_admitidKeyTyped
+        
+        char c = evt.getKeyChar();
+        if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_admitidKeyTyped
+
+    private void rp_registration_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_registration_btnActionPerformed
+        receptionist_mainmenu rm = new receptionist_mainmenu();
+        rm.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_registration_btnActionPerformed
+
+    private void rp_admit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_admit_btnActionPerformed
+        receptionist_admitpatient radp = new receptionist_admitpatient();
+        radp.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_admit_btnActionPerformed
+
+    private void rp_bill_for_admitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_bill_for_admitActionPerformed
+        receptionist_billforadmit rba = new receptionist_billforadmit();
+        rba.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_bill_for_admitActionPerformed
+
+    private void rp_opt_detailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_opt_detailsActionPerformed
+        receptionist_optdetail roptd = new receptionist_optdetail();
+        roptd.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_opt_detailsActionPerformed
+
+    private void rp_admit_detailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_admit_detailsActionPerformed
+        receptionist_admitpatientdetail adpd = new receptionist_admitpatientdetail();
+        adpd.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_admit_detailsActionPerformed
+
+    private void rp_chk_roomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_chk_roomActionPerformed
+        receptionist_checkroom rchr  = new receptionist_checkroom();
+        rchr.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_chk_roomActionPerformed
+
+    private void rp_opt_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_opt_btnActionPerformed
+        receptionist_opt ropt = new receptionist_opt();
+        ropt.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_opt_btnActionPerformed
+
+    private void rp_appointment_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_appointment_btnActionPerformed
+        receptionist_appoinment rap = new receptionist_appoinment();
+        rap.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_appointment_btnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -394,14 +524,13 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new receptionist_billforadmit().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new receptionist_billforadmit().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField admitid;
     private javax.swing.JTextField amountbox;
     private javax.swing.JButton chkamount;
     private javax.swing.JButton chkavailblity2;
@@ -410,14 +539,6 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
     private javax.swing.JTextField dischargedate;
     private javax.swing.JButton dischargedateget;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -427,19 +548,26 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField6;
-    private javax.swing.JLabel patientidd1;
-    private javax.swing.JLabel patientidd2;
+    private javax.swing.JLabel receptionistid;
+    private javax.swing.JLabel receptionistname;
+    private javax.swing.JTextField registrationdate;
+    private javax.swing.JButton rp_admit_btn;
+    private javax.swing.JButton rp_admit_details;
+    private javax.swing.JButton rp_appointment_btn;
+    private javax.swing.JButton rp_bill_for_admit;
+    private javax.swing.JButton rp_chk_room;
+    private javax.swing.JButton rp_opt_btn;
+    private javax.swing.JButton rp_opt_details;
+    private javax.swing.JButton rp_registration_btn;
     private javax.swing.JLabel timegetting;
     // End of variables declaration//GEN-END:variables
 }

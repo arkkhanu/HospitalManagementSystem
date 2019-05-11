@@ -36,22 +36,36 @@ public class admin_internal_rooms extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButton6 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jButton7 = new javax.swing.JButton();
+        jTextField5 = new javax.swing.JTextField();
+        jTextField6 = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        jTextField7 = new javax.swing.JTextField();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(947, 708));
         setResizable(false);
         setSize(new java.awt.Dimension(947, 708));
         getContentPane().setLayout(null);
@@ -87,60 +101,153 @@ public class admin_internal_rooms extends javax.swing.JFrame {
         jTextField4.setBounds(260, 20, 140, 30);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel2.setText("Qualification ID");
+        jLabel2.setText("Room ID");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(50, 100, 90, 30);
+        jLabel2.setBounds(30, 140, 60, 30);
 
         jTextField1.setEditable(false);
         jTextField1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jPanel1.add(jTextField1);
-        jTextField1.setBounds(160, 100, 80, 30);
+        jTextField1.setBounds(100, 140, 60, 30);
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel3.setText("Current Qualification");
+        jLabel3.setText("Room Cate");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(20, 160, 120, 30);
-
-        jTextField2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jPanel1.add(jTextField2);
-        jTextField2.setBounds(160, 160, 150, 30);
-
-        jTextField3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jPanel1.add(jTextField3);
-        jTextField3.setBounds(160, 220, 150, 30);
+        jLabel3.setBounds(20, 180, 70, 30);
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel4.setText("Amount Per Qual");
+        jLabel4.setText("Ward Type");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(40, 220, 100, 30);
+        jLabel4.setBounds(20, 230, 70, 30);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "RID", "RoomCate", "WardType", "NurseID", "N-F-Name", "N-L-Name"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(320, 140, 370, 270);
+
+        jButton6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton6.setText("Check");
+        jButton6.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(jButton6);
+        jButton6.setBounds(170, 280, 60, 30);
 
         jButton4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jButton4.setText("Update");
         jButton4.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel1.add(jButton4);
-        jButton4.setBounds(190, 410, 100, 30);
+        jButton4.setBounds(240, 280, 60, 30);
+
+        jComboBox1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select ID", "RoomID", "NurseID" }));
+        jPanel1.add(jComboBox1);
+        jComboBox1.setBounds(320, 100, 100, 30);
+
+        jComboBox2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Cate" }));
+        jPanel1.add(jComboBox2);
+        jComboBox2.setBounds(100, 180, 130, 30);
+
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel5.setText("Status");
+        jPanel1.add(jLabel5);
+        jLabel5.setBounds(180, 140, 40, 30);
+
+        jTextField2.setEditable(false);
+        jTextField2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jPanel1.add(jTextField2);
+        jTextField2.setBounds(230, 140, 60, 30);
+
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel7.setText("N-L-Name");
+        jPanel1.add(jLabel7);
+        jLabel7.setBounds(20, 360, 70, 30);
+
+        jTextField3.setEditable(false);
+        jTextField3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jPanel1.add(jTextField3);
+        jTextField3.setBounds(100, 360, 130, 30);
+
+        jButton7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton7.setText("Add");
+        jButton7.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(jButton7);
+        jButton7.setBounds(100, 440, 100, 30);
+
+        jTextField5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jPanel1.add(jTextField5);
+        jTextField5.setBounds(100, 280, 60, 30);
+
+        jTextField6.setEditable(false);
+        jTextField6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jPanel1.add(jTextField6);
+        jTextField6.setBounds(100, 320, 130, 30);
+
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel8.setText("Nurse ID");
+        jPanel1.add(jLabel8);
+        jLabel8.setBounds(30, 280, 60, 30);
+
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel10.setText("N-F-Name");
+        jPanel1.add(jLabel10);
+        jLabel10.setBounds(20, 320, 70, 30);
 
         jButton5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton5.setText("Add");
+        jButton5.setText("Update");
         jButton5.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel1.add(jButton5);
-        jButton5.setBounds(70, 410, 100, 30);
+        jButton5.setBounds(220, 440, 100, 30);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        jTextField7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jPanel1.add(jTextField7);
+        jTextField7.setBounds(450, 100, 60, 30);
 
-        jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(360, 90, 330, 370);
+        jComboBox3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Ward" }));
+        jPanel1.add(jComboBox3);
+        jComboBox3.setBounds(100, 230, 130, 30);
+
+        jButton10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton10.setText("Check");
+        jButton10.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(jButton10);
+        jButton10.setBounds(530, 100, 60, 30);
+
+        jButton11.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton11.setText("Reset");
+        jButton11.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(jButton11);
+        jButton11.setBounds(600, 100, 60, 30);
 
         jPanel4.add(jPanel1);
         jPanel1.setBounds(230, 160, 700, 500);
@@ -185,8 +292,13 @@ public class admin_internal_rooms extends javax.swing.JFrame {
         jPanel4.add(jLabel6);
         jLabel6.setBounds(230, 50, 710, 70);
 
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel9.setText("Add Rooms");
+        jPanel4.add(jLabel9);
+        jLabel9.setBounds(500, 130, 130, 30);
+
         getContentPane().add(jPanel4);
-        jPanel4.setBounds(0, 0, 940, 680);
+        jPanel4.setBounds(10, 10, 940, 680);
 
         pack();
         setLocationRelativeTo(null);
@@ -229,17 +341,29 @@ public class admin_internal_rooms extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
@@ -249,6 +373,9 @@ public class admin_internal_rooms extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField7;
     private javax.swing.JLabel timegetting;
     // End of variables declaration//GEN-END:variables
 }

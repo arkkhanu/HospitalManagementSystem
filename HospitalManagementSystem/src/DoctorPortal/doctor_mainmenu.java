@@ -14,6 +14,14 @@ public class doctor_mainmenu extends javax.swing.JFrame {
     /**
      * Creates new form doctor_mainmenu
      */
+    
+     //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
+        //        String d = sdf.format(jDateChooser1.getDate());
+        //        registrationdate.setText(d);
+
+        //        String i = phone1.getText()+phone2.getText();
+        //        patientidd.setText(i);
+    
     public doctor_mainmenu() {
         initComponents();
     }
@@ -27,68 +35,229 @@ public class doctor_mainmenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        adminlogout = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        patientidd1 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        patientidd2 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        patientidd = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
+        patientidd3 = new javax.swing.JTextField();
+        jButton6 = new javax.swing.JButton();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        jTextField6 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        timegetting = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(947, 708));
+        setResizable(false);
+        setSize(new java.awt.Dimension(947, 708));
         getContentPane().setLayout(null);
 
-        adminlogout.setBackground(new java.awt.Color(255, 255, 255));
-        adminlogout.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        adminlogout.setForeground(new java.awt.Color(0, 102, 153));
-        adminlogout.setText("Logout");
-        adminlogout.setAlignmentX(2.0F);
-        adminlogout.setAlignmentY(2.5F);
-        adminlogout.setAutoscrolls(true);
-        adminlogout.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        adminlogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adminlogoutActionPerformed(evt);
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(0, 0, 0)));
+        jPanel4.setLayout(null);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pictures/doctor.png"))); // NOI18N
+        jPanel4.add(jLabel1);
+        jLabel1.setBounds(50, 20, 130, 140);
+
+        jPanel3.setBackground(new java.awt.Color(0, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
+        jPanel3.setLayout(null);
+
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel5.setText("Last Name");
+        jPanel3.add(jLabel5);
+        jLabel5.setBounds(30, 240, 90, 30);
+
+        jTextField2.setEditable(false);
+        jTextField2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextField2.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel3.add(jTextField2);
+        jTextField2.setBounds(130, 240, 150, 30);
+
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel8.setText("First Name");
+        jPanel3.add(jLabel8);
+        jLabel8.setBounds(30, 190, 90, 30);
+
+        jTextField4.setEditable(false);
+        jTextField4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextField4.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel3.add(jTextField4);
+        jTextField4.setBounds(380, 20, 150, 30);
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel3.setText("Patient ID : ");
+        jPanel3.add(jLabel3);
+        jLabel3.setBounds(30, 140, 70, 30);
+
+        jLabel17.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel17.setText("Doctor ID : ");
+        jPanel3.add(jLabel17);
+        jLabel17.setBounds(680, 20, 80, 20);
+
+        patientidd1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        patientidd1.setText("Null");
+        jPanel3.add(patientidd1);
+        patientidd1.setBounds(780, 20, 120, 20);
+
+        jLabel18.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel18.setText("Doctor Name : ");
+        jPanel3.add(jLabel18);
+        jLabel18.setBounds(680, 50, 90, 20);
+
+        patientidd2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        patientidd2.setText("Null");
+        jPanel3.add(patientidd2);
+        patientidd2.setBounds(780, 50, 130, 20);
+
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton4.setText("Checked");
+        jButton4.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel3.add(jButton4);
+        jButton4.setBounds(290, 420, 150, 40);
+
+        patientidd.setEditable(false);
+        patientidd.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jPanel3.add(patientidd);
+        patientidd.setBounds(130, 140, 59, 30);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ApID", "PID", "P-F-Name", "P-L-Name"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        getContentPane().add(adminlogout);
-        adminlogout.setBounds(720, 40, 130, 40);
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel3.add(jScrollPane1);
+        jScrollPane1.setBounds(560, 130, 350, 320);
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel4.setText("Appoint ID : ");
+        jPanel3.add(jLabel4);
+        jLabel4.setBounds(30, 100, 80, 30);
+
+        patientidd3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jPanel3.add(patientidd3);
+        patientidd3.setBounds(130, 100, 59, 30);
+
+        jButton6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton6.setText("Check");
+        jButton6.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel3.add(jButton6);
+        jButton6.setBounds(210, 100, 70, 30);
+
+        jTextField3.setEditable(false);
+        jTextField3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextField3.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel3.add(jTextField3);
+        jTextField3.setBounds(130, 290, 150, 30);
+
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel7.setText("Age");
+        jPanel3.add(jLabel7);
+        jLabel7.setBounds(60, 290, 40, 30);
+
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel9.setText("Gender");
+        jPanel3.add(jLabel9);
+        jLabel9.setBounds(50, 340, 50, 30);
+
+        jTextField5.setEditable(false);
+        jTextField5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextField5.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel3.add(jTextField5);
+        jTextField5.setBounds(130, 340, 150, 30);
+
+        jTextField6.setEditable(false);
+        jTextField6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextField6.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel3.add(jTextField6);
+        jTextField6.setBounds(130, 190, 150, 30);
+
+        jPanel4.add(jPanel3);
+        jPanel3.setBounds(10, 170, 920, 490);
+
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jButton1.setText("Logout");
+        jButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 0, 51)));
+        jPanel4.add(jButton1);
+        jButton1.setBounds(760, 70, 150, 30);
 
         jLabel6.setBackground(new java.awt.Color(0, 102, 153));
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("                      Doctor Portal");
+        jLabel6.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 0, 0)));
         jLabel6.setOpaque(true);
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(190, 20, 680, 70);
+        jPanel4.add(jLabel6);
+        jLabel6.setBounds(230, 50, 710, 70);
 
-        jButton1.setText("jButton1");
-        getContentPane().add(jButton1);
-        jButton1.setBounds(340, 170, 73, 23);
+        timegetting.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        timegetting.setText("Time");
+        jPanel4.add(timegetting);
+        timegetting.setBounds(440, 10, 120, 30);
 
-        jButton2.setText("jButton2");
-        getContentPane().add(jButton2);
-        jButton2.setBounds(340, 210, 73, 23);
+        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel12.setText("Appointments");
+        jPanel4.add(jLabel12);
+        jLabel12.setBounds(380, 130, 190, 40);
 
-        jButton3.setText("jButton3");
-        getContentPane().add(jButton3);
-        jButton3.setBounds(320, 280, 73, 23);
-
-        jButton4.setText("jButton4");
-        getContentPane().add(jButton4);
-        jButton4.setBounds(350, 370, 73, 23);
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pictures/r9.PNG"))); // NOI18N
-        jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 870, 540);
+        getContentPane().add(jPanel4);
+        jPanel4.setBounds(0, 0, 940, 680);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void adminlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminlogoutActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_adminlogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -124,12 +293,33 @@ public class doctor_mainmenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton adminlogout;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField patientidd;
+    private javax.swing.JLabel patientidd1;
+    private javax.swing.JLabel patientidd2;
+    private javax.swing.JTextField patientidd3;
+    private javax.swing.JLabel timegetting;
     // End of variables declaration//GEN-END:variables
 }

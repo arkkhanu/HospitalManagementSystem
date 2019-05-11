@@ -33,16 +33,27 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
         timegetting = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jTextField4 = new javax.swing.JTextField();
-        jButton15 = new javax.swing.JButton();
-        jButton17 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
-        jButton19 = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JTextField();
+        jButton7 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jTextField5 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(947, 708));
@@ -80,29 +91,102 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
         jPanel1.add(jTextField4);
         jTextField4.setBounds(260, 20, 140, 30);
 
-        jButton15.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton15.setText("Room Cate");
-        jButton15.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton15);
-        jButton15.setBounds(170, 240, 150, 40);
+        jTextField2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jPanel1.add(jTextField2);
+        jTextField2.setBounds(420, 100, 70, 30);
 
-        jButton17.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton17.setText("Qualification");
-        jButton17.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton17);
-        jButton17.setBounds(170, 170, 150, 40);
+        jButton7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton7.setText("Check");
+        jButton7.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(jButton7);
+        jButton7.setBounds(520, 100, 60, 30);
 
-        jButton18.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton18.setText("Ward");
-        jButton18.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton18);
-        jButton18.setBounds(360, 170, 150, 40);
+        jButton5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton5.setText("Reset");
+        jButton5.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(jButton5);
+        jButton5.setBounds(610, 100, 60, 30);
 
-        jButton19.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton19.setText("Rooms");
-        jButton19.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton19);
-        jButton19.setBounds(360, 240, 150, 40);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "CateID", "Category", "Amt-P-Cate"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(420, 140, 270, 290);
+
+        jTextField5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jPanel1.add(jTextField5);
+        jTextField5.setBounds(160, 160, 150, 30);
+
+        jTextField3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jPanel1.add(jTextField3);
+        jTextField3.setBounds(160, 220, 150, 30);
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel4.setText("Amount Per Cate");
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(40, 220, 100, 30);
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel3.setText("Room Category");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(50, 160, 90, 30);
+
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel5.setText("Room Cate ID");
+        jPanel1.add(jLabel5);
+        jLabel5.setBounds(50, 100, 90, 30);
+
+        jTextField1.setEditable(false);
+        jTextField1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jPanel1.add(jTextField1);
+        jTextField1.setBounds(160, 100, 80, 30);
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel2.setText("Cate-ID");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(420, 70, 50, 20);
+
+        jButton4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton4.setText("Update");
+        jButton4.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(jButton4);
+        jButton4.setBounds(250, 410, 100, 30);
+
+        jButton6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton6.setText("Add");
+        jButton6.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(jButton6);
+        jButton6.setBounds(130, 410, 100, 30);
 
         jPanel4.add(jPanel1);
         jPanel1.setBounds(230, 160, 700, 500);
@@ -146,6 +230,11 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
         jLabel6.setOpaque(true);
         jPanel4.add(jLabel6);
         jLabel6.setBounds(230, 50, 710, 70);
+
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel9.setText("Add RoomsCategory");
+        jPanel4.add(jLabel9);
+        jLabel9.setBounds(460, 130, 230, 30);
 
         getContentPane().add(jPanel4);
         jPanel4.setBounds(0, 0, 940, 680);
@@ -191,20 +280,31 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     private javax.swing.JLabel timegetting;
     // End of variables declaration//GEN-END:variables
 }

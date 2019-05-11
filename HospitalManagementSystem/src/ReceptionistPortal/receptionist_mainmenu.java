@@ -68,17 +68,8 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
 
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         registrationdate = new javax.swing.JTextField();
-        patientidd = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -93,11 +84,9 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
-        jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
@@ -110,9 +99,20 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         phone1 = new javax.swing.JTextField();
         billfee1 = new javax.swing.JTextField();
+        patientidd = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -129,75 +129,6 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
         jPanel4.add(jLabel1);
         jLabel1.setBounds(50, 10, 130, 130);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
-        jPanel2.setLayout(null);
-
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton2.setText("Register Patient");
-        jButton2.setBorder(new javax.swing.border.MatteBorder(null));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton2);
-        jButton2.setBounds(10, 30, 190, 40);
-
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton3.setText("Admit Patient");
-        jButton3.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton3);
-        jButton3.setBounds(10, 150, 190, 40);
-
-        jButton5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton5.setText("Bill for Admit");
-        jButton5.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton5);
-        jButton5.setBounds(10, 210, 190, 40);
-
-        jButton7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton7.setText("OPT Patient Detail");
-        jButton7.setBorder(new javax.swing.border.MatteBorder(null));
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton7);
-        jButton7.setBounds(10, 330, 190, 40);
-
-        jButton8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton8.setText("Admited Patient Detail");
-        jButton8.setBorder(new javax.swing.border.MatteBorder(null));
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton8);
-        jButton8.setBounds(10, 270, 190, 40);
-
-        jButton9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton9.setText("Check Room");
-        jButton9.setBorder(new javax.swing.border.MatteBorder(null));
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton9);
-        jButton9.setBounds(10, 90, 190, 40);
-
-        jButton10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton10.setText("Change Password");
-        jButton10.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton10);
-        jButton10.setBounds(10, 430, 190, 40);
-
-        jPanel4.add(jPanel2);
-        jPanel2.setBounds(20, 170, 210, 490);
-
         jPanel3.setBackground(new java.awt.Color(0, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
         jPanel3.setLayout(null);
@@ -208,11 +139,6 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
         registrationdate.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel3.add(registrationdate);
         registrationdate.setBounds(480, 100, 160, 30);
-
-        patientidd.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        patientidd.setText("Null");
-        jPanel3.add(patientidd);
-        patientidd.setBounds(120, 60, 150, 20);
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel5.setText("Last Name");
@@ -280,7 +206,7 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
             }
         });
         jPanel3.add(checkok);
-        checkok.setBounds(20, 20, 73, 23);
+        checkok.setBounds(270, 30, 73, 23);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel3.add(jComboBox1);
@@ -306,11 +232,6 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
         jPanel3.add(jRadioButton2);
         jRadioButton2.setBounds(200, 240, 70, 30);
 
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel12.setText("Doctor");
-        jPanel3.add(jLabel12);
-        jLabel12.setBounds(420, 260, 40, 30);
-
         jLabel13.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel13.setText("Address");
         jPanel3.add(jLabel13);
@@ -326,19 +247,15 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
         jPanel3.add(jLabel15);
         jLabel15.setBounds(20, 200, 90, 30);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel3.add(jComboBox2);
-        jComboBox2.setBounds(480, 260, 150, 30);
-
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel3.setText("Patient ID : ");
         jPanel3.add(jLabel3);
-        jLabel3.setBounds(20, 60, 70, 20);
+        jLabel3.setBounds(20, 50, 70, 30);
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel11.setText("Bill Fee Rs: ");
+        jLabel11.setText("Registration Fee Rs: ");
         jPanel3.add(jLabel11);
-        jLabel11.setBounds(400, 150, 70, 30);
+        jLabel11.setBounds(350, 150, 120, 30);
 
         jTextField7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jTextField7.setBorder(new javax.swing.border.MatteBorder(null));
@@ -400,6 +317,11 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
         jPanel3.add(billfee1);
         billfee1.setBounds(480, 150, 60, 30);
 
+        patientidd.setEditable(false);
+        patientidd.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jPanel3.add(patientidd);
+        patientidd.setBounds(120, 50, 59, 30);
+
         jPanel4.add(jPanel3);
         jPanel3.setBounds(250, 170, 670, 490);
 
@@ -424,26 +346,72 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
         jPanel4.add(timegetting);
         timegetting.setBounds(440, 10, 120, 30);
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
+        jPanel2.setLayout(null);
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton2.setText("Register Patient");
+        jButton2.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton2);
+        jButton2.setBounds(10, 20, 190, 40);
+
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton3.setText("Admit Patient");
+        jButton3.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton3);
+        jButton3.setBounds(10, 200, 190, 40);
+
+        jButton5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton5.setText("Bill for Admit");
+        jButton5.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton5);
+        jButton5.setBounds(10, 260, 190, 40);
+
+        jButton7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton7.setText("OPT Patient Detail");
+        jButton7.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton7);
+        jButton7.setBounds(10, 440, 190, 40);
+
+        jButton8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton8.setText("Admited Patient Detail");
+        jButton8.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton8);
+        jButton8.setBounds(10, 380, 190, 40);
+
+        jButton9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton9.setText("Check Room");
+        jButton9.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton9);
+        jButton9.setBounds(10, 320, 190, 40);
+
+        jButton10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton10.setText("Add OPT");
+        jButton10.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton10);
+        jButton10.setBounds(10, 80, 190, 40);
+
+        jButton11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton11.setText("Appoinment");
+        jButton11.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton11);
+        jButton11.setBounds(10, 140, 190, 40);
+
+        jPanel4.add(jPanel2);
+        jPanel2.setBounds(20, 170, 210, 490);
+
+        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel12.setText("Register Patient");
+        jPanel4.add(jLabel12);
+        jLabel12.setBounds(510, 130, 190, 40);
+
         getContentPane().add(jPanel4);
         jPanel4.setBounds(0, 0, 940, 680);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        
-        this.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
 
     private void checkokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkokActionPerformed
  
@@ -540,10 +508,6 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
        
     }//GEN-LAST:event_phone2KeyTyped
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -578,6 +542,7 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
     private javax.swing.JButton checkok;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -586,7 +551,6 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -614,7 +578,7 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
-    private javax.swing.JLabel patientidd;
+    private javax.swing.JTextField patientidd;
     private javax.swing.JLabel patientidd1;
     private javax.swing.JLabel patientidd2;
     private javax.swing.JTextField phone1;

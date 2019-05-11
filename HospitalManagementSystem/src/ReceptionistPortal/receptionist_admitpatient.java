@@ -35,6 +35,7 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
@@ -42,7 +43,6 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
         getroom = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -65,6 +65,10 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         patientidd1 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        patientidd = new javax.swing.JTextField();
+        jTextField6 = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(947, 708));
@@ -88,43 +92,49 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
         jButton2.setText("Register Patient");
         jButton2.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel2.add(jButton2);
-        jButton2.setBounds(10, 30, 190, 40);
+        jButton2.setBounds(10, 20, 190, 40);
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton3.setText("Admit Patient");
         jButton3.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel2.add(jButton3);
-        jButton3.setBounds(10, 150, 190, 40);
+        jButton3.setBounds(10, 200, 190, 40);
 
         jButton5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton5.setText("Bill for Admit");
         jButton5.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel2.add(jButton5);
-        jButton5.setBounds(10, 210, 190, 40);
+        jButton5.setBounds(10, 260, 190, 40);
 
         jButton7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton7.setText("OPT Patient Detail");
         jButton7.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel2.add(jButton7);
-        jButton7.setBounds(10, 330, 190, 40);
+        jButton7.setBounds(10, 440, 190, 40);
 
         jButton8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton8.setText("Admited Patient Detail");
         jButton8.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel2.add(jButton8);
-        jButton8.setBounds(10, 270, 190, 40);
+        jButton8.setBounds(10, 380, 190, 40);
 
         jButton9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton9.setText("Check Room");
         jButton9.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel2.add(jButton9);
-        jButton9.setBounds(10, 90, 190, 40);
+        jButton9.setBounds(10, 320, 190, 40);
 
         jButton10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton10.setText("Change Password");
+        jButton10.setText("Add OPT");
         jButton10.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel2.add(jButton10);
-        jButton10.setBounds(10, 430, 190, 40);
+        jButton10.setBounds(10, 80, 190, 40);
+
+        jButton11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton11.setText("Appoinment");
+        jButton11.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel2.add(jButton11);
+        jButton11.setBounds(10, 140, 190, 40);
 
         jPanel4.add(jPanel2);
         jPanel2.setBounds(20, 170, 210, 490);
@@ -174,11 +184,6 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
         jPanel1.add(jComboBox1);
         jComboBox1.setBounds(20, 120, 100, 30);
 
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel4.setText("Null");
-        jPanel1.add(jLabel4);
-        jLabel4.setBounds(140, 180, 70, 30);
-
         jComboBox2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(jComboBox2);
@@ -192,34 +197,34 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
         jTextField1.setEditable(false);
         jTextField1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jPanel1.add(jTextField1);
-        jTextField1.setBounds(140, 270, 160, 30);
+        jTextField1.setBounds(470, 270, 160, 30);
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel9.setText("Doctor");
         jPanel1.add(jLabel9);
-        jLabel9.setBounds(20, 270, 70, 30);
+        jLabel9.setBounds(400, 270, 50, 30);
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel11.setText("Admit ID");
         jPanel1.add(jLabel11);
-        jLabel11.setBounds(20, 180, 70, 30);
+        jLabel11.setBounds(40, 180, 60, 30);
         jPanel1.add(jTextField2);
         jTextField2.setBounds(140, 220, 70, 30);
 
         jLabel12.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel12.setText("Status");
         jPanel1.add(jLabel12);
-        jLabel12.setBounds(420, 220, 70, 30);
+        jLabel12.setBounds(400, 220, 50, 30);
 
         jComboBox3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "In", "Out" }));
         jPanel1.add(jComboBox3);
-        jComboBox3.setBounds(510, 220, 56, 30);
+        jComboBox3.setBounds(470, 220, 56, 30);
 
         jLabel13.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel13.setText("Patient ID");
         jPanel1.add(jLabel13);
-        jLabel13.setBounds(20, 220, 70, 30);
+        jLabel13.setBounds(40, 220, 60, 30);
 
         jLabel14.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel14.setText("Room No");
@@ -244,12 +249,12 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel15.setText("Room No");
         jPanel1.add(jLabel15);
-        jLabel15.setBounds(20, 320, 70, 30);
+        jLabel15.setBounds(40, 320, 70, 30);
 
         jLabel16.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel16.setText("Disease");
         jPanel1.add(jLabel16);
-        jLabel16.setBounds(20, 370, 60, 30);
+        jLabel16.setBounds(50, 370, 60, 30);
         jPanel1.add(jTextField4);
         jTextField4.setBounds(140, 370, 500, 30);
 
@@ -298,8 +303,28 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
         jPanel1.add(jLabel18);
         jLabel18.setBounds(450, 50, 110, 20);
 
+        patientidd.setEditable(false);
+        patientidd.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jPanel1.add(patientidd);
+        patientidd.setBounds(140, 180, 59, 30);
+
+        jTextField6.setEditable(false);
+        jTextField6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jPanel1.add(jTextField6);
+        jTextField6.setBounds(140, 270, 160, 30);
+
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel10.setText("Patient Name");
+        jPanel1.add(jLabel10);
+        jLabel10.setBounds(20, 270, 90, 30);
+
         jPanel4.add(jPanel1);
         jPanel1.setBounds(260, 170, 660, 490);
+
+        jLabel19.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel19.setText("Admit Patient");
+        jPanel4.add(jLabel19);
+        jLabel19.setBounds(500, 130, 160, 40);
 
         getContentPane().add(jPanel4);
         jPanel4.setBounds(0, 0, 940, 680);
@@ -364,6 +389,7 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
     private javax.swing.JButton getroom;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
@@ -374,6 +400,7 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -382,8 +409,8 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
@@ -395,6 +422,8 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField patientidd;
     private javax.swing.JLabel patientidd1;
     private javax.swing.JLabel patientidd2;
     private javax.swing.JLabel timegetting;

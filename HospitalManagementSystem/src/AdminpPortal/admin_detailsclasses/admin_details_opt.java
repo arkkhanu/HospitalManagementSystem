@@ -6,6 +6,11 @@
 package AdminpPortal.admin_detailsclasses;
 
 import AdminpPortal.admin_details;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.Timer;
 
 /**
  *
@@ -16,6 +21,7 @@ public class admin_details_opt extends javax.swing.JFrame {
     
     public admin_details_opt() {
         initComponents();
+        showtime();
     }
 
     /**
@@ -35,8 +41,9 @@ public class admin_details_opt extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jButton17 = new javax.swing.JButton();
         jButton16 = new javax.swing.JButton();
-        jTextField17 = new javax.swing.JTextField();
         jButton18 = new javax.swing.JButton();
+        timegetting = new javax.swing.JLabel();
+        searching = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1147, 680));
@@ -135,16 +142,26 @@ public class admin_details_opt extends javax.swing.JFrame {
         jPanel1.add(jButton16);
         jButton16.setBounds(450, 150, 60, 30);
 
-        jTextField17.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField17.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jTextField17);
-        jTextField17.setBounds(340, 150, 90, 30);
-
         jButton18.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jButton18.setText("Print");
         jButton18.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel1.add(jButton18);
         jButton18.setBounds(620, 150, 60, 30);
+
+        timegetting.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        timegetting.setText("Time");
+        jPanel1.add(timegetting);
+        timegetting.setBounds(540, 10, 120, 30);
+
+        searching.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        searching.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        searching.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                searchingKeyTyped(evt);
+            }
+        });
+        jPanel1.add(searching);
+        searching.setBounds(340, 150, 90, 30);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1140, 650);
@@ -153,6 +170,14 @@ public class admin_details_opt extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    void showtime(){
+        new Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("hh:mm:ss a");
+            timegetting.setText(t.format(d));
+        }).start();   
+    }
+    
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
         admin_details ap = new admin_details();
@@ -166,6 +191,14 @@ public class admin_details_opt extends javax.swing.JFrame {
         ad.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void searchingKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchingKeyTyped
+        char c = evt.getKeyChar();
+        if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_searchingKeyTyped
 
     /**
      * @param args the command line arguments
@@ -207,6 +240,7 @@ public class admin_details_opt extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField17;
+    private javax.swing.JTextField searching;
+    private javax.swing.JLabel timegetting;
     // End of variables declaration//GEN-END:variables
 }

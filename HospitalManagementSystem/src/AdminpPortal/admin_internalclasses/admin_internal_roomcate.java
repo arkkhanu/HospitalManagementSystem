@@ -5,6 +5,9 @@
  */
 package AdminpPortal.admin_internalclasses;
 
+import AdminpPortal.admin_internal;
+import java.awt.event.KeyEvent;
+
 /**
  *
  * @author AbdulRehman
@@ -29,11 +32,9 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
 
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         timegetting = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jTextField4 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         jButton7 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -47,13 +48,15 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
+        searching = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        back = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        i_addqualification = new javax.swing.JButton();
+        i_addroomcate = new javax.swing.JButton();
+        i_addrooms = new javax.swing.JButton();
+        i_addward = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(947, 708));
@@ -69,17 +72,10 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
         jPanel4.add(jLabel1);
         jLabel1.setBounds(50, 10, 130, 130);
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton1.setText("Logout");
-        jButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 0, 51)));
-        jPanel4.add(jButton1);
-        jButton1.setBounds(760, 70, 150, 30);
-
         timegetting.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         timegetting.setText("Time");
         jPanel4.add(timegetting);
-        timegetting.setBounds(440, 10, 120, 30);
+        timegetting.setBounds(490, 10, 120, 30);
 
         jPanel1.setBackground(new java.awt.Color(0, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
@@ -87,13 +83,9 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
 
         jTextField4.setEditable(false);
         jTextField4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField4.setBorder(new javax.swing.border.MatteBorder(null));
+        jTextField4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel1.add(jTextField4);
-        jTextField4.setBounds(260, 20, 140, 30);
-
-        jTextField2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jPanel1.add(jTextField2);
-        jTextField2.setBounds(420, 100, 70, 30);
+        jTextField4.setBounds(240, 20, 140, 30);
 
         jButton7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jButton7.setText("Check");
@@ -144,10 +136,17 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
         jScrollPane1.setBounds(420, 140, 270, 290);
 
         jTextField5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextField5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel1.add(jTextField5);
         jTextField5.setBounds(160, 160, 150, 30);
 
         jTextField3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextField3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField3KeyTyped(evt);
+            }
+        });
         jPanel1.add(jTextField3);
         jTextField3.setBounds(160, 220, 150, 30);
 
@@ -168,6 +167,7 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
 
         jTextField1.setEditable(false);
         jTextField1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextField1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel1.add(jTextField1);
         jTextField1.setBounds(160, 100, 80, 30);
 
@@ -188,39 +188,35 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
         jPanel1.add(jButton6);
         jButton6.setBounds(130, 410, 100, 30);
 
+        searching.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        searching.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        searching.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                searchingKeyTyped(evt);
+            }
+        });
+        jPanel1.add(searching);
+        searching.setBounds(420, 100, 70, 30);
+
         jPanel4.add(jPanel1);
         jPanel1.setBounds(230, 160, 700, 500);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
-        jPanel2.setLayout(null);
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel9.setText("Add RoomsCategory");
+        jPanel4.add(jLabel9);
+        jLabel9.setBounds(430, 130, 230, 30);
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton2.setText("Add Qualification");
-        jButton2.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton2);
-        jButton2.setBounds(10, 90, 190, 40);
-
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton3.setText("Add Room Cate");
-        jButton3.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton3);
-        jButton3.setBounds(10, 210, 190, 40);
-
-        jButton8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton8.setText("Add Rooms");
-        jButton8.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton8);
-        jButton8.setBounds(10, 270, 190, 40);
-
-        jButton9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton9.setText("Add Ward");
-        jButton9.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton9);
-        jButton9.setBounds(10, 150, 190, 40);
-
-        jPanel4.add(jPanel2);
-        jPanel2.setBounds(10, 160, 210, 500);
+        back.setBackground(new java.awt.Color(255, 255, 255));
+        back.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        back.setText("Back");
+        back.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 0, 51)));
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
+        jPanel4.add(back);
+        back.setBounds(760, 70, 150, 30);
 
         jLabel6.setBackground(new java.awt.Color(0, 102, 153));
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
@@ -231,10 +227,56 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
         jPanel4.add(jLabel6);
         jLabel6.setBounds(230, 50, 710, 70);
 
-        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel9.setText("Add RoomsCategory");
-        jPanel4.add(jLabel9);
-        jLabel9.setBounds(460, 130, 230, 30);
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
+        jPanel2.setLayout(null);
+
+        i_addqualification.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        i_addqualification.setText("Add Qualification");
+        i_addqualification.setBorder(new javax.swing.border.MatteBorder(null));
+        i_addqualification.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                i_addqualificationActionPerformed(evt);
+            }
+        });
+        jPanel2.add(i_addqualification);
+        i_addqualification.setBounds(10, 90, 190, 40);
+
+        i_addroomcate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        i_addroomcate.setText("Add Room Cate");
+        i_addroomcate.setBorder(new javax.swing.border.MatteBorder(null));
+        i_addroomcate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                i_addroomcateActionPerformed(evt);
+            }
+        });
+        jPanel2.add(i_addroomcate);
+        i_addroomcate.setBounds(10, 210, 190, 40);
+
+        i_addrooms.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        i_addrooms.setText("Add Rooms");
+        i_addrooms.setBorder(new javax.swing.border.MatteBorder(null));
+        i_addrooms.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                i_addroomsActionPerformed(evt);
+            }
+        });
+        jPanel2.add(i_addrooms);
+        i_addrooms.setBounds(10, 270, 190, 40);
+
+        i_addward.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        i_addward.setText("Add Ward");
+        i_addward.setBorder(new javax.swing.border.MatteBorder(null));
+        i_addward.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                i_addwardActionPerformed(evt);
+            }
+        });
+        jPanel2.add(i_addward);
+        i_addward.setBounds(10, 150, 190, 40);
+
+        jPanel4.add(jPanel2);
+        jPanel2.setBounds(10, 160, 210, 500);
 
         getContentPane().add(jPanel4);
         jPanel4.setBounds(0, 0, 940, 680);
@@ -242,6 +284,52 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        admin_internal aii = new admin_internal();
+        aii.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_backActionPerformed
+
+    private void i_addqualificationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_i_addqualificationActionPerformed
+        admin_internal_qualification  aiq= new admin_internal_qualification();
+        aiq.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_i_addqualificationActionPerformed
+
+    private void i_addroomcateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_i_addroomcateActionPerformed
+        admin_internal_roomcate arc = new admin_internal_roomcate();
+        arc.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_i_addroomcateActionPerformed
+
+    private void i_addroomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_i_addroomsActionPerformed
+        admin_internal_rooms arr = new admin_internal_rooms();
+        arr.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_i_addroomsActionPerformed
+
+    private void i_addwardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_i_addwardActionPerformed
+        admin_internal_ward aw = new admin_internal_ward();
+        aw.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_i_addwardActionPerformed
+
+    private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
+        char c = evt.getKeyChar();
+        if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextField3KeyTyped
+
+    private void searchingKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchingKeyTyped
+        char c = evt.getKeyChar();
+        if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_searchingKeyTyped
 
     /**
      * @param args the command line arguments
@@ -279,15 +367,15 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton back;
+    private javax.swing.JButton i_addqualification;
+    private javax.swing.JButton i_addroomcate;
+    private javax.swing.JButton i_addrooms;
+    private javax.swing.JButton i_addward;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -301,10 +389,10 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField searching;
     private javax.swing.JLabel timegetting;
     // End of variables declaration//GEN-END:variables
 }

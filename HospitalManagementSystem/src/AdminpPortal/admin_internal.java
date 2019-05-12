@@ -5,6 +5,12 @@
  */
 package AdminpPortal;
 
+import AdminpPortal.admin_internalclasses.*;
+import java.awt.event.ActionEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.Timer;
+
 /**
  *
  * @author AbdulRehman
@@ -16,6 +22,8 @@ public class admin_internal extends javax.swing.JFrame {
      */
     public admin_internal() {
         initComponents();
+        showtime();
+        showdate();
     }
 
     /**
@@ -33,17 +41,19 @@ public class admin_internal extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jTextField4 = new javax.swing.JTextField();
-        jButton15 = new javax.swing.JButton();
-        jButton17 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
-        jButton19 = new javax.swing.JButton();
+        registrationdate = new javax.swing.JTextField();
+        ad_internal_roomcate = new javax.swing.JButton();
+        ad_internal_qual = new javax.swing.JButton();
+        ad_internal_ward = new javax.swing.JButton();
+        ad_internal_room = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        a_doctor_btn = new javax.swing.JButton();
+        a_nurse_btn = new javax.swing.JButton();
+        a_receptionist_btn = new javax.swing.JButton();
+        a_internall_btn = new javax.swing.JButton();
+        a_salay_btn = new javax.swing.JButton();
+        a_detail_btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(947, 708));
@@ -78,78 +88,139 @@ public class admin_internal extends javax.swing.JFrame {
         timegetting.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         timegetting.setText("Time");
         jPanel4.add(timegetting);
-        timegetting.setBounds(440, 10, 120, 30);
+        timegetting.setBounds(520, 10, 120, 30);
 
         jPanel1.setBackground(new java.awt.Color(0, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(null);
 
-        jTextField4.setEditable(false);
-        jTextField4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField4.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jTextField4);
-        jTextField4.setBounds(260, 20, 140, 30);
+        registrationdate.setEditable(false);
+        registrationdate.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        registrationdate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(registrationdate);
+        registrationdate.setBounds(260, 20, 140, 30);
 
-        jButton15.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton15.setText("Room Cate");
-        jButton15.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton15);
-        jButton15.setBounds(170, 240, 150, 40);
+        ad_internal_roomcate.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        ad_internal_roomcate.setText("Room Cate");
+        ad_internal_roomcate.setBorder(new javax.swing.border.MatteBorder(null));
+        ad_internal_roomcate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ad_internal_roomcateActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ad_internal_roomcate);
+        ad_internal_roomcate.setBounds(170, 240, 150, 40);
 
-        jButton17.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton17.setText("Qualification");
-        jButton17.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton17);
-        jButton17.setBounds(170, 170, 150, 40);
+        ad_internal_qual.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        ad_internal_qual.setText("Qualification");
+        ad_internal_qual.setBorder(new javax.swing.border.MatteBorder(null));
+        ad_internal_qual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ad_internal_qualActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ad_internal_qual);
+        ad_internal_qual.setBounds(170, 170, 150, 40);
 
-        jButton18.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton18.setText("Ward");
-        jButton18.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton18);
-        jButton18.setBounds(360, 170, 150, 40);
+        ad_internal_ward.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        ad_internal_ward.setText("Ward");
+        ad_internal_ward.setBorder(new javax.swing.border.MatteBorder(null));
+        ad_internal_ward.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ad_internal_wardActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ad_internal_ward);
+        ad_internal_ward.setBounds(360, 170, 150, 40);
 
-        jButton19.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton19.setText("Rooms");
-        jButton19.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton19);
-        jButton19.setBounds(360, 240, 150, 40);
+        ad_internal_room.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        ad_internal_room.setText("Rooms");
+        ad_internal_room.setBorder(new javax.swing.border.MatteBorder(null));
+        ad_internal_room.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ad_internal_roomActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ad_internal_room);
+        ad_internal_room.setBounds(360, 240, 150, 40);
 
         jPanel4.add(jPanel1);
         jPanel1.setBounds(230, 160, 700, 500);
+
+        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel12.setText("Internal Adding");
+        jPanel4.add(jLabel12);
+        jLabel12.setBounds(470, 120, 180, 40);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
         jPanel2.setLayout(null);
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton2.setText("Doctor");
-        jButton2.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton2);
-        jButton2.setBounds(10, 50, 190, 40);
+        a_doctor_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        a_doctor_btn.setText("Doctor");
+        a_doctor_btn.setBorder(new javax.swing.border.MatteBorder(null));
+        a_doctor_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_doctor_btnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(a_doctor_btn);
+        a_doctor_btn.setBounds(10, 50, 190, 40);
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton3.setText("Nurse");
-        jButton3.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton3);
-        jButton3.setBounds(10, 170, 190, 40);
+        a_nurse_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        a_nurse_btn.setText("Nurse");
+        a_nurse_btn.setBorder(new javax.swing.border.MatteBorder(null));
+        a_nurse_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_nurse_btnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(a_nurse_btn);
+        a_nurse_btn.setBounds(10, 170, 190, 40);
 
-        jButton9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton9.setText("Receptionist");
-        jButton9.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton9);
-        jButton9.setBounds(10, 110, 190, 40);
+        a_receptionist_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        a_receptionist_btn.setText("Receptionist");
+        a_receptionist_btn.setBorder(new javax.swing.border.MatteBorder(null));
+        a_receptionist_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_receptionist_btnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(a_receptionist_btn);
+        a_receptionist_btn.setBounds(10, 110, 190, 40);
 
-        jButton13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton13.setText("Details");
-        jButton13.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton13);
-        jButton13.setBounds(10, 290, 190, 40);
+        a_internall_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        a_internall_btn.setText("Internal");
+        a_internall_btn.setBorder(new javax.swing.border.MatteBorder(null));
+        a_internall_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_internall_btnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(a_internall_btn);
+        a_internall_btn.setBounds(10, 350, 190, 40);
 
-        jButton11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton11.setText("Salary");
-        jButton11.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton11);
-        jButton11.setBounds(10, 230, 190, 40);
+        a_salay_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        a_salay_btn.setText("Salary");
+        a_salay_btn.setBorder(new javax.swing.border.MatteBorder(null));
+        a_salay_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_salay_btnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(a_salay_btn);
+        a_salay_btn.setBounds(10, 230, 190, 40);
+
+        a_detail_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        a_detail_btn.setText("Details");
+        a_detail_btn.setBorder(new javax.swing.border.MatteBorder(null));
+        a_detail_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_detail_btnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(a_detail_btn);
+        a_detail_btn.setBounds(10, 290, 190, 40);
 
         jPanel4.add(jPanel2);
         jPanel2.setBounds(10, 160, 210, 500);
@@ -160,6 +231,84 @@ public class admin_internal extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    
+    void showtime(){
+        new Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("hh:mm:ss a");
+            timegetting.setText(t.format(d));
+        }).start();   
+    }
+    
+    void showdate(){
+        new Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd");
+            registrationdate.setText(t.format(d));
+        }).start();
+        
+    }
+    
+    private void a_doctor_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_doctor_btnActionPerformed
+        admin_adddoctor add = new admin_adddoctor();
+        add.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_a_doctor_btnActionPerformed
+
+    private void a_nurse_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_nurse_btnActionPerformed
+        admin_addnurse ann = new admin_addnurse();
+        ann.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_a_nurse_btnActionPerformed
+
+    private void a_receptionist_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_receptionist_btnActionPerformed
+        admin_addreceptionist arr = new admin_addreceptionist();
+        arr.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_a_receptionist_btnActionPerformed
+
+    private void a_internall_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_internall_btnActionPerformed
+        admin_internal att = new admin_internal();
+        att.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_a_internall_btnActionPerformed
+
+    private void a_salay_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_salay_btnActionPerformed
+        admin_salary ass = new admin_salary();
+        ass.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_a_salay_btnActionPerformed
+
+    private void a_detail_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_detail_btnActionPerformed
+        admin_details adt = new admin_details();
+        adt.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_a_detail_btnActionPerformed
+
+    private void ad_internal_qualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ad_internal_qualActionPerformed
+        admin_internal_qualification aiq = new admin_internal_qualification();
+        aiq.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ad_internal_qualActionPerformed
+
+    private void ad_internal_wardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ad_internal_wardActionPerformed
+        admin_internal_ward aiw = new admin_internal_ward();
+        aiw.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ad_internal_wardActionPerformed
+
+    private void ad_internal_roomcateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ad_internal_roomcateActionPerformed
+        admin_internal_roomcate airc = new admin_internal_roomcate();
+        airc.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ad_internal_roomcateActionPerformed
+
+    private void ad_internal_roomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ad_internal_roomActionPerformed
+        admin_internal_rooms air = new admin_internal_rooms();
+        air.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ad_internal_roomActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,22 +340,24 @@ public class admin_internal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton a_detail_btn;
+    private javax.swing.JButton a_doctor_btn;
+    private javax.swing.JButton a_internall_btn;
+    private javax.swing.JButton a_nurse_btn;
+    private javax.swing.JButton a_receptionist_btn;
+    private javax.swing.JButton a_salay_btn;
+    private javax.swing.JButton ad_internal_qual;
+    private javax.swing.JButton ad_internal_room;
+    private javax.swing.JButton ad_internal_roomcate;
+    private javax.swing.JButton ad_internal_ward;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton19;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField registrationdate;
     private javax.swing.JLabel timegetting;
     // End of variables declaration//GEN-END:variables
 }

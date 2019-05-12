@@ -5,7 +5,10 @@
  */
 package ReceptionistPortal;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -16,6 +19,8 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
    
     public receptionist_admitpatient() {
         initComponents();
+        showdate();
+        showtime();
     }
 
     /**
@@ -381,6 +386,24 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
+   void showtime(){
+        new javax.swing.Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("hh:mm:ss a");
+            timegetting.setText(t.format(d));
+        }).start();   
+    }
+    
+    void showdate(){
+        new javax.swing.Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd");
+            registrationdate.setText(t.format(d));
+        }).start();
+        
+    }
+    
     private void patientidKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_patientidKeyTyped
         char c = evt.getKeyChar();
         if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
@@ -388,6 +411,7 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_patientidKeyTyped
+
 
     private void rp_registration_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_registration_btnActionPerformed
         receptionist_mainmenu rm = new receptionist_mainmenu();

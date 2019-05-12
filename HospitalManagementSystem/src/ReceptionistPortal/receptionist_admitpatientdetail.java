@@ -5,7 +5,11 @@
  */
 package ReceptionistPortal;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.Timer;
 
 /**
  *
@@ -15,6 +19,8 @@ public class receptionist_admitpatientdetail extends javax.swing.JFrame {
 
     public receptionist_admitpatientdetail() {
         initComponents();
+        showdate();
+        showtime();
     }
 
     /**
@@ -263,6 +269,23 @@ public class receptionist_admitpatientdetail extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    void showtime(){
+        new Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("hh:mm:ss a");
+            timegetting.setText(t.format(d));
+        }).start();   
+    }
+    
+    void showdate(){
+        new Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd");
+            registrationdate.setText(t.format(d));
+        }).start();
+        
+    }
+    
     private void optid_phnoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_optid_phnoKeyTyped
         char c = evt.getKeyChar();
         if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){

@@ -5,6 +5,12 @@
  */
 package DoctorPortal;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.Timer;
+
 /**
  *
  * @author AbdulRehman
@@ -41,7 +47,7 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        registrationdate = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         patientidd1 = new javax.swing.JLabel();
@@ -52,7 +58,7 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
-        patientidd3 = new javax.swing.JTextField();
+        appointmentid = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
         jTextField3 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -98,11 +104,11 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         jPanel3.add(jLabel8);
         jLabel8.setBounds(30, 190, 90, 30);
 
-        jTextField4.setEditable(false);
-        jTextField4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField4.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel3.add(jTextField4);
-        jTextField4.setBounds(380, 20, 150, 30);
+        registrationdate.setEditable(false);
+        registrationdate.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        registrationdate.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel3.add(registrationdate);
+        registrationdate.setBounds(380, 20, 150, 30);
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel3.setText("Patient ID : ");
@@ -185,9 +191,14 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         jPanel3.add(jLabel4);
         jLabel4.setBounds(30, 100, 80, 30);
 
-        patientidd3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jPanel3.add(patientidd3);
-        patientidd3.setBounds(130, 100, 59, 30);
+        appointmentid.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        appointmentid.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                appointmentidKeyTyped(evt);
+            }
+        });
+        jPanel3.add(appointmentid);
+        appointmentid.setBounds(130, 100, 59, 30);
 
         jButton6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jButton6.setText("Check");
@@ -245,12 +256,12 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         timegetting.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         timegetting.setText("Time");
         jPanel4.add(timegetting);
-        timegetting.setBounds(440, 10, 120, 30);
+        timegetting.setBounds(430, 10, 120, 30);
 
         jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel12.setText("Appointments");
         jPanel4.add(jLabel12);
-        jLabel12.setBounds(380, 130, 190, 40);
+        jLabel12.setBounds(390, 130, 190, 40);
 
         getContentPane().add(jPanel4);
         jPanel4.setBounds(0, 0, 940, 680);
@@ -259,9 +270,32 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void appointmentidKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_appointmentidKeyTyped
+        char c = evt.getKeyChar();
+        if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_appointmentidKeyTyped
+
+    
+    void showtime(){
+        new Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("hh:mm:ss a");
+            timegetting.setText(t.format(d));
+        }).start();   
+    }
+    
+    void showdate(){
+        new Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd");
+            registrationdate.setText(t.format(d));
+        }).start();
+        
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -293,6 +327,7 @@ public class doctor_mainmenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField appointmentid;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
@@ -313,13 +348,12 @@ public class doctor_mainmenu extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField patientidd;
     private javax.swing.JLabel patientidd1;
     private javax.swing.JLabel patientidd2;
-    private javax.swing.JTextField patientidd3;
+    private javax.swing.JTextField registrationdate;
     private javax.swing.JLabel timegetting;
     // End of variables declaration//GEN-END:variables
 }

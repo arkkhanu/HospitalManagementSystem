@@ -6,6 +6,10 @@
 package AdminpPortal;
 
 import AdminpPortal.admin_detailsclasses.*;
+import java.awt.event.ActionEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.Timer;
 
 
 /**
@@ -19,6 +23,8 @@ public class admin_details extends javax.swing.JFrame {
      */
     public admin_details() {
         initComponents();
+        showdate();
+        showtime();
     }
 
     /**
@@ -36,23 +42,23 @@ public class admin_details extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jTextField4 = new javax.swing.JTextField();
-        jButton8 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
-        jButton19 = new javax.swing.JButton();
-        jButton20 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
-        jButton21 = new javax.swing.JButton();
-        jButton22 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jButton23 = new javax.swing.JButton();
+        registrationdate = new javax.swing.JTextField();
+        ad_details_billofadmit = new javax.swing.JButton();
+        ad_details_registration = new javax.swing.JButton();
+        ad_details_admitpatient = new javax.swing.JButton();
+        ad_details_opt = new javax.swing.JButton();
+        ad_details_rooms = new javax.swing.JButton();
+        ad_details_doctor = new javax.swing.JButton();
+        ad_details_nurse = new javax.swing.JButton();
+        ad_details_receptionist = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        a_doctor_btn = new javax.swing.JButton();
+        a_nurse_btn = new javax.swing.JButton();
+        a_receptionist_btn = new javax.swing.JButton();
+        a_internall_btn = new javax.swing.JButton();
+        a_salay_btn = new javax.swing.JButton();
+        a_detail_btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(947, 708));
@@ -87,158 +93,183 @@ public class admin_details extends javax.swing.JFrame {
         timegetting.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         timegetting.setText("Time");
         jPanel4.add(timegetting);
-        timegetting.setBounds(440, 10, 120, 30);
+        timegetting.setBounds(510, 10, 120, 30);
 
         jPanel1.setBackground(new java.awt.Color(0, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(null);
 
-        jTextField4.setEditable(false);
-        jTextField4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField4.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jTextField4);
-        jTextField4.setBounds(260, 20, 140, 30);
+        registrationdate.setEditable(false);
+        registrationdate.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        registrationdate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(registrationdate);
+        registrationdate.setBounds(260, 20, 140, 30);
 
-        jButton8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton8.setText("Bill of Admit");
-        jButton8.setBorder(new javax.swing.border.MatteBorder(null));
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        ad_details_billofadmit.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        ad_details_billofadmit.setText("Bill of Admit");
+        ad_details_billofadmit.setBorder(new javax.swing.border.MatteBorder(null));
+        ad_details_billofadmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                ad_details_billofadmitActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton8);
-        jButton8.setBounds(380, 190, 160, 50);
+        jPanel1.add(ad_details_billofadmit);
+        ad_details_billofadmit.setBounds(380, 190, 160, 50);
 
-        jButton12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton12.setText("Registered Patient");
-        jButton12.setBorder(new javax.swing.border.MatteBorder(null));
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
+        ad_details_registration.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        ad_details_registration.setText("Registered Patient");
+        ad_details_registration.setBorder(new javax.swing.border.MatteBorder(null));
+        ad_details_registration.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
+                ad_details_registrationActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton12);
-        jButton12.setBounds(160, 120, 160, 50);
+        jPanel1.add(ad_details_registration);
+        ad_details_registration.setBounds(160, 120, 160, 50);
 
-        jButton18.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton18.setText("Admited Patient");
-        jButton18.setBorder(new javax.swing.border.MatteBorder(null));
-        jButton18.addActionListener(new java.awt.event.ActionListener() {
+        ad_details_admitpatient.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        ad_details_admitpatient.setText("Admited Patient");
+        ad_details_admitpatient.setBorder(new javax.swing.border.MatteBorder(null));
+        ad_details_admitpatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton18ActionPerformed(evt);
+                ad_details_admitpatientActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton18);
-        jButton18.setBounds(160, 190, 160, 50);
+        jPanel1.add(ad_details_admitpatient);
+        ad_details_admitpatient.setBounds(160, 190, 160, 50);
 
-        jButton19.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton19.setText("OPT");
-        jButton19.setBorder(new javax.swing.border.MatteBorder(null));
-        jButton19.addActionListener(new java.awt.event.ActionListener() {
+        ad_details_opt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        ad_details_opt.setText("OPT");
+        ad_details_opt.setBorder(new javax.swing.border.MatteBorder(null));
+        ad_details_opt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton19ActionPerformed(evt);
+                ad_details_optActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton19);
-        jButton19.setBounds(380, 120, 160, 50);
+        jPanel1.add(ad_details_opt);
+        ad_details_opt.setBounds(380, 120, 160, 50);
 
-        jButton20.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton20.setText("Rooms");
-        jButton20.setBorder(new javax.swing.border.MatteBorder(null));
-        jButton20.addActionListener(new java.awt.event.ActionListener() {
+        ad_details_rooms.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        ad_details_rooms.setText("Rooms");
+        ad_details_rooms.setBorder(new javax.swing.border.MatteBorder(null));
+        ad_details_rooms.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton20ActionPerformed(evt);
+                ad_details_roomsActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton20);
-        jButton20.setBounds(380, 260, 160, 50);
+        jPanel1.add(ad_details_rooms);
+        ad_details_rooms.setBounds(380, 260, 160, 50);
 
-        jButton15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton15.setText("Doctor");
-        jButton15.setBorder(new javax.swing.border.MatteBorder(null));
-        jButton15.addActionListener(new java.awt.event.ActionListener() {
+        ad_details_doctor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        ad_details_doctor.setText("Doctor");
+        ad_details_doctor.setBorder(new javax.swing.border.MatteBorder(null));
+        ad_details_doctor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton15ActionPerformed(evt);
+                ad_details_doctorActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton15);
-        jButton15.setBounds(160, 260, 160, 50);
+        jPanel1.add(ad_details_doctor);
+        ad_details_doctor.setBounds(160, 260, 160, 50);
 
-        jButton21.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton21.setText("Internal");
-        jButton21.setBorder(new javax.swing.border.MatteBorder(null));
-        jButton21.addActionListener(new java.awt.event.ActionListener() {
+        ad_details_nurse.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        ad_details_nurse.setText("Nurse");
+        ad_details_nurse.setBorder(new javax.swing.border.MatteBorder(null));
+        ad_details_nurse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton21ActionPerformed(evt);
+                ad_details_nurseActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton21);
-        jButton21.setBounds(160, 400, 160, 50);
+        jPanel1.add(ad_details_nurse);
+        ad_details_nurse.setBounds(380, 330, 160, 50);
 
-        jButton22.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton22.setText("Nurse");
-        jButton22.setBorder(new javax.swing.border.MatteBorder(null));
-        jButton22.addActionListener(new java.awt.event.ActionListener() {
+        ad_details_receptionist.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        ad_details_receptionist.setText("Receptionist");
+        ad_details_receptionist.setBorder(new javax.swing.border.MatteBorder(null));
+        ad_details_receptionist.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton22ActionPerformed(evt);
+                ad_details_receptionistActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton22);
-        jButton22.setBounds(380, 330, 160, 50);
-
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel2.setText("DETAILS");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(280, 70, 110, 40);
-
-        jButton23.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton23.setText("Receptionist");
-        jButton23.setBorder(new javax.swing.border.MatteBorder(null));
-        jButton23.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton23ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton23);
-        jButton23.setBounds(160, 330, 160, 50);
+        jPanel1.add(ad_details_receptionist);
+        ad_details_receptionist.setBounds(160, 330, 160, 50);
 
         jPanel4.add(jPanel1);
         jPanel1.setBounds(230, 160, 690, 500);
+
+        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel12.setText("All Details");
+        jPanel4.add(jLabel12);
+        jLabel12.setBounds(500, 120, 140, 40);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
         jPanel2.setLayout(null);
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton2.setText("Doctor");
-        jButton2.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton2);
-        jButton2.setBounds(10, 50, 190, 40);
+        a_doctor_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        a_doctor_btn.setText("Doctor");
+        a_doctor_btn.setBorder(new javax.swing.border.MatteBorder(null));
+        a_doctor_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_doctor_btnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(a_doctor_btn);
+        a_doctor_btn.setBounds(10, 50, 190, 40);
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton3.setText("Nurse");
-        jButton3.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton3);
-        jButton3.setBounds(10, 170, 190, 40);
+        a_nurse_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        a_nurse_btn.setText("Nurse");
+        a_nurse_btn.setBorder(new javax.swing.border.MatteBorder(null));
+        a_nurse_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_nurse_btnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(a_nurse_btn);
+        a_nurse_btn.setBounds(10, 170, 190, 40);
 
-        jButton9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton9.setText("Receptionist");
-        jButton9.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton9);
-        jButton9.setBounds(10, 110, 190, 40);
+        a_receptionist_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        a_receptionist_btn.setText("Receptionist");
+        a_receptionist_btn.setBorder(new javax.swing.border.MatteBorder(null));
+        a_receptionist_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_receptionist_btnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(a_receptionist_btn);
+        a_receptionist_btn.setBounds(10, 110, 190, 40);
 
-        jButton13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton13.setText("Details");
-        jButton13.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton13);
-        jButton13.setBounds(10, 290, 190, 40);
+        a_internall_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        a_internall_btn.setText("Internal");
+        a_internall_btn.setBorder(new javax.swing.border.MatteBorder(null));
+        a_internall_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_internall_btnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(a_internall_btn);
+        a_internall_btn.setBounds(10, 350, 190, 40);
 
-        jButton11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton11.setText("Salary");
-        jButton11.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel2.add(jButton11);
-        jButton11.setBounds(10, 230, 190, 40);
+        a_salay_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        a_salay_btn.setText("Salary");
+        a_salay_btn.setBorder(new javax.swing.border.MatteBorder(null));
+        a_salay_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_salay_btnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(a_salay_btn);
+        a_salay_btn.setBounds(10, 230, 190, 40);
+
+        a_detail_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        a_detail_btn.setText("Details");
+        a_detail_btn.setBorder(new javax.swing.border.MatteBorder(null));
+        a_detail_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_detail_btnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(a_detail_btn);
+        a_detail_btn.setBounds(10, 290, 190, 40);
 
         jPanel4.add(jPanel2);
         jPanel2.setBounds(10, 160, 210, 500);
@@ -250,65 +281,107 @@ public class admin_details extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
+    void showtime(){
+        new Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("hh:mm:ss a");
+            timegetting.setText(t.format(d));
+        }).start();   
+    }
+    
+    void showdate(){
+        new Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd");
+            registrationdate.setText(t.format(d));
+        }).start();
+        
+    }
+    
+    private void ad_details_optActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ad_details_optActionPerformed
         // TODO add your handling code here:
         admin_details_opt opt = new admin_details_opt();
         opt.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jButton19ActionPerformed
+    }//GEN-LAST:event_ad_details_optActionPerformed
 
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        // TODO add your handling code here:
+    private void ad_details_registrationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ad_details_registrationActionPerformed
         admin_details_registration ag = new admin_details_registration();
         ag.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jButton12ActionPerformed
+    }//GEN-LAST:event_ad_details_registrationActionPerformed
 
-    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-        // TODO add your handling code here:
+    private void ad_details_admitpatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ad_details_admitpatientActionPerformed
         admin_details_admit ada = new admin_details_admit();
         ada.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jButton18ActionPerformed
+    }//GEN-LAST:event_ad_details_admitpatientActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+    private void ad_details_billofadmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ad_details_billofadmitActionPerformed
         admin_details_billforadmit ab = new admin_details_billforadmit();
         ab.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_ad_details_billofadmitActionPerformed
 
-    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        // TODO add your handling code here:
+    private void ad_details_doctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ad_details_doctorActionPerformed
         admin_details_doctor ad = new admin_details_doctor();
         ad.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jButton15ActionPerformed
+    }//GEN-LAST:event_ad_details_doctorActionPerformed
 
-    private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
-        // TODO add your handling code here:
-        admin_details_receptionist ar = new admin_details_receptionist();
-        ar.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButton21ActionPerformed
-
-    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
-        // TODO add your handling code here:
+    private void ad_details_nurseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ad_details_nurseActionPerformed
         admin_details_nurse an = new admin_details_nurse();
         an.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jButton22ActionPerformed
+    }//GEN-LAST:event_ad_details_nurseActionPerformed
 
-    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
-        // TODO add your handling code here:
+    private void ad_details_roomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ad_details_roomsActionPerformed
         admin_details_rooms adr = new admin_details_rooms();
         adr.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jButton20ActionPerformed
+    }//GEN-LAST:event_ad_details_roomsActionPerformed
 
-    private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton23ActionPerformed
+    private void ad_details_receptionistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ad_details_receptionistActionPerformed
+        admin_details_receptionist adrr = new admin_details_receptionist();
+        adrr.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ad_details_receptionistActionPerformed
+
+    private void a_doctor_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_doctor_btnActionPerformed
+        admin_adddoctor add = new admin_adddoctor();
+        add.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_a_doctor_btnActionPerformed
+
+    private void a_nurse_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_nurse_btnActionPerformed
+        admin_addnurse ann = new admin_addnurse();
+        ann.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_a_nurse_btnActionPerformed
+
+    private void a_receptionist_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_receptionist_btnActionPerformed
+        admin_addreceptionist arr = new admin_addreceptionist();
+        arr.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_a_receptionist_btnActionPerformed
+
+    private void a_internall_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_internall_btnActionPerformed
+        admin_internal att = new admin_internal();
+        att.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_a_internall_btnActionPerformed
+
+    private void a_salay_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_salay_btnActionPerformed
+        admin_salary ass = new admin_salary();
+        ass.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_a_salay_btnActionPerformed
+
+    private void a_detail_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_detail_btnActionPerformed
+        admin_details adt = new admin_details();
+        adt.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_a_detail_btnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -343,28 +416,28 @@ public class admin_details extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton a_detail_btn;
+    private javax.swing.JButton a_doctor_btn;
+    private javax.swing.JButton a_internall_btn;
+    private javax.swing.JButton a_nurse_btn;
+    private javax.swing.JButton a_receptionist_btn;
+    private javax.swing.JButton a_salay_btn;
+    private javax.swing.JButton ad_details_admitpatient;
+    private javax.swing.JButton ad_details_billofadmit;
+    private javax.swing.JButton ad_details_doctor;
+    private javax.swing.JButton ad_details_nurse;
+    private javax.swing.JButton ad_details_opt;
+    private javax.swing.JButton ad_details_receptionist;
+    private javax.swing.JButton ad_details_registration;
+    private javax.swing.JButton ad_details_rooms;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton19;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton20;
-    private javax.swing.JButton jButton21;
-    private javax.swing.JButton jButton22;
-    private javax.swing.JButton jButton23;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField registrationdate;
     private javax.swing.JLabel timegetting;
     // End of variables declaration//GEN-END:variables
 }

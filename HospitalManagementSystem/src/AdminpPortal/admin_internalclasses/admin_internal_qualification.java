@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -61,7 +62,11 @@ public class admin_internal_qualification extends javax.swing.JFrame {
     public admin_internal_qualification() {
         initComponents();
         show_data();
-        qid_tv.setText(conn.getID("select count(qid) from Qualification"));
+        qal_amount_error.setVisible(false);
+        qal_name_error.setVisible(false);
+        Updatedata.setVisible(false);
+//        select * from Qualification ORDER BY qid DESC Fetch first 1 rows only;
+        qid_tv.setText(conn.getID("select * from Qualification ORDER BY qid DESC Fetch first 1 rows only"));
     }
 
     /**
@@ -93,7 +98,10 @@ public class admin_internal_qualification extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         adddata = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        allreset = new javax.swing.JButton();
+        qal_amount_error = new javax.swing.JLabel();
+        qal_name_error = new javax.swing.JLabel();
+        Updatedata = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         i_addqualification = new javax.swing.JButton();
         i_addroomcate = new javax.swing.JButton();
@@ -165,6 +173,11 @@ public class admin_internal_qualification extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        qualtable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                qualtableMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(qualtable);
@@ -247,11 +260,39 @@ public class admin_internal_qualification extends javax.swing.JFrame {
         jPanel1.add(adddata);
         adddata.setBounds(130, 410, 100, 30);
 
-        jButton4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton4.setText("Update");
-        jButton4.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton4);
-        jButton4.setBounds(250, 410, 100, 30);
+        allreset.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        allreset.setText("Reset");
+        allreset.setBorder(new javax.swing.border.MatteBorder(null));
+        allreset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                allresetActionPerformed(evt);
+            }
+        });
+        jPanel1.add(allreset);
+        allreset.setBounds(250, 100, 60, 30);
+
+        qal_amount_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        qal_amount_error.setForeground(new java.awt.Color(255, 0, 0));
+        qal_amount_error.setText("*");
+        jPanel1.add(qal_amount_error);
+        qal_amount_error.setBounds(320, 230, 10, 17);
+
+        qal_name_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        qal_name_error.setForeground(new java.awt.Color(255, 0, 0));
+        qal_name_error.setText("*");
+        jPanel1.add(qal_name_error);
+        qal_name_error.setBounds(320, 170, 10, 17);
+
+        Updatedata.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        Updatedata.setText("Update");
+        Updatedata.setBorder(new javax.swing.border.MatteBorder(null));
+        Updatedata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdatedataActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Updatedata);
+        Updatedata.setBounds(250, 410, 100, 30);
 
         jPanel4.add(jPanel1);
         jPanel1.setBounds(230, 160, 700, 500);
@@ -367,23 +408,88 @@ public class admin_internal_qualification extends javax.swing.JFrame {
 
     private void adddataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adddataActionPerformed
         Boolean chkempty = false;
-        if(qname_ed.getText().isEmpty() ){ chkempty = false; JOptionPane.showMessageDialog(null,"Please \nFill Qualification Name");}
-        if(qamount_ed.getText().isEmpty()){chkempty = false;JOptionPane.showMessageDialog(null,"Please \nFill Qualification Amount");}
+        if(qname_ed.getText().isEmpty() ){ chkempty = false; qal_name_error.setVisible(true);}
+        if(qamount_ed.getText().isEmpty()){chkempty = false; qal_amount_error.setVisible(true);}
         if(!qamount_ed.getText().isEmpty() && !qname_ed.getText().isEmpty()){ chkempty=true;}
+        if(chkempty==false){ JOptionPane.showMessageDialog(null, "Please Fill the Fileds");};
+        
         if(chkempty == true){
+            qal_name_error.setVisible(false);
+            qal_amount_error.setVisible(false);
             try{
-                conn.OpenConnection();//Integer.parseInt(qamount_ed.getText())
-//                String query = "INSERT INTO STUDENT VALUES("+'"name"'+","+'"surname"'+")"
-                String query="insert into dumy (qid,qname,qamount) values ("+1+",'"+qname_ed.getText()+"',"+Integer.parseInt(qamount_ed.getText())+")";
-                conn.InsertUpdateDelete(query);
-//                conn.pst.executeUpdate();
-               
-                  JOptionPane.showMessageDialog(null,"Successfully Inserted..!");
+                conn.OpenConnection();
+                String query="insert into Qualification (qname,qamount) values ('"+qname_ed.getText()+"',"+Integer.parseInt(qamount_ed.getText())+")";
+                int flag = conn.InsertUpdateDelete(query);
+                if(flag==1){
+                    JOptionPane.showMessageDialog(null,"Successfully Inserted..!");
+                    qname_ed.setText("");
+                    qamount_ed.setText("");
+                    DefaultTableModel model = (DefaultTableModel) qualtable.getModel();
+                    qid_tv.setText(conn.getID("select * from Qualification ORDER BY qid DESC Fetch first 1 rows only"));
+                    model.setRowCount(0);
+                    show_data();
                     conn.CloseConnection();
+                }
+                  
                 
             }catch( Exception e ){System.out.println(e);}
         }
     }//GEN-LAST:event_adddataActionPerformed
+
+    private void qualtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_qualtableMouseClicked
+        Updatedata.setVisible(true);
+        int i = qualtable.getSelectedRow();
+        TableModel model = qualtable.getModel();
+        qid_tv.setText(model.getValueAt(i,0).toString());
+        qname_ed.setText(model.getValueAt(i, 1).toString());
+        qamount_ed.setText(model.getValueAt(i, 2).toString());
+        adddata.setVisible(false);
+    }//GEN-LAST:event_qualtableMouseClicked
+
+    private void allresetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allresetActionPerformed
+        qid_tv.setText(conn.getID("select * from Qualification ORDER BY qid DESC Fetch first 1 rows only"));
+        qname_ed.setText("");
+        qamount_ed.setText("");
+        adddata.setVisible(true);
+        Updatedata.setVisible(false);
+    }//GEN-LAST:event_allresetActionPerformed
+
+    private void UpdatedataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdatedataActionPerformed
+        
+         Boolean chkempty = false;
+        if(qname_ed.getText().isEmpty() ){ chkempty = false; qal_name_error.setVisible(true);}
+        if(qamount_ed.getText().isEmpty()){chkempty = false; qal_amount_error.setVisible(true);}
+        if(!qamount_ed.getText().isEmpty() && !qname_ed.getText().isEmpty()){ chkempty=true;}
+        if(chkempty==false){ JOptionPane.showMessageDialog(null, "Please Fill the Fileds");};
+       
+        String qnameq=qname_ed.getText();
+        int qamountq = Integer.parseInt(qamount_ed.getText());
+       
+        if(chkempty == true){
+            try{
+            qal_name_error.setVisible(false);
+            qal_amount_error.setVisible(false);   
+            conn.OpenConnection();
+            int row = qualtable.getSelectedRow();
+            int value = Integer.parseInt((qualtable.getModel().getValueAt(row, 0).toString()));
+            String query = ("update Qualification set qname='"+qnameq+"' , qamount="+qamountq+" where qid="+value);
+            int flag = conn.InsertUpdateDelete(query);
+                if(flag==1){
+                    JOptionPane.showMessageDialog(null,"Successfully Updated..!");
+                    qname_ed.setText("");
+                    qamount_ed.setText("");
+                    DefaultTableModel model1 = (DefaultTableModel) qualtable.getModel();
+                    qid_tv.setText(conn.getID("select * from Qualification ORDER BY qid DESC Fetch first 1 rows only"));
+                    model1.setRowCount(0);
+                    show_data();
+                    adddata.setVisible(true);
+                    conn.CloseConnection();
+                    Updatedata.setVisible(false);
+                }
+            }catch(Exception e ){System.out.println(e);}
+        }
+        
+    }//GEN-LAST:event_UpdatedataActionPerformed
 
     /**
      * @param args the command line arguments
@@ -413,21 +519,20 @@ public class admin_internal_qualification extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new admin_internal_qualification().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new admin_internal_qualification().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Updatedata;
     private javax.swing.JButton adddata;
+    private javax.swing.JButton allreset;
     private javax.swing.JButton back;
     private javax.swing.JButton i_addqualification;
     private javax.swing.JButton i_addroomcate;
     private javax.swing.JButton i_addrooms;
     private javax.swing.JButton i_addward;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
@@ -442,6 +547,8 @@ public class admin_internal_qualification extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JLabel qal_amount_error;
+    private javax.swing.JLabel qal_name_error;
     private javax.swing.JTextField qamount_ed;
     private javax.swing.JTextField qid_tv;
     private javax.swing.JTextField qname_ed;

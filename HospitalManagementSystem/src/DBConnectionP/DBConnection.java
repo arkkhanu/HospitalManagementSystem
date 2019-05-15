@@ -69,7 +69,7 @@ public class DBConnection {
         
         
     }
-    
+//    select * from Qualification ORDER BY qid DESC Fetch first 1 rows only;
     public String getID(String q){
         int no=-1;
         try{

@@ -6,19 +6,62 @@
 package AdminpPortal.admin_internalclasses;
 
 import AdminpPortal.admin_internal;
+import DBConnectionP.DBConnection;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author AbdulRehman
  */
 public class admin_internal_qualification extends javax.swing.JFrame {
-
+        DBConnection conn = new DBConnection();
     /**
      * Creates new form admin_internal_qualification
      */
+    
+    private ArrayList<admin_internal_qualiclass> userlist(){
+        ArrayList<admin_internal_qualiclass> userList = new ArrayList<>();
+        try{
+            
+            conn.OpenConnection();
+//            for jtable descending order
+//            String selectquery="select * from Qualification";
+            String selectquery="select * from Qualification order by qid desc";
+            conn.GetData(selectquery);
+            admin_internal_qualiclass aiq; 
+            while(conn.rst.next()){
+                aiq = new admin_internal_qualiclass(
+                conn.rst.getInt("qid"),
+                conn.rst.getInt("qamount"),
+                conn.rst.getString("qname")
+                );
+                userList.add(aiq);
+            }
+        }catch(SQLException e ){System.out.println(e);}
+        return userList;
+    }
+    
+    private void show_data(){
+        ArrayList<admin_internal_qualiclass> list = userlist();
+        DefaultTableModel model = (DefaultTableModel) qualtable.getModel();
+        Object[] row = new Object[3];
+        for(int i=0 ; i<list.size() ; i++){
+            row[0] = list.get(i).getQid();
+            row[1] = list.get(i).getQname();
+            row[2] = list.get(i).getQamount();
+            model.addRow(row);
+        }
+     }
+    
+    
     public admin_internal_qualification() {
         initComponents();
+        show_data();
+        qid_tv.setText(conn.getID("select count(qid) from Qualification"));
     }
 
     /**
@@ -38,18 +81,18 @@ public class admin_internal_qualification extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jTextField4 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
+        qualtable = new javax.swing.JTable();
+        qid_tv = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         searching = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        qamount_ed = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
-        jTextField5 = new javax.swing.JTextField();
+        qname_ed = new javax.swing.JTextField();
         jButton7 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
+        adddata = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         i_addqualification = new javax.swing.JButton();
@@ -108,47 +151,33 @@ public class admin_internal_qualification extends javax.swing.JFrame {
         jPanel1.add(jTextField4);
         jTextField4.setBounds(230, 20, 140, 30);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        qualtable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "QID", "Cur-Qul", "Amt-P-Qul"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(qualtable);
 
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(420, 140, 270, 290);
 
-        jTextField1.setEditable(false);
-        jTextField1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField1);
-        jTextField1.setBounds(160, 100, 80, 30);
+        qid_tv.setEditable(false);
+        qid_tv.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        qid_tv.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        qid_tv.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(qid_tv);
+        qid_tv.setBounds(160, 100, 80, 30);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel2.setText("Qual-ID");
@@ -170,15 +199,15 @@ public class admin_internal_qualification extends javax.swing.JFrame {
         jPanel1.add(searching);
         searching.setBounds(420, 100, 70, 30);
 
-        jTextField3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+        qamount_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        qamount_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        qamount_ed.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField3KeyTyped(evt);
+                qamount_edKeyTyped(evt);
             }
         });
-        jPanel1.add(jTextField3);
-        jTextField3.setBounds(160, 220, 150, 30);
+        jPanel1.add(qamount_ed);
+        qamount_ed.setBounds(160, 220, 150, 30);
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel4.setText("Amount Per Qual");
@@ -191,10 +220,10 @@ public class admin_internal_qualification extends javax.swing.JFrame {
         jPanel1.add(jButton5);
         jButton5.setBounds(610, 100, 60, 30);
 
-        jTextField5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField5);
-        jTextField5.setBounds(160, 160, 150, 30);
+        qname_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        qname_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(qname_ed);
+        qname_ed.setBounds(160, 160, 150, 30);
 
         jButton7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jButton7.setText("Check");
@@ -207,11 +236,16 @@ public class admin_internal_qualification extends javax.swing.JFrame {
         jPanel1.add(jLabel5);
         jLabel5.setBounds(50, 100, 90, 30);
 
-        jButton6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton6.setText("Add");
-        jButton6.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton6);
-        jButton6.setBounds(130, 410, 100, 30);
+        adddata.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        adddata.setText("Add");
+        adddata.setBorder(new javax.swing.border.MatteBorder(null));
+        adddata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adddataActionPerformed(evt);
+            }
+        });
+        jPanel1.add(adddata);
+        adddata.setBounds(130, 410, 100, 30);
 
         jButton4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jButton4.setText("Update");
@@ -323,13 +357,33 @@ public class admin_internal_qualification extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_searchingKeyTyped
 
-    private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
+    private void qamount_edKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_qamount_edKeyTyped
        char c = evt.getKeyChar();
         if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
             getToolkit().beep();
             evt.consume();
         }
-    }//GEN-LAST:event_jTextField3KeyTyped
+    }//GEN-LAST:event_qamount_edKeyTyped
+
+    private void adddataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adddataActionPerformed
+        Boolean chkempty = false;
+        if(qname_ed.getText().isEmpty() ){ chkempty = false; JOptionPane.showMessageDialog(null,"Please \nFill Qualification Name");}
+        if(qamount_ed.getText().isEmpty()){chkempty = false;JOptionPane.showMessageDialog(null,"Please \nFill Qualification Amount");}
+        if(!qamount_ed.getText().isEmpty() && !qname_ed.getText().isEmpty()){ chkempty=true;}
+        if(chkempty == true){
+            try{
+                conn.OpenConnection();//Integer.parseInt(qamount_ed.getText())
+//                String query = "INSERT INTO STUDENT VALUES("+'"name"'+","+'"surname"'+")"
+                String query="insert into dumy (qid,qname,qamount) values ("+1+",'"+qname_ed.getText()+"',"+Integer.parseInt(qamount_ed.getText())+")";
+                conn.InsertUpdateDelete(query);
+//                conn.pst.executeUpdate();
+               
+                  JOptionPane.showMessageDialog(null,"Successfully Inserted..!");
+                    conn.CloseConnection();
+                
+            }catch( Exception e ){System.out.println(e);}
+        }
+    }//GEN-LAST:event_adddataActionPerformed
 
     /**
      * @param args the command line arguments
@@ -367,6 +421,7 @@ public class admin_internal_qualification extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton adddata;
     private javax.swing.JButton back;
     private javax.swing.JButton i_addqualification;
     private javax.swing.JButton i_addroomcate;
@@ -374,7 +429,6 @@ public class admin_internal_qualification extends javax.swing.JFrame {
     private javax.swing.JButton i_addward;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -387,11 +441,11 @@ public class admin_internal_qualification extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField qamount_ed;
+    private javax.swing.JTextField qid_tv;
+    private javax.swing.JTextField qname_ed;
+    private javax.swing.JTable qualtable;
     private javax.swing.JTextField searching;
     private javax.swing.JLabel timegetting;
     // End of variables declaration//GEN-END:variables

@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class receptionist_optdetail extends javax.swing.JFrame {
 
- /*  
+  
     public ArrayList<receptionist_optdetailjavaclass> userlist(){
         ArrayList<receptionist_optdetailjavaclass> userList = new ArrayList<>();
         try{
@@ -73,7 +73,7 @@ public class receptionist_optdetail extends javax.swing.JFrame {
             conn.CloseConnection();
         }catch(SQLException e ){System.out.println(e);}
     }
-    */
+    
     public receptionist_optdetail() {
         initComponents();
 //        show_user();

@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -23,6 +24,7 @@ public class DBConnection {
     private static Connection connection = null;
     public PreparedStatement pst = null;
     public ResultSet rst = null;
+    public Statement st = null;
     
     public Connection OpenConnection(){
         
@@ -67,6 +69,25 @@ public class DBConnection {
         
         
     }
+    
+    public String getID(String q){
+        int no=-1;
+        try{
+            DBConnection con = new DBConnection();
+            con.OpenConnection();
+            con.GetData(q);
+            while(con.rst.next()){
+                no=con.rst.getInt(1);
+            }
+            con.CloseConnection();
+            }catch(SQLException e ){System.out.println(e);}
+        no++;
+        return String.valueOf(no);
+        }
+        
+        
+        
+    
     
 //    public void getingdata(){
 //        

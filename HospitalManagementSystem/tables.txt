@@ -1,0 +1,19 @@
+SQL> create table Qualification(qid number primary key , qname varchar(20) not null , qamount number not null);
+
+Table created.
+
+SQL> create sequence Qualification_sequence
+  2  start with 1
+  3  increment by 1;
+
+Sequence created.
+
+SQL> create or replace trigger Qualification_trigger
+  2  before insert on Qualification
+  3  for each row
+  4  begin
+  5  select Qualification_sequence.nextval into :new.qid from dual;
+  6  end;
+  7  /
+
+Trigger created.

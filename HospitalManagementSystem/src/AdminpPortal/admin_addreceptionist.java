@@ -8,6 +8,7 @@ package AdminpPortal;
 
 import AdminpPortal.admin_detailsclasses.admin_details_opt;
 import DBConnectionP.DBConnection;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
@@ -27,6 +28,7 @@ public class admin_addreceptionist extends javax.swing.JFrame {
     String city=null;
     String gender=null;
     String qualif=null;
+    String dobirth=null;
     int cityid=-1;
     int genderid=-1;
     int qualid=-1;
@@ -531,6 +533,11 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         deletedata.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         deletedata.setText("Delete");
         deletedata.setBorder(new javax.swing.border.MatteBorder(null));
+        deletedata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deletedataActionPerformed(evt);
+            }
+        });
         jPanel1.add(deletedata);
         deletedata.setBounds(320, 450, 100, 30);
 
@@ -787,7 +794,7 @@ public class admin_addreceptionist extends javax.swing.JFrame {
     private void getagebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getagebtnActionPerformed
         try{
             SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd");
-            String dobirth = t.format(a_recdob_date.getDate());
+            dobirth = t.format(a_recdob_date.getDate());
             System.out.println(dobirth);
             String today=registrationdate.getText();
             long diff = -1;
@@ -834,8 +841,10 @@ public class admin_addreceptionist extends javax.swing.JFrame {
                 while(conn.rst.next()){
                 int    s1 = conn.rst.getInt("qid");
                 String s2 = conn.rst.getString("qname");
+                int    s3 = conn.rst.getInt("qamount");
                 if(s2.equals(qualif)){
                     qualid=s1;
+                    a_recsalary_et.setText(String.valueOf(s3*30));
 //                    System.out.println(s1 + " : " + s2 + " : " + qualid); 
                   }
                 }
@@ -907,9 +916,31 @@ public class admin_addreceptionist extends javax.swing.JFrame {
             _un_error.setVisible(false);
             _pss_error.setVisible(false);
             _sal_error.setVisible(false);
-            
-            String query="";
-            
+//create table Recept(rid number primary key , rfname varchar(20) not null, rlname varchar(20) not null 
+//, age number not null , dob date not null , sexid number not null, address varchar(50) not null , 
+//phno number (11) not null , cityid number not null , regdate date not null , username varchar(30) not null 
+//, pass varchar(30) not null , qid number not null , salery number(5) not null, foreign key(sexid) references Gender(gid),
+//foreign key(cityid) references City(cid) , foreign key(qid) references Qualification(qid));
+//            String query="insert into Recept(rid,rfname,rlname,age,dob,sexid,address"
+//                    + ",phno,cityid,regdate,username,pass,qid,salery) values ("
+//                    +1+" , '"+a_recfname_et.getText()+"' , '"+a_reclname_et.getText()+"' , "+a_recage_et.getText()
+//                    +" , '"+dobirth+"' , "+genderid+" , '"+a_recaddress_et.getText()+"' , "+a_recphoneno_et.getText()
+//                    +" , "+cityid+" , '"+registrationdate.getText()+"' , '"+a_recusername_et.getText()
+//                    +"' , '"+a_recpassword_et.getText()+"' , "+qualid+" , "+a_recsalary_et.getText()+")";
+            String query="insert into Recept(rid,rfname,rlname,age,dob,sexid,address"
+                    + ",phno,cityid,regdate,username,pass,qid,salery) values ("
+                    +2+" , '"+a_recfname_et.getText()+"' , '"+a_reclname_et.getText()+"' , "+a_recage_et.getText()
+                    +" , '1998-12-25' , "+genderid+" , '"+a_recaddress_et.getText()+"' , "+Long.getLong(a_recphoneno_et.getText())
+                    +" , "+cityid+" , '1998-12-25' , '"+a_recusername_et.getText()
+                    +"' , '"+a_recpassword_et.getText()+"' , "+qualid+" , "+a_recsalary_et.getText()+")";
+            try{
+                conn.OpenConnection();
+                int flag = conn.InsertUpdateDelete(query);
+                if(flag==1){
+                    JOptionPane.showMessageDialog(null,"Successfully Inserted..!");
+                }
+                conn.CloseConnection();
+            }catch(HeadlessException e){System.out.println(e);}
         
         }
         
@@ -929,6 +960,10 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         _pss_error.setVisible(false);
         _sal_error.setVisible(false);
     }//GEN-LAST:event_resetallActionPerformed
+
+    private void deletedataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletedataActionPerformed
+        System.out.println(a_recsalary_et.getText());
+    }//GEN-LAST:event_deletedataActionPerformed
 
     /**
      * @param args the command line arguments

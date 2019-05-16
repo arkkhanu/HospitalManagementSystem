@@ -7,10 +7,14 @@
 package AdminpPortal;
 
 import AdminpPortal.admin_detailsclasses.admin_details_opt;
+import DBConnectionP.DBConnection;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -19,11 +23,35 @@ import javax.swing.Timer;
  */
 public class admin_addreceptionist extends javax.swing.JFrame {
 
+    DBConnection conn = new DBConnection();
+    String city=null;
+    String gender=null;
+    String qualif=null;
+    int cityid=-1;
+    int genderid=-1;
+    int qualid=-1;
+    Boolean chkempty=false;
     
     public admin_addreceptionist() {
         initComponents();
+        _dob_error.setVisible(false);
+        _phone_error.setVisible(false);
+        _qal_error.setVisible(false);
+        _fname_error.setVisible(false);
+        _lname_error.setVisible(false);
+        _age_error.setVisible(false);
+        _gender_error.setVisible(false);
+        _city_error.setVisible(false);
+        _ads_error.setVisible(false);
+        _un_error.setVisible(false);
+        _pss_error.setVisible(false);
+        _sal_error.setVisible(false);
+        updatedata.setVisible(false);
         showtime();
         showdate();
+        getcitydata();
+        getgenderdata();
+        getqualifdata();
     }
 
     /** This method is called from within the constructor to
@@ -41,41 +69,55 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
+        getagebtn = new javax.swing.JButton();
+        adddata = new javax.swing.JButton();
+        updatedata = new javax.swing.JButton();
+        searchrec = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        a_reclname_et = new javax.swing.JTextField();
+        a_recfname_et = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         registrationdate = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        gender = new javax.swing.JComboBox<>();
+        a_recgender_combo = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
-        city1 = new javax.swing.JComboBox<>();
+        a_reccity_combo = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
+        a_recid_tv = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
+        a_recpassword_et = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
+        a_recusername_et = new javax.swing.JTextField();
+        a_recaddress_et = new javax.swing.JTextField();
         searching = new javax.swing.JTextField();
-        age = new javax.swing.JTextField();
-        salary = new javax.swing.JTextField();
-        qualification = new javax.swing.JComboBox<>();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        phoneno = new javax.swing.JTextField();
+        a_recage_et = new javax.swing.JTextField();
+        a_recsalary_et = new javax.swing.JTextField();
+        a_recqual_combo = new javax.swing.JComboBox<>();
+        a_recdob_date = new com.toedter.calendar.JDateChooser();
+        a_recphoneno_et = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        _fname_error = new javax.swing.JLabel();
+        _un_error = new javax.swing.JLabel();
+        _lname_error = new javax.swing.JLabel();
+        _age_error = new javax.swing.JLabel();
+        _city_error = new javax.swing.JLabel();
+        _gender_error = new javax.swing.JLabel();
+        _qal_error = new javax.swing.JLabel();
+        _phone_error = new javax.swing.JLabel();
+        _chk_error8 = new javax.swing.JLabel();
+        _ads_error = new javax.swing.JLabel();
+        _sal_error = new javax.swing.JLabel();
+        _pss_error = new javax.swing.JLabel();
+        _dob_error = new javax.swing.JLabel();
+        deletedata = new javax.swing.JButton();
+        resetall = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         a_doctor_btn = new javax.swing.JButton();
@@ -124,44 +166,54 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(null);
 
-        jButton4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton4.setText("Delete");
-        jButton4.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton4);
-        jButton4.setBounds(340, 450, 100, 30);
+        getagebtn.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        getagebtn.setText("Get");
+        getagebtn.setBorder(new javax.swing.border.MatteBorder(null));
+        getagebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getagebtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(getagebtn);
+        getagebtn.setBounds(160, 190, 60, 30);
 
-        jButton6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton6.setText("Add");
-        jButton6.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton6);
-        jButton6.setBounds(80, 450, 90, 30);
+        adddata.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        adddata.setText("Add");
+        adddata.setBorder(new javax.swing.border.MatteBorder(null));
+        adddata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adddataActionPerformed(evt);
+            }
+        });
+        jPanel1.add(adddata);
+        adddata.setBounds(90, 450, 90, 30);
 
-        jButton11.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton11.setText("Update");
-        jButton11.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton11);
-        jButton11.setBounds(210, 450, 100, 30);
+        updatedata.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        updatedata.setText("Update");
+        updatedata.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(updatedata);
+        updatedata.setBounds(200, 450, 100, 30);
 
-        jButton12.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton12.setText("Search");
-        jButton12.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton12);
-        jButton12.setBounds(600, 40, 90, 30);
+        searchrec.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        searchrec.setText("Search");
+        searchrec.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(searchrec);
+        searchrec.setBounds(610, 70, 70, 30);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel2.setText("L-Name");
         jPanel1.add(jLabel2);
         jLabel2.setBounds(30, 140, 50, 30);
 
-        jTextField2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField2);
-        jTextField2.setBounds(90, 140, 130, 30);
+        a_reclname_et.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        a_reclname_et.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(a_reclname_et);
+        a_reclname_et.setBounds(90, 140, 140, 30);
 
-        jTextField3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField3);
-        jTextField3.setBounds(90, 100, 130, 30);
+        a_recfname_et.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        a_recfname_et.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(a_recfname_et);
+        a_recfname_et.setBounds(90, 100, 140, 30);
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel4.setText("Recept ID");
@@ -170,9 +222,10 @@ public class admin_addreceptionist extends javax.swing.JFrame {
 
         registrationdate.setEditable(false);
         registrationdate.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        registrationdate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         registrationdate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel1.add(registrationdate);
-        registrationdate.setBounds(220, 20, 140, 30);
+        registrationdate.setBounds(220, 10, 140, 30);
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel5.setText("Age");
@@ -187,53 +240,59 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel9.setText("Ph NO");
         jPanel1.add(jLabel9);
-        jLabel9.setBounds(280, 140, 40, 30);
+        jLabel9.setBounds(270, 140, 40, 30);
 
-        gender.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        gender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gender" }));
-        jPanel1.add(gender);
-        gender.setBounds(130, 190, 90, 30);
+        a_recgender_combo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        a_recgender_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gender" }));
+        a_recgender_combo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_recgender_comboActionPerformed(evt);
+            }
+        });
+        jPanel1.add(a_recgender_combo);
+        a_recgender_combo.setBounds(330, 230, 130, 30);
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel10.setText("City");
         jPanel1.add(jLabel10);
         jLabel10.setBounds(40, 230, 30, 30);
 
-        city1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        city1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select City" }));
-        jPanel1.add(city1);
-        city1.setBounds(90, 230, 130, 30);
+        a_reccity_combo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        a_reccity_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select City" }));
+        a_reccity_combo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_reccity_comboActionPerformed(evt);
+            }
+        });
+        jPanel1.add(a_reccity_combo);
+        a_reccity_combo.setBounds(90, 230, 140, 30);
 
         jLabel15.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel15.setText("DOB");
         jPanel1.add(jLabel15);
-        jLabel15.setBounds(290, 100, 40, 30);
+        jLabel15.setBounds(280, 100, 30, 30);
 
-        jTextField10.setEditable(false);
-        jTextField10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField10.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField10);
-        jTextField10.setBounds(90, 60, 40, 30);
+        a_recid_tv.setEditable(false);
+        a_recid_tv.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        a_recid_tv.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        a_recid_tv.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(a_recid_tv);
+        a_recid_tv.setBounds(90, 60, 60, 30);
 
         jLabel16.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel16.setText("Qualification");
         jPanel1.add(jLabel16);
         jLabel16.setBounds(250, 190, 75, 30);
 
-        jTextField9.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField9.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField9);
-        jTextField9.setBounds(90, 350, 180, 30);
+        a_recpassword_et.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        a_recpassword_et.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(a_recpassword_et);
+        a_recpassword_et.setBounds(90, 350, 170, 30);
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel11.setText("Address");
         jPanel1.add(jLabel11);
         jLabel11.setBounds(30, 270, 50, 30);
-
-        jComboBox1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "@gmail.com", "@hotmail.com", "@outlook.com" }));
-        jPanel1.add(jComboBox1);
-        jComboBox1.setBounds(340, 310, 130, 30);
 
         jLabel14.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel14.setText("Password");
@@ -246,21 +305,22 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         jLabel17.setBounds(290, 350, 40, 30);
 
         jLabel12.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel12.setText("Email");
+        jLabel12.setText("Username");
         jPanel1.add(jLabel12);
-        jLabel12.setBounds(40, 310, 40, 30);
+        jLabel12.setBounds(20, 310, 60, 30);
 
-        jTextField8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField8.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField8);
-        jTextField8.setBounds(90, 310, 230, 30);
+        a_recusername_et.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        a_recusername_et.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(a_recusername_et);
+        a_recusername_et.setBounds(90, 310, 170, 30);
 
-        jTextField7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField7);
-        jTextField7.setBounds(90, 270, 380, 30);
+        a_recaddress_et.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        a_recaddress_et.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(a_recaddress_et);
+        a_recaddress_et.setBounds(90, 270, 370, 30);
 
         searching.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        searching.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         searching.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         searching.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -268,44 +328,51 @@ public class admin_addreceptionist extends javax.swing.JFrame {
             }
         });
         jPanel1.add(searching);
-        searching.setBounds(480, 40, 100, 30);
+        searching.setBounds(500, 70, 80, 30);
 
-        age.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        age.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        age.addKeyListener(new java.awt.event.KeyAdapter() {
+        a_recage_et.setEditable(false);
+        a_recage_et.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        a_recage_et.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        a_recage_et.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        a_recage_et.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                ageKeyTyped(evt);
+                a_recage_etKeyTyped(evt);
             }
         });
-        jPanel1.add(age);
-        age.setBounds(90, 190, 30, 30);
+        jPanel1.add(a_recage_et);
+        a_recage_et.setBounds(90, 190, 50, 30);
 
-        salary.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        salary.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        salary.addKeyListener(new java.awt.event.KeyAdapter() {
+        a_recsalary_et.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        a_recsalary_et.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        a_recsalary_et.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                salaryKeyTyped(evt);
+                a_recsalary_etKeyTyped(evt);
             }
         });
-        jPanel1.add(salary);
-        salary.setBounds(340, 350, 130, 30);
+        jPanel1.add(a_recsalary_et);
+        a_recsalary_et.setBounds(340, 350, 120, 30);
 
-        qualification.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        qualification.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Qual" }));
-        jPanel1.add(qualification);
-        qualification.setBounds(330, 190, 130, 30);
-        jPanel1.add(jDateChooser1);
-        jDateChooser1.setBounds(330, 100, 130, 30);
-
-        phoneno.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        phoneno.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        phoneno.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                phonenoKeyTyped(evt);
+        a_recqual_combo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        a_recqual_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Qual" }));
+        a_recqual_combo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_recqual_comboActionPerformed(evt);
             }
         });
-        jPanel1.add(phoneno);
-        phoneno.setBounds(330, 140, 130, 30);
+        jPanel1.add(a_recqual_combo);
+        a_recqual_combo.setBounds(330, 190, 130, 30);
+        jPanel1.add(a_recdob_date);
+        a_recdob_date.setBounds(320, 100, 140, 30);
+
+        a_recphoneno_et.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        a_recphoneno_et.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        a_recphoneno_et.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                a_recphoneno_etKeyTyped(evt);
+            }
+        });
+        jPanel1.add(a_recphoneno_et);
+        a_recphoneno_et.setBounds(320, 140, 140, 30);
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -368,7 +435,115 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jScrollPane1);
 
         jPanel1.add(jScrollPane2);
-        jScrollPane2.setBounds(480, 110, 200, 370);
+        jScrollPane2.setBounds(490, 110, 200, 370);
+
+        _fname_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _fname_error.setForeground(new java.awt.Color(255, 0, 0));
+        _fname_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _fname_error.setText("*");
+        jPanel1.add(_fname_error);
+        _fname_error.setBounds(230, 110, 20, 10);
+
+        _un_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _un_error.setForeground(new java.awt.Color(255, 0, 0));
+        _un_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _un_error.setText("*");
+        jPanel1.add(_un_error);
+        _un_error.setBounds(260, 320, 20, 10);
+
+        _lname_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _lname_error.setForeground(new java.awt.Color(255, 0, 0));
+        _lname_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _lname_error.setText("*");
+        jPanel1.add(_lname_error);
+        _lname_error.setBounds(230, 150, 20, 10);
+
+        _age_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _age_error.setForeground(new java.awt.Color(255, 0, 0));
+        _age_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _age_error.setText("*");
+        jPanel1.add(_age_error);
+        _age_error.setBounds(140, 200, 20, 10);
+
+        _city_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _city_error.setForeground(new java.awt.Color(255, 0, 0));
+        _city_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _city_error.setText("*");
+        jPanel1.add(_city_error);
+        _city_error.setBounds(230, 240, 20, 10);
+
+        _gender_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _gender_error.setForeground(new java.awt.Color(255, 0, 0));
+        _gender_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _gender_error.setText("*");
+        jPanel1.add(_gender_error);
+        _gender_error.setBounds(460, 240, 20, 10);
+
+        _qal_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _qal_error.setForeground(new java.awt.Color(255, 0, 0));
+        _qal_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _qal_error.setText("*");
+        jPanel1.add(_qal_error);
+        _qal_error.setBounds(460, 200, 20, 10);
+
+        _phone_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _phone_error.setForeground(new java.awt.Color(255, 0, 0));
+        _phone_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _phone_error.setText("*");
+        jPanel1.add(_phone_error);
+        _phone_error.setBounds(460, 150, 20, 10);
+
+        _chk_error8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _chk_error8.setForeground(new java.awt.Color(255, 0, 0));
+        _chk_error8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _chk_error8.setText("*");
+        jPanel1.add(_chk_error8);
+        _chk_error8.setBounds(580, 80, 20, 10);
+
+        _ads_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _ads_error.setForeground(new java.awt.Color(255, 0, 0));
+        _ads_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _ads_error.setText("*");
+        jPanel1.add(_ads_error);
+        _ads_error.setBounds(460, 280, 20, 10);
+
+        _sal_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _sal_error.setForeground(new java.awt.Color(255, 0, 0));
+        _sal_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _sal_error.setText("*");
+        jPanel1.add(_sal_error);
+        _sal_error.setBounds(460, 360, 20, 10);
+
+        _pss_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _pss_error.setForeground(new java.awt.Color(255, 0, 0));
+        _pss_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _pss_error.setText("*");
+        jPanel1.add(_pss_error);
+        _pss_error.setBounds(260, 360, 20, 10);
+
+        _dob_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _dob_error.setForeground(new java.awt.Color(255, 0, 0));
+        _dob_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _dob_error.setText("*");
+        jPanel1.add(_dob_error);
+        _dob_error.setBounds(460, 110, 20, 10);
+
+        deletedata.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        deletedata.setText("Delete");
+        deletedata.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(deletedata);
+        deletedata.setBounds(320, 450, 100, 30);
+
+        resetall.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        resetall.setText("Reset");
+        resetall.setBorder(new javax.swing.border.MatteBorder(null));
+        resetall.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetallActionPerformed(evt);
+            }
+        });
+        jPanel1.add(resetall);
+        resetall.setBounds(170, 60, 60, 30);
 
         jPanel4.add(jPanel1);
         jPanel1.setBounds(230, 160, 700, 500);
@@ -458,7 +633,46 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    void showtime(){
+    private void getgenderdata(){
+        try{
+            conn.OpenConnection();
+            String query="select * from Gender";
+            conn.GetData(query);
+            while(conn.rst.next()){
+                String gname =conn.rst.getString("gname");
+                a_recgender_combo.addItem(gname);
+            }
+            conn.CloseConnection();
+        }catch(SQLException e){ System.out.println(e);}
+    }
+    
+    private void getcitydata(){
+        try{
+            conn.OpenConnection();
+            String query="select * from City";
+            conn.GetData(query);
+            while(conn.rst.next()){
+                String gname =conn.rst.getString("cname");
+                a_reccity_combo.addItem(gname);
+            }
+            conn.CloseConnection();
+        }catch(SQLException e){ System.out.println(e);}
+    }
+    
+    private void getqualifdata(){
+        try{
+            conn.OpenConnection();
+            String query="select * from Qualification";
+            conn.GetData(query);
+            while(conn.rst.next()){
+                String gname =conn.rst.getString("qname");
+                a_recqual_combo.addItem(gname);
+            }
+            conn.CloseConnection();
+        }catch(SQLException e){ System.out.println(e);}
+    }
+    
+    private void showtime(){
         new Timer(0, (ActionEvent ae) -> {
             Date d = new Date();
             SimpleDateFormat t = new SimpleDateFormat("hh:mm:ss a");
@@ -466,7 +680,7 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         }).start();   
     }
     
-    void showdate(){
+    private void showdate(){
         new Timer(0, (ActionEvent ae) -> {
             Date d = new Date();
             SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd");
@@ -484,47 +698,47 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_searchingKeyTyped
 
-    private void ageKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ageKeyTyped
+    private void a_recage_etKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_a_recage_etKeyTyped
         char c = evt.getKeyChar();
         if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
             getToolkit().beep();
             evt.consume();
         }
 
-        if(age.getText().length() ==2 ){
+        if(a_recage_et.getText().length()==3 ){
             if((Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
                 getToolkit().beep();
                 evt.consume();
             }
         }
 
-        if(age.getText().length() == 2){
-            age.requestFocusInWindow();
+        if(a_recage_et.getText().length() ==3){
+            a_recage_et.requestFocusInWindow();
 
         }
-    }//GEN-LAST:event_ageKeyTyped
+    }//GEN-LAST:event_a_recage_etKeyTyped
 
-    private void phonenoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phonenoKeyTyped
+    private void a_recphoneno_etKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_a_recphoneno_etKeyTyped
         char c = evt.getKeyChar();
         if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
             getToolkit().beep();
             evt.consume();
         }
 
-        if(phoneno.getText().length() ==11 ){
+        if(a_recphoneno_et.getText().length() ==11 ){
             if((Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
                 getToolkit().beep();
                 evt.consume();
             }
         }
 
-        if(phoneno.getText().length() == 11){
-            phoneno.requestFocusInWindow();
+        if(a_recphoneno_et.getText().length() == 11 ){
+            a_recphoneno_et.requestFocusInWindow();
 
         }
-    }//GEN-LAST:event_phonenoKeyTyped
+    }//GEN-LAST:event_a_recphoneno_etKeyTyped
 
-    private void salaryKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_salaryKeyTyped
+    private void a_recsalary_etKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_a_recsalary_etKeyTyped
 
         char c = evt.getKeyChar();
         if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
@@ -532,7 +746,7 @@ public class admin_addreceptionist extends javax.swing.JFrame {
             evt.consume();
         }
 
-    }//GEN-LAST:event_salaryKeyTyped
+    }//GEN-LAST:event_a_recsalary_etKeyTyped
 
     private void a_doctor_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_doctor_btnActionPerformed
         admin_adddoctor add = new admin_adddoctor();
@@ -570,6 +784,152 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_a_detail_btnActionPerformed
 
+    private void getagebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getagebtnActionPerformed
+        try{
+            SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd");
+            String dobirth = t.format(a_recdob_date.getDate());
+            System.out.println(dobirth);
+            String today=registrationdate.getText();
+            long diff = -1;
+            Date d1 = t.parse(dobirth);
+            Date d2 = t.parse(today);
+            diff = d2.getYear()-d1.getYear();
+            String totaldays = String.valueOf(diff);
+            a_recage_et.setText(totaldays);
+            if(dobirth.equals("")){ _dob_error.setVisible(true);}
+        }catch(NullPointerException | ParseException e){System.out.println(e);_dob_error.setVisible(true);}
+    }//GEN-LAST:event_getagebtnActionPerformed
+
+    private void a_recgender_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_recgender_comboActionPerformed
+        if(a_recgender_combo.getSelectedItem().equals("Gender")){gender=null;}
+        else{
+            _gender_error.setVisible(false);
+            gender=String.valueOf(a_recgender_combo.getSelectedItem());
+            try{
+                conn.OpenConnection();
+                String query= "select * from Gender";
+                conn.GetData(query);
+                while(conn.rst.next()){
+                int    s1 = conn.rst.getInt("gid");
+                String s2 = conn.rst.getString("gname");
+                if(s2.equals(gender)){
+                    genderid=s1;
+//                    System.out.println(s1 + " : " + s2 + " : " + genderid); 
+                  }
+                }
+                conn.CloseConnection();
+            }catch(SQLException e){System.out.println(e);}
+        }
+    }//GEN-LAST:event_a_recgender_comboActionPerformed
+
+    private void a_recqual_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_recqual_comboActionPerformed
+        if(a_recqual_combo.getSelectedItem().equals("Select Qual")){ qualif=null;}
+        else{
+            _qal_error.setVisible(false);
+            qualif=String.valueOf(a_recqual_combo.getSelectedItem());
+            try{
+                conn.OpenConnection();
+                String query= "select * from Qualification";
+                conn.GetData(query);
+                while(conn.rst.next()){
+                int    s1 = conn.rst.getInt("qid");
+                String s2 = conn.rst.getString("qname");
+                if(s2.equals(qualif)){
+                    qualid=s1;
+//                    System.out.println(s1 + " : " + s2 + " : " + qualid); 
+                  }
+                }
+                conn.CloseConnection();
+            }catch(SQLException e){System.out.println(e);}
+        }
+    }//GEN-LAST:event_a_recqual_comboActionPerformed
+
+    private void a_reccity_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_reccity_comboActionPerformed
+        if(a_reccity_combo.getSelectedItem().equals("Select City")){city=null;}
+        else{
+            _city_error.setVisible(false);
+            city=String.valueOf(a_reccity_combo.getSelectedItem());
+            try{
+                conn.OpenConnection();
+                String query= "select * from City";
+                conn.GetData(query);
+                while(conn.rst.next()){
+                int    s1 = conn.rst.getInt("cid");
+                String s2 = conn.rst.getString("cname");
+                if(s2.equals(city)){
+                    cityid=s1;
+//                    System.out.println(s1 + " : " + s2 + " : " + cityid); 
+                  }
+                }
+                conn.CloseConnection();
+            }catch(SQLException e){System.out.println(e);}
+        }
+    }//GEN-LAST:event_a_reccity_comboActionPerformed
+
+    private void adddataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adddataActionPerformed
+        Boolean emptyfiled=false;
+        if(a_recfname_et.getText().equals("")){ emptyfiled=false;_fname_error.setVisible(true);}
+        if(a_reclname_et.getText().equals("")){ emptyfiled=false;_lname_error.setVisible(true);}
+        if(a_recage_et.getText().equals("")){ emptyfiled=false;_age_error.setVisible(true);_dob_error.setVisible(true);}
+        if(a_recaddress_et.getText().equals("")){ emptyfiled=false;_ads_error.setVisible(true);}
+        if(a_recgender_combo.getSelectedItem().equals("Gender")){ emptyfiled=false;_gender_error.setVisible(true);}
+        if(a_reccity_combo.getSelectedItem().equals("Select City")){ emptyfiled=false;_city_error.setVisible(true);}
+        if(a_recqual_combo.getSelectedItem().equals("Select Qual")){ emptyfiled=false;_qal_error.setVisible(true);}
+        if(a_recphoneno_et.getText().equals("")){ emptyfiled=false;_phone_error.setVisible(true);}
+        if(a_recusername_et.getText().equals("")){ emptyfiled=false;_un_error.setVisible(true);}
+        if(a_recpassword_et.getText().equals("")){ emptyfiled=false;_pss_error.setVisible(true);}
+        if(a_recsalary_et.getText().equals("")){ emptyfiled=false;_sal_error.setVisible(true);}
+        
+        if(!a_recfname_et.getText().isEmpty()
+                && !a_reclname_et.getText().isEmpty()
+                && !a_recage_et.getText().isEmpty()
+                && !a_recaddress_et.getText().isEmpty()
+                && !a_recgender_combo.getSelectedItem().equals("Gender")
+                && !a_reccity_combo.getSelectedItem().equals("Select City")
+                && !a_recqual_combo.getSelectedItem().equals("Select Qual")
+                && !a_recphoneno_et.getText().isEmpty()
+                && !a_recusername_et.getText().isEmpty()
+                && !a_recpassword_et.getText().isEmpty()
+                && !a_recsalary_et.getText().isEmpty()
+                ){emptyfiled=true;}
+        if(emptyfiled == false){JOptionPane.showMessageDialog(null, "Please Fill the Fileds");}
+        
+        if(emptyfiled == true){
+            _dob_error.setVisible(false);
+            _phone_error.setVisible(false);
+            _qal_error.setVisible(false);
+            _fname_error.setVisible(false);
+            _lname_error.setVisible(false);
+            _age_error.setVisible(false);
+            _gender_error.setVisible(false);
+            _city_error.setVisible(false);
+            _ads_error.setVisible(false);
+            _un_error.setVisible(false);
+            _pss_error.setVisible(false);
+            _sal_error.setVisible(false);
+            
+            String query="";
+            
+        
+        }
+        
+    }//GEN-LAST:event_adddataActionPerformed
+
+    private void resetallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetallActionPerformed
+        _dob_error.setVisible(false);
+        _phone_error.setVisible(false);
+        _qal_error.setVisible(false);
+        _fname_error.setVisible(false);
+        _lname_error.setVisible(false);
+        _age_error.setVisible(false);
+        _gender_error.setVisible(false);
+        _city_error.setVisible(false);
+        _ads_error.setVisible(false);
+        _un_error.setVisible(false);
+        _pss_error.setVisible(false);
+        _sal_error.setVisible(false);
+    }//GEN-LAST:event_resetallActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -592,22 +952,42 @@ public class admin_addreceptionist extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel _ads_error;
+    private javax.swing.JLabel _age_error;
+    private javax.swing.JLabel _chk_error8;
+    private javax.swing.JLabel _city_error;
+    private javax.swing.JLabel _dob_error;
+    private javax.swing.JLabel _fname_error;
+    private javax.swing.JLabel _gender_error;
+    private javax.swing.JLabel _lname_error;
+    private javax.swing.JLabel _phone_error;
+    private javax.swing.JLabel _pss_error;
+    private javax.swing.JLabel _qal_error;
+    private javax.swing.JLabel _sal_error;
+    private javax.swing.JLabel _un_error;
     private javax.swing.JButton a_detail_btn;
     private javax.swing.JButton a_doctor_btn;
     private javax.swing.JButton a_internall_btn;
     private javax.swing.JButton a_nurse_btn;
+    private javax.swing.JTextField a_recaddress_et;
+    private javax.swing.JTextField a_recage_et;
+    private javax.swing.JComboBox<String> a_reccity_combo;
+    private com.toedter.calendar.JDateChooser a_recdob_date;
     private javax.swing.JButton a_receptionist_btn;
+    private javax.swing.JTextField a_recfname_et;
+    private javax.swing.JComboBox<String> a_recgender_combo;
+    private javax.swing.JTextField a_recid_tv;
+    private javax.swing.JTextField a_reclname_et;
+    private javax.swing.JTextField a_recpassword_et;
+    private javax.swing.JTextField a_recphoneno_et;
+    private javax.swing.JComboBox<String> a_recqual_combo;
+    private javax.swing.JTextField a_recsalary_et;
+    private javax.swing.JTextField a_recusername_et;
     private javax.swing.JButton a_salay_btn;
-    private javax.swing.JTextField age;
-    private javax.swing.JComboBox<String> city1;
-    private javax.swing.JComboBox<String> gender;
+    private javax.swing.JButton adddata;
+    private javax.swing.JButton deletedata;
+    private javax.swing.JButton getagebtn;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -629,18 +1009,12 @@ public class admin_addreceptionist extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
-    private javax.swing.JTextField phoneno;
-    private javax.swing.JComboBox<String> qualification;
     private javax.swing.JTextField registrationdate;
-    private javax.swing.JTextField salary;
+    private javax.swing.JButton resetall;
     private javax.swing.JTextField searching;
+    private javax.swing.JButton searchrec;
     private javax.swing.JLabel timegetting;
+    private javax.swing.JButton updatedata;
     // End of variables declaration//GEN-END:variables
 
 }

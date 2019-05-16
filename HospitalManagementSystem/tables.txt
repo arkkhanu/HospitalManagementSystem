@@ -111,3 +111,6 @@ SQL> insert into City values(6 , 'Notknow');
 
 //////////////////////////////////////////////////////////////
 
+SQL> create table Recept(rid number primary key , rfname varchar(20) not null, rlname varchar(20) not null , age number not null , dob date not null , sexid number not null, address varchar(50) not null , phno number (11) not null , cityid number not null , regdate date not null , username varchar(30) not null , pass varchar(30) not null , qid number not null , salery number(5) not null, foreign key(sexid) references Gender(gid), foreign key(cityid) references City(cid) , foreign key(qid) references Qualification(qid));
+
+Table created.

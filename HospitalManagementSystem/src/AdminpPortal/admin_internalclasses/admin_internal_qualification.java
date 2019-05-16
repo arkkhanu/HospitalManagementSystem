@@ -7,10 +7,14 @@ package AdminpPortal.admin_internalclasses;
 
 import AdminpPortal.admin_internal;
 import DBConnectionP.DBConnection;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -19,13 +23,33 @@ import javax.swing.table.TableModel;
  * @author AbdulRehman
  */
 public class admin_internal_qualification extends javax.swing.JFrame {
+        
+    
         DBConnection conn = new DBConnection();
+    
+    
     /**
      * Creates new form admin_internal_qualification
      */
     
-    private ArrayList<admin_internal_qualiclass> userlist(){
-        ArrayList<admin_internal_qualiclass> userList = new ArrayList<>();
+    void showtime(){
+        new Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("hh:mm:ss a");
+            timegetting.setText(t.format(d));
+        }).start();   
+    }
+    
+    void showdate(){
+        new Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd");
+            registrationdate.setText(t.format(d));
+        }).start();
+    }    
+        
+    private ArrayList<admin_internal_classes.qualiclass> userlist(){
+        ArrayList<admin_internal_classes.qualiclass> userList = new ArrayList<>();
         try{
             
             conn.OpenConnection();
@@ -33,9 +57,11 @@ public class admin_internal_qualification extends javax.swing.JFrame {
 //            String selectquery="select * from Qualification";
             String selectquery="select * from Qualification order by qid desc";
             conn.GetData(selectquery);
-            admin_internal_qualiclass aiq; 
+            admin_internal_classes aic = new admin_internal_classes();
+            admin_internal_classes.qualiclass aiq ;
+//admin_internal_qualiclass aiq; 
             while(conn.rst.next()){
-                aiq = new admin_internal_qualiclass(
+                aiq = aic.new qualiclass(
                 conn.rst.getInt("qid"),
                 conn.rst.getInt("qamount"),
                 conn.rst.getString("qname")
@@ -47,7 +73,7 @@ public class admin_internal_qualification extends javax.swing.JFrame {
     }
     
     private void show_data(){
-        ArrayList<admin_internal_qualiclass> list = userlist();
+        ArrayList<admin_internal_classes.qualiclass> list = userlist();
         DefaultTableModel model = (DefaultTableModel) qualtable.getModel();
         Object[] row = new Object[3];
         for(int i=0 ; i<list.size() ; i++){
@@ -62,6 +88,8 @@ public class admin_internal_qualification extends javax.swing.JFrame {
     public admin_internal_qualification() {
         initComponents();
         show_data();
+        showdate();
+        showtime();
         qal_amount_error.setVisible(false);
         qal_name_error.setVisible(false);
         Updatedata.setVisible(false);
@@ -84,7 +112,7 @@ public class admin_internal_qualification extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jTextField4 = new javax.swing.JTextField();
+        registrationdate = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         qualtable = new javax.swing.JTable();
         qid_tv = new javax.swing.JTextField();
@@ -153,11 +181,12 @@ public class admin_internal_qualification extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(null);
 
-        jTextField4.setEditable(false);
-        jTextField4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField4);
-        jTextField4.setBounds(230, 20, 140, 30);
+        registrationdate.setEditable(false);
+        registrationdate.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        registrationdate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        registrationdate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(registrationdate);
+        registrationdate.setBounds(230, 20, 140, 30);
 
         qualtable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -411,7 +440,7 @@ public class admin_internal_qualification extends javax.swing.JFrame {
         if(qname_ed.getText().isEmpty() ){ chkempty = false; qal_name_error.setVisible(true);}
         if(qamount_ed.getText().isEmpty()){chkempty = false; qal_amount_error.setVisible(true);}
         if(!qamount_ed.getText().isEmpty() && !qname_ed.getText().isEmpty()){ chkempty=true;}
-        if(chkempty==false){ JOptionPane.showMessageDialog(null, "Please Fill the Fileds");};
+        if(chkempty==false){ JOptionPane.showMessageDialog(null, "Please Fill the Fileds");}
         
         if(chkempty == true){
             qal_name_error.setVisible(false);
@@ -430,8 +459,6 @@ public class admin_internal_qualification extends javax.swing.JFrame {
                     show_data();
                     conn.CloseConnection();
                 }
-                  
-                
             }catch( Exception e ){System.out.println(e);}
         }
     }//GEN-LAST:event_adddataActionPerformed
@@ -450,17 +477,19 @@ public class admin_internal_qualification extends javax.swing.JFrame {
         qid_tv.setText(conn.getID("select * from Qualification ORDER BY qid DESC Fetch first 1 rows only"));
         qname_ed.setText("");
         qamount_ed.setText("");
+        qal_amount_error.setVisible(false);
+        qal_name_error.setVisible(false);
         adddata.setVisible(true);
         Updatedata.setVisible(false);
     }//GEN-LAST:event_allresetActionPerformed
 
     private void UpdatedataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdatedataActionPerformed
         
-         Boolean chkempty = false;
+        Boolean chkempty = false;
         if(qname_ed.getText().isEmpty() ){ chkempty = false; qal_name_error.setVisible(true);}
         if(qamount_ed.getText().isEmpty()){chkempty = false; qal_amount_error.setVisible(true);}
         if(!qamount_ed.getText().isEmpty() && !qname_ed.getText().isEmpty()){ chkempty=true;}
-        if(chkempty==false){ JOptionPane.showMessageDialog(null, "Please Fill the Fileds");};
+        if(chkempty==false){ JOptionPane.showMessageDialog(null, "Please Fill the Fileds");}
        
         String qnameq=qname_ed.getText();
         int qamountq = Integer.parseInt(qamount_ed.getText());
@@ -546,13 +575,13 @@ public class admin_internal_qualification extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel qal_amount_error;
     private javax.swing.JLabel qal_name_error;
     private javax.swing.JTextField qamount_ed;
     private javax.swing.JTextField qid_tv;
     private javax.swing.JTextField qname_ed;
     private javax.swing.JTable qualtable;
+    private javax.swing.JTextField registrationdate;
     private javax.swing.JTextField searching;
     private javax.swing.JLabel timegetting;
     // End of variables declaration//GEN-END:variables

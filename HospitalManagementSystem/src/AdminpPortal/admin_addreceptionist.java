@@ -41,8 +41,6 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jButton4 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
@@ -53,13 +51,11 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         registrationdate = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         gender = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         city1 = new javax.swing.JComboBox<>();
-        qualification = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
         jTextField10 = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
@@ -73,8 +69,13 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         jTextField7 = new javax.swing.JTextField();
         searching = new javax.swing.JTextField();
         age = new javax.swing.JTextField();
-        phoneno = new javax.swing.JTextField();
         salary = new javax.swing.JTextField();
+        qualification = new javax.swing.JComboBox<>();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        phoneno = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         a_doctor_btn = new javax.swing.JButton();
@@ -122,47 +123,6 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(null);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "RID", "R-F-Name", "R-L-Name"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
-
-        jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(480, 80, 210, 360);
 
         jButton4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jButton4.setText("Delete");
@@ -218,8 +178,6 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         jLabel5.setText("Age");
         jPanel1.add(jLabel5);
         jLabel5.setBounds(50, 190, 30, 30);
-        jPanel1.add(jDateChooser1);
-        jDateChooser1.setBounds(340, 100, 130, 30);
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel8.setText("F-Name");
@@ -245,11 +203,6 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         city1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select City" }));
         jPanel1.add(city1);
         city1.setBounds(90, 230, 130, 30);
-
-        qualification.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        qualification.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Qual" }));
-        jPanel1.add(qualification);
-        qualification.setBounds(340, 190, 130, 30);
 
         jLabel15.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel15.setText("DOB");
@@ -327,6 +280,23 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         jPanel1.add(age);
         age.setBounds(90, 190, 30, 30);
 
+        salary.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        salary.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        salary.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                salaryKeyTyped(evt);
+            }
+        });
+        jPanel1.add(salary);
+        salary.setBounds(340, 350, 130, 30);
+
+        qualification.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        qualification.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Qual" }));
+        jPanel1.add(qualification);
+        qualification.setBounds(330, 190, 130, 30);
+        jPanel1.add(jDateChooser1);
+        jDateChooser1.setBounds(330, 100, 130, 30);
+
         phoneno.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         phoneno.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         phoneno.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -337,15 +307,68 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         jPanel1.add(phoneno);
         phoneno.setBounds(330, 140, 130, 30);
 
-        salary.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        salary.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        salary.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                salaryKeyTyped(evt);
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        jPanel1.add(salary);
-        salary.setBounds(340, 350, 130, 30);
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(100);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setResizable(false);
+            jTable1.getColumnModel().getColumn(5).setResizable(false);
+        }
+
+        jScrollPane2.setViewportView(jScrollPane1);
+
+        jPanel1.add(jScrollPane2);
+        jScrollPane2.setBounds(480, 110, 200, 370);
 
         jPanel4.add(jPanel1);
         jPanel1.setBounds(230, 160, 700, 500);
@@ -604,6 +627,7 @@ public class admin_addreceptionist extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField2;

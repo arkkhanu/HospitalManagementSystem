@@ -1,3 +1,6 @@
+
+///////////////////////////////////////////////////////////////
+
 SQL> create table Qualification(qid number primary key , qname varchar(20) not null , qamount number not null);
 
 Table created.
@@ -8,12 +11,103 @@ SQL> create sequence Qualification_sequence
 
 Sequence created.
 
-SQL> create or replace trigger Qualification_trigger
-  2  before insert on Qualification
-  3  for each row
-  4  begin
-  5  select Qualification_sequence.nextval into :new.qid from dual;
-  6  end;
-  7  /
+SQL>
 
 Trigger created.
+
+//////////////////////////////////////////////////////////////
+
+SQL> create table RoomCategory(rcid number primary key , rcatname varchar(20) not null , ramount number not null );
+
+Table created.
+
+SQL> create sequence RoomCategory_sequence
+  2  start with 1
+  3  increment by 1;
+
+Sequence created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create or replace trigger RoomCategory_trigger
+  2  before insert on RoomCategory
+  3  for each row
+  4  begin
+  5  select RoomCategory_sequence.nextval into :new.rcid from dual;
+  6* end;
+SQL> /
+
+Trigger created.
+
+//////////////////////////////////////////////////////////////
+
+SQL> create table DeptWard(wid number primary key , wname varchar(20) not null );
+
+Table created.
+
+SQL> create sequence DeptWard_sequence
+  2  start with 1
+  3  increment by 1;
+
+Sequence created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create or replace trigger DeptWard_trigger
+  2  before insert on DeptWard
+  3  for each row
+  4  begin
+  5  select DeptWard_sequence.nextval into :new.wid from dual;
+  6* end;
+SQL> /
+
+Trigger created.
+
+//////////////////////////////////////////////////////////////
+
+SQL> create table Gender(gid number primary key , gname varchar(7) not null);
+
+Table created.
+
+SQL> insert into Gender values(1 , 'Male');
+
+1 row created.
+SQL> insert into Gender values(2 , 'Female');
+
+1 row created.
+
+SQL> insert into Gender values(3 , 'Others');
+
+1 row created.
+
+SQL> create table City(cid number primary key , cname varchar(25) not null);
+
+Table created.
+SQL> insert into City values(1 , 'Karachi');
+
+1 row created.
+
+SQL> insert into City values(2 , 'Hyderabad');
+
+1 row created.
+
+SQL> insert into City values(3 , 'Lahore');
+
+1 row created.
+
+SQL> insert into City values(4 , 'Peshawar');
+
+1 row created.
+
+SQL> insert into City values(5 , 'Islamabad');
+
+1 row created.
+
+SQL> insert into City values(6 , 'Notknow');
+
+1 row created.
+
+//////////////////////////////////////////////////////////////
+

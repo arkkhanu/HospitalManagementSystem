@@ -6,7 +6,17 @@
 package AdminpPortal.admin_internalclasses;
 
 import AdminpPortal.admin_internal;
+import DBConnectionP.DBConnection;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -14,11 +24,18 @@ import java.awt.event.KeyEvent;
  */
 public class admin_internal_roomcate extends javax.swing.JFrame {
 
-    /**
-     * Creates new form admin_internal_roomcate
-     */
+    DBConnection conn = new DBConnection();
+     
     public admin_internal_roomcate() {
         initComponents();
+        showdate();
+        showtime();
+        show_data();
+        _amount_error.setVisible(false);
+        _cat_error.setVisible(false);
+        updatadata.setVisible(false);
+        rc_rcid_tv.setText(conn.getID("select * from RoomCategory ORDER BY rcid DESC Fetch first 1 rows only"));
+        
     }
 
     /**
@@ -34,21 +51,24 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jTextField4 = new javax.swing.JTextField();
+        registrationdate = new javax.swing.JTextField();
         jButton7 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        _resetID = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        catetable = new javax.swing.JTable();
+        r_cate_et = new javax.swing.JTextField();
+        r_amount_et = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        rc_rcid_tv = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        updatadata = new javax.swing.JButton();
+        adddata = new javax.swing.JButton();
         searching = new javax.swing.JTextField();
+        _cat_error = new javax.swing.JLabel();
+        _amount_error = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         back = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
@@ -81,11 +101,12 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(null);
 
-        jTextField4.setEditable(false);
-        jTextField4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField4);
-        jTextField4.setBounds(240, 20, 140, 30);
+        registrationdate.setEditable(false);
+        registrationdate.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        registrationdate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        registrationdate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(registrationdate);
+        registrationdate.setBounds(240, 20, 140, 30);
 
         jButton7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jButton7.setText("Check");
@@ -93,30 +114,20 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
         jPanel1.add(jButton7);
         jButton7.setBounds(520, 100, 60, 30);
 
-        jButton5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton5.setText("Reset");
-        jButton5.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton5);
-        jButton5.setBounds(610, 100, 60, 30);
+        _resetID.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        _resetID.setText("Reset");
+        _resetID.setBorder(new javax.swing.border.MatteBorder(null));
+        _resetID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                _resetIDActionPerformed(evt);
+            }
+        });
+        jPanel1.add(_resetID);
+        _resetID.setBounds(250, 100, 60, 30);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        catetable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "CateID", "Category", "Amt-P-Cate"
@@ -130,25 +141,30 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        catetable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                catetableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(catetable);
 
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(420, 140, 270, 290);
 
-        jTextField5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField5);
-        jTextField5.setBounds(160, 160, 150, 30);
+        r_cate_et.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        r_cate_et.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(r_cate_et);
+        r_cate_et.setBounds(160, 160, 150, 30);
 
-        jTextField3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+        r_amount_et.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        r_amount_et.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        r_amount_et.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField3KeyTyped(evt);
+                r_amount_etKeyTyped(evt);
             }
         });
-        jPanel1.add(jTextField3);
-        jTextField3.setBounds(160, 220, 150, 30);
+        jPanel1.add(r_amount_et);
+        r_amount_et.setBounds(160, 220, 150, 30);
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel4.setText("Amount Per Cate");
@@ -165,28 +181,39 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
         jPanel1.add(jLabel5);
         jLabel5.setBounds(50, 100, 90, 30);
 
-        jTextField1.setEditable(false);
-        jTextField1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField1);
-        jTextField1.setBounds(160, 100, 80, 30);
+        rc_rcid_tv.setEditable(false);
+        rc_rcid_tv.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        rc_rcid_tv.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        rc_rcid_tv.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(rc_rcid_tv);
+        rc_rcid_tv.setBounds(160, 100, 80, 30);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel2.setText("Cate-ID");
         jPanel1.add(jLabel2);
         jLabel2.setBounds(420, 70, 50, 20);
 
-        jButton4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton4.setText("Update");
-        jButton4.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton4);
-        jButton4.setBounds(250, 410, 100, 30);
+        updatadata.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        updatadata.setText("Update");
+        updatadata.setBorder(new javax.swing.border.MatteBorder(null));
+        updatadata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updatadataActionPerformed(evt);
+            }
+        });
+        jPanel1.add(updatadata);
+        updatadata.setBounds(250, 410, 100, 30);
 
-        jButton6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton6.setText("Add");
-        jButton6.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton6);
-        jButton6.setBounds(130, 410, 100, 30);
+        adddata.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        adddata.setText("Add");
+        adddata.setBorder(new javax.swing.border.MatteBorder(null));
+        adddata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adddataActionPerformed(evt);
+            }
+        });
+        jPanel1.add(adddata);
+        adddata.setBounds(130, 410, 100, 30);
 
         searching.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         searching.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
@@ -197,6 +224,24 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
         });
         jPanel1.add(searching);
         searching.setBounds(420, 100, 70, 30);
+
+        _cat_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _cat_error.setForeground(new java.awt.Color(255, 0, 0));
+        _cat_error.setText("*");
+        jPanel1.add(_cat_error);
+        _cat_error.setBounds(320, 170, 10, 17);
+
+        _amount_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _amount_error.setForeground(new java.awt.Color(255, 0, 0));
+        _amount_error.setText("*");
+        jPanel1.add(_amount_error);
+        _amount_error.setBounds(320, 230, 10, 17);
+
+        jButton6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton6.setText("Reset");
+        jButton6.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(jButton6);
+        jButton6.setBounds(610, 100, 60, 30);
 
         jPanel4.add(jPanel1);
         jPanel1.setBounds(230, 160, 700, 500);
@@ -284,7 +329,57 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    void showtime(){
+        new Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("hh:mm:ss a");
+            timegetting.setText(t.format(d));
+        }).start();   
+    }
+    
+    void showdate(){
+        new Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd");
+            registrationdate.setText(t.format(d));
+        }).start();
+    }   
+    
+    void show_data(){
+        ArrayList<admin_internal_classes.roomcatee> list = userlist();
+        DefaultTableModel model = (DefaultTableModel) catetable.getModel();
+        Object[] row = new Object[3];
+        for(int i=0 ; i<list.size() ; i++){
+            row[0] = list.get(i).getRcid();
+            row[1] = list.get(i).getRcatename();
+            row[2] = list.get(i).getPeramount();
+            model.addRow(row);
+        }
+    }
+    
+    private ArrayList<admin_internal_classes.roomcatee> userlist(){
+            ArrayList<admin_internal_classes.roomcatee> userList = new ArrayList<>();
+            
+            try{
+                conn.OpenConnection();
+//                String selectquery="select * from DeptWard"; for Asceding and for dese is below;
+                String selectquery="select * from RoomCategory order by rcid desc";
+                conn.GetData(selectquery);
+                admin_internal_classes aic = new admin_internal_classes();
+                admin_internal_classes.roomcatee rac;
+                while(conn.rst.next()){
+                rac = aic.new roomcatee(
+                conn.rst.getInt("rcid"),
+                conn.rst.getInt("ramount"),
+                conn.rst.getString("rcatname")
+                );
+                userList.add(rac);
+                }
+            }catch(SQLException e ){System.out.println(e);}
+     return userList;
+    }
+    
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         admin_internal aii = new admin_internal();
         aii.setVisible(true);
@@ -315,13 +410,13 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_i_addwardActionPerformed
 
-    private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
+    private void r_amount_etKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_r_amount_etKeyTyped
         char c = evt.getKeyChar();
         if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
             getToolkit().beep();
             evt.consume();
         }
-    }//GEN-LAST:event_jTextField3KeyTyped
+    }//GEN-LAST:event_r_amount_etKeyTyped
 
     private void searchingKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchingKeyTyped
         char c = evt.getKeyChar();
@@ -330,6 +425,89 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_searchingKeyTyped
+
+    private void catetableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_catetableMouseClicked
+        updatadata.setVisible(true);
+        int i = catetable.getSelectedRow();
+        TableModel model = catetable.getModel();
+        rc_rcid_tv.setText(model.getValueAt(i,0).toString());
+        r_cate_et.setText(model.getValueAt(i, 1).toString());
+        r_amount_et.setText(model.getValueAt(i, 2).toString());
+        adddata.setVisible(false);
+    }//GEN-LAST:event_catetableMouseClicked
+
+    private void _resetIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__resetIDActionPerformed
+        rc_rcid_tv.setText(conn.getID("select * from RoomCategory ORDER BY rcid DESC Fetch first 1 rows only"));
+        r_cate_et.setText("");
+        r_amount_et.setText("");
+        _cat_error.setVisible(false);
+        _amount_error.setVisible(false);
+        adddata.setVisible(true);
+        updatadata.setVisible(false);
+    }//GEN-LAST:event__resetIDActionPerformed
+
+    private void updatadataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatadataActionPerformed
+        Boolean chkempty = false;
+        if(r_cate_et.getText().isEmpty() ){ chkempty = false; _cat_error.setVisible(true);}
+        if(r_amount_et.getText().isEmpty()){chkempty = false; _amount_error.setVisible(true);}
+        if(!r_amount_et.getText().isEmpty() && !r_cate_et.getText().isEmpty()){ chkempty=true;}
+        if(chkempty==false){ JOptionPane.showMessageDialog(null, "Please Fill the Fileds");}
+       
+        String rnamer=r_cate_et.getText();
+        int ramountr = Integer.parseInt(r_amount_et.getText());
+       
+        if(chkempty == true){
+            try{
+            _cat_error.setVisible(false);
+            _amount_error.setVisible(false);   
+            conn.OpenConnection();
+            int row = catetable.getSelectedRow();
+            int value = Integer.parseInt((catetable.getModel().getValueAt(row, 0).toString()));
+            String query = ("update RoomCategory set rcatname='"+rnamer+"' , ramount="+ramountr+" where rcid="+value);
+            int flag = conn.InsertUpdateDelete(query);
+                if(flag==1){
+                    JOptionPane.showMessageDialog(null,"Successfully Updated..!");
+                    r_cate_et.setText("");
+                    r_amount_et.setText("");
+                    DefaultTableModel model1 = (DefaultTableModel) catetable.getModel();
+                    rc_rcid_tv.setText(conn.getID("select * from RoomCategory ORDER BY rcid DESC Fetch first 1 rows only"));
+                    model1.setRowCount(0);
+                    show_data();
+                    adddata.setVisible(true);
+                    conn.CloseConnection();
+                    updatadata.setVisible(false);
+                }
+            }catch(Exception e ){System.out.println(e);}
+        }
+    }//GEN-LAST:event_updatadataActionPerformed
+
+    private void adddataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adddataActionPerformed
+        Boolean chkempty = false;
+        if(r_cate_et.getText().isEmpty() ){ chkempty = false; _cat_error.setVisible(true);}
+        if(r_amount_et.getText().isEmpty()){chkempty = false; _amount_error.setVisible(true);}
+        if(!r_amount_et.getText().isEmpty() && !r_cate_et.getText().isEmpty()){ chkempty=true;}
+        if(chkempty==false){ JOptionPane.showMessageDialog(null, "Please Fill the Fileds");}
+        
+        if(chkempty == true){
+            _amount_error.setVisible(false);
+            _cat_error.setVisible(false);
+            try{
+                conn.OpenConnection();
+                String query="insert into RoomCategory (rcatname,ramount) values ('"+r_cate_et.getText()+"',"+Integer.parseInt(r_amount_et.getText())+")";
+                int flag = conn.InsertUpdateDelete(query);
+                if(flag==1){
+                    JOptionPane.showMessageDialog(null,"Successfully Inserted..!");
+                    r_cate_et.setText("");
+                    r_amount_et.setText("");
+                    DefaultTableModel model = (DefaultTableModel) catetable.getModel();
+                    rc_rcid_tv.setText(conn.getID("select * from RoomCategory ORDER BY rcid DESC Fetch first 1 rows only"));
+                    model.setRowCount(0);
+                    show_data();
+                    conn.CloseConnection();
+                }
+            }catch( Exception e ){System.out.println(e);}
+        }
+    }//GEN-LAST:event_adddataActionPerformed
 
     /**
      * @param args the command line arguments
@@ -359,21 +537,22 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new admin_internal_roomcate().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new admin_internal_roomcate().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel _amount_error;
+    private javax.swing.JLabel _cat_error;
+    private javax.swing.JButton _resetID;
+    private javax.swing.JButton adddata;
     private javax.swing.JButton back;
+    private javax.swing.JTable catetable;
     private javax.swing.JButton i_addqualification;
     private javax.swing.JButton i_addroomcate;
     private javax.swing.JButton i_addrooms;
     private javax.swing.JButton i_addward;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
@@ -387,12 +566,12 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField r_amount_et;
+    private javax.swing.JTextField r_cate_et;
+    private javax.swing.JTextField rc_rcid_tv;
+    private javax.swing.JTextField registrationdate;
     private javax.swing.JTextField searching;
     private javax.swing.JLabel timegetting;
+    private javax.swing.JButton updatadata;
     // End of variables declaration//GEN-END:variables
 }

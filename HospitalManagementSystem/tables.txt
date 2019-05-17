@@ -111,6 +111,26 @@ SQL> insert into City values(6 , 'Notknow');
 
 //////////////////////////////////////////////////////////////
 
-SQL> create table Recept(rid number primary key , rfname varchar(20) not null, rlname varchar(20) not null , age number not null , dob date not null , sexid number not null, address varchar(50) not null , phno number (11) not null , cityid number not null , regdate date not null , username varchar(30) not null , pass varchar(30) not null , qid number not null , salery number(5) not null, foreign key(sexid) references Gender(gid), foreign key(cityid) references City(cid) , foreign key(qid) references Qualification(qid));
+SQL> create table Recept(rid number primary key , rfname varchar(20) not null, rlname varchar(20) not null , age number not null , dob date not null , sexid number, address varchar(50) not null , phno varchar(12) not null , cityid number , regdate date not null , username varchar(30) not null , pass varchar(30) not null , qid number , salery number(5) not null, foreign key(sexid) references Gender(gid), foreign key(cityid) references City(cid) , foreign key(qid) references Qualification(qid));
 
 Table created.
+SQL> create sequence Recept_sequence
+  2  start with 1
+  3  increment by 1;
+
+Sequence created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create or replace trigger Recept_trigger
+  2  before insert on Recept
+  3  for each row
+  4  begin
+  5  select Recept_sequence.nextval into :new.rid from dual;
+  6* end;
+SQL> /
+
+Trigger created.
+
+select rid,age,salery,rfname,rlname,dob,gname,address,phno,cname,regdate,username,pass,qname from recept r ,qualification q ,city c ,gender g where r.qid=q.qid and r.cityid=c.cid and r.sexid=g.gid order by rid desc;

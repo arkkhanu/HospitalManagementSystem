@@ -34,7 +34,7 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
         _amount_error.setVisible(false);
         _cat_error.setVisible(false);
         updatadata.setVisible(false);
-        rc_rcid_tv.setText(conn.getID("select * from RoomCategory ORDER BY rcid DESC Fetch first 1 rows only"));
+        rc_rcid_tv.setText(conn.getID("select rcid from RoomCategory ORDER BY rcid DESC Fetch first 1 rows only"));
         
     }
 
@@ -437,7 +437,7 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
     }//GEN-LAST:event_catetableMouseClicked
 
     private void _resetIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__resetIDActionPerformed
-        rc_rcid_tv.setText(conn.getID("select * from RoomCategory ORDER BY rcid DESC Fetch first 1 rows only"));
+        rc_rcid_tv.setText(conn.getID("select rcid from RoomCategory ORDER BY rcid DESC Fetch first 1 rows only"));
         r_cate_et.setText("");
         r_amount_et.setText("");
         _cat_error.setVisible(false);
@@ -469,8 +469,8 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null,"Successfully Updated..!");
                     r_cate_et.setText("");
                     r_amount_et.setText("");
+                    rc_rcid_tv.setText(conn.getID("select rcid from RoomCategory ORDER BY rcid DESC Fetch first 1 rows only"));
                     DefaultTableModel model1 = (DefaultTableModel) catetable.getModel();
-                    rc_rcid_tv.setText(conn.getID("select * from RoomCategory ORDER BY rcid DESC Fetch first 1 rows only"));
                     model1.setRowCount(0);
                     show_data();
                     adddata.setVisible(true);
@@ -499,8 +499,8 @@ public class admin_internal_roomcate extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null,"Successfully Inserted..!");
                     r_cate_et.setText("");
                     r_amount_et.setText("");
+                    rc_rcid_tv.setText(conn.getID("select rcid from RoomCategory ORDER BY rcid DESC Fetch first 1 rows only"));
                     DefaultTableModel model = (DefaultTableModel) catetable.getModel();
-                    rc_rcid_tv.setText(conn.getID("select * from RoomCategory ORDER BY rcid DESC Fetch first 1 rows only"));
                     model.setRowCount(0);
                     show_data();
                     conn.CloseConnection();

@@ -14,9 +14,12 @@ import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -49,11 +52,14 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         _pss_error.setVisible(false);
         _sal_error.setVisible(false);
         updatedata.setVisible(false);
+        deletedata.setVisible(false);
         showtime();
         showdate();
         getcitydata();
         getgenderdata();
         getqualifdata();
+        showdata();
+        a_recid_tv.setText(conn.getID("select rid from Recept ORDER BY rid DESC Fetch first 1 rows only"));
     }
 
     /** This method is called from within the constructor to
@@ -104,7 +110,7 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         a_recphoneno_et = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        recepttable = new javax.swing.JTable();
         _fname_error = new javax.swing.JLabel();
         _un_error = new javax.swing.JLabel();
         _lname_error = new javax.swing.JLabel();
@@ -193,6 +199,11 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         updatedata.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         updatedata.setText("Update");
         updatedata.setBorder(new javax.swing.border.MatteBorder(null));
+        updatedata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updatedataActionPerformed(evt);
+            }
+        });
         jPanel1.add(updatedata);
         updatedata.setBounds(200, 450, 100, 30);
 
@@ -209,11 +220,21 @@ public class admin_addreceptionist extends javax.swing.JFrame {
 
         a_reclname_et.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         a_reclname_et.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        a_reclname_et.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                a_reclname_etKeyTyped(evt);
+            }
+        });
         jPanel1.add(a_reclname_et);
         a_reclname_et.setBounds(90, 140, 140, 30);
 
         a_recfname_et.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         a_recfname_et.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        a_recfname_et.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                a_recfname_etKeyTyped(evt);
+            }
+        });
         jPanel1.add(a_recfname_et);
         a_recfname_et.setBounds(90, 100, 140, 30);
 
@@ -379,40 +400,12 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        recepttable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
+                "RID", "F-Name", "L-Name", "Sex", "PhNo", "regDate"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -423,15 +416,25 @@ public class admin_addreceptionist extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(5).setResizable(false);
+        recepttable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                recepttableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(recepttable);
+        if (recepttable.getColumnModel().getColumnCount() > 0) {
+            recepttable.getColumnModel().getColumn(0).setResizable(false);
+            recepttable.getColumnModel().getColumn(0).setPreferredWidth(50);
+            recepttable.getColumnModel().getColumn(1).setResizable(false);
+            recepttable.getColumnModel().getColumn(1).setPreferredWidth(80);
+            recepttable.getColumnModel().getColumn(2).setResizable(false);
+            recepttable.getColumnModel().getColumn(2).setPreferredWidth(80);
+            recepttable.getColumnModel().getColumn(3).setResizable(false);
+            recepttable.getColumnModel().getColumn(3).setPreferredWidth(80);
+            recepttable.getColumnModel().getColumn(4).setResizable(false);
+            recepttable.getColumnModel().getColumn(4).setPreferredWidth(100);
+            recepttable.getColumnModel().getColumn(5).setResizable(false);
+            recepttable.getColumnModel().getColumn(5).setPreferredWidth(100);
         }
 
         jScrollPane2.setViewportView(jScrollPane1);
@@ -696,6 +699,58 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         
     }
     
+    private void showdata(){
+        ArrayList<admin_addingclass.addnurseclass> list = userlist();
+        DefaultTableModel model = (DefaultTableModel) recepttable.getModel();
+        Object[] row = new Object[6];
+        for(int i=0 ; i<list.size() ; i++){
+            row[0] = list.get(i).getRid();
+            row[1] = list.get(i).getRfname();
+            row[2] = list.get(i).getRlname();
+            row[3] = list.get(i).getSex();
+            row[4] = list.get(i).getPhno();
+            row[5] = list.get(i).getRegdate();
+            model.addRow(row);
+            System.out.println(list.get(i).getRegdate());
+        }
+    }
+    
+    private ArrayList<admin_addingclass.addnurseclass> userlist() {
+            ArrayList<admin_addingclass.addnurseclass> userList = new ArrayList<>();
+//            int rid,age,sal;
+//        String rfname,rlname,dob,sex,address,phno,city,regdate,username,pass,qualification;
+//(rid, age, sal, rfname, rlname, dob, sex, address, phno, city, regdate, username, pass,qualification)
+            try{
+                conn.OpenConnection();
+                String selectquery="select rid,age,salery,rfname,rlname,dob,gname,address,phno,cname,regdate,username,pass,qname from recept r ,qualification q ,city c ,gender g where r.qid=q.qid and r.cityid=c.cid and r.sexid=g.gid order by rid desc";
+                conn.GetData(selectquery);
+                admin_addingclass adc = new admin_addingclass();
+                admin_addingclass.addnurseclass anc;
+                while(conn.rst.next()){
+                    anc = adc.new addnurseclass(
+                    conn.rst.getInt("rid"),
+                    conn.rst.getInt("age"),
+                    conn.rst.getInt("salery"),
+                    conn.rst.getString("rfname"),
+                    conn.rst.getString("rlname"),
+                    conn.rst.getString("dob"),
+                    conn.rst.getString("gname"),
+                    conn.rst.getString("address"),
+                    conn.rst.getString("phno"),
+                    conn.rst.getString("cname"),
+                    conn.rst.getString("regdate"),        
+                    conn.rst.getString("username"),
+                    conn.rst.getString("pass"),
+                    conn.rst.getString("qname")    
+                    );
+                 userList.add(anc);   
+                }
+                
+            }catch(SQLException e ){System.out.println(e);}
+            
+    return userList;
+    }
+    
     private void searchingKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchingKeyTyped
 
         char c = evt.getKeyChar();
@@ -803,6 +858,10 @@ public class admin_addreceptionist extends javax.swing.JFrame {
             diff = d2.getYear()-d1.getYear();
             String totaldays = String.valueOf(diff);
             a_recage_et.setText(totaldays);
+            if(diff < 18){
+                JOptionPane.showMessageDialog(null, "Receptionist's age must be greater than 18");
+                _age_error.setVisible(true);
+            }
             if(dobirth.equals("")){ _dob_error.setVisible(true);}
         }catch(NullPointerException | ParseException e){System.out.println(e);_dob_error.setVisible(true);}
     }//GEN-LAST:event_getagebtnActionPerformed
@@ -877,6 +936,7 @@ public class admin_addreceptionist extends javax.swing.JFrame {
 
     private void adddataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adddataActionPerformed
         Boolean emptyfiled=false;
+        int agee=-1;
         if(a_recfname_et.getText().equals("")){ emptyfiled=false;_fname_error.setVisible(true);}
         if(a_reclname_et.getText().equals("")){ emptyfiled=false;_lname_error.setVisible(true);}
         if(a_recage_et.getText().equals("")){ emptyfiled=false;_age_error.setVisible(true);_dob_error.setVisible(true);}
@@ -888,6 +948,14 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         if(a_recusername_et.getText().equals("")){ emptyfiled=false;_un_error.setVisible(true);}
         if(a_recpassword_et.getText().equals("")){ emptyfiled=false;_pss_error.setVisible(true);}
         if(a_recsalary_et.getText().equals("")){ emptyfiled=false;_sal_error.setVisible(true);}
+        try{
+             agee=Integer.parseInt(a_recage_et.getText());
+            if(agee<18){
+                emptyfiled=false;
+                _age_error.setVisible(true);
+                _dob_error.setVisible(true);
+            }
+        }catch(NumberFormatException e){System.out.println(e);}
         
         if(!a_recfname_et.getText().isEmpty()
                 && !a_reclname_et.getText().isEmpty()
@@ -900,6 +968,7 @@ public class admin_addreceptionist extends javax.swing.JFrame {
                 && !a_recusername_et.getText().isEmpty()
                 && !a_recpassword_et.getText().isEmpty()
                 && !a_recsalary_et.getText().isEmpty()
+                && agee >= 18
                 ){emptyfiled=true;}
         if(emptyfiled == false){JOptionPane.showMessageDialog(null, "Please Fill the Fileds");}
         
@@ -916,28 +985,36 @@ public class admin_addreceptionist extends javax.swing.JFrame {
             _un_error.setVisible(false);
             _pss_error.setVisible(false);
             _sal_error.setVisible(false);
-//create table Recept(rid number primary key , rfname varchar(20) not null, rlname varchar(20) not null 
-//, age number not null , dob date not null , sexid number not null, address varchar(50) not null , 
-//phno number (11) not null , cityid number not null , regdate date not null , username varchar(30) not null 
-//, pass varchar(30) not null , qid number not null , salery number(5) not null, foreign key(sexid) references Gender(gid),
-//foreign key(cityid) references City(cid) , foreign key(qid) references Qualification(qid));
-//            String query="insert into Recept(rid,rfname,rlname,age,dob,sexid,address"
-//                    + ",phno,cityid,regdate,username,pass,qid,salery) values ("
-//                    +1+" , '"+a_recfname_et.getText()+"' , '"+a_reclname_et.getText()+"' , "+a_recage_et.getText()
-//                    +" , '"+dobirth+"' , "+genderid+" , '"+a_recaddress_et.getText()+"' , "+a_recphoneno_et.getText()
-//                    +" , "+cityid+" , '"+registrationdate.getText()+"' , '"+a_recusername_et.getText()
-//                    +"' , '"+a_recpassword_et.getText()+"' , "+qualid+" , "+a_recsalary_et.getText()+")";
-            String query="insert into Recept(rid,rfname,rlname,age,dob,sexid,address"
+            
+            String query="insert into Recept(rfname,rlname,age,dob,sexid,address"
                     + ",phno,cityid,regdate,username,pass,qid,salery) values ("
-                    +2+" , '"+a_recfname_et.getText()+"' , '"+a_reclname_et.getText()+"' , "+a_recage_et.getText()
-                    +" , '1998-12-25' , "+genderid+" , '"+a_recaddress_et.getText()+"' , "+Long.getLong(a_recphoneno_et.getText())
-                    +" , "+cityid+" , '1998-12-25' , '"+a_recusername_et.getText()
+                    +" '"+a_recfname_et.getText()+"' , '"+a_reclname_et.getText()+"' , "+a_recage_et.getText()
+                    +" , to_date('"+dobirth+"','yyyy-MM-dd') , "+genderid+" , '"+a_recaddress_et.getText()+"' , "+a_recphoneno_et.getText()
+                    +" , "+cityid+" , to_date('"+registrationdate.getText()+"','yyyy-MM-dd') , '"+a_recusername_et.getText()
                     +"' , '"+a_recpassword_et.getText()+"' , "+qualid+" , "+a_recsalary_et.getText()+")";
             try{
                 conn.OpenConnection();
                 int flag = conn.InsertUpdateDelete(query);
                 if(flag==1){
                     JOptionPane.showMessageDialog(null,"Successfully Inserted..!");
+                    a_recid_tv.setText(conn.getID("select rid from Recept ORDER BY rid DESC Fetch first 1 rows only"));
+                    a_recfname_et.setText("");
+                    a_reclname_et.setText("");
+                    a_recage_et.setText("");
+                    a_recdob_date.setDate(null);
+//                    a_recdob_date.cleanup();
+                    a_recgender_combo.setSelectedIndex(0);
+                    a_recaddress_et.setText("");
+                    a_recphoneno_et.setText("");
+                    a_reccity_combo.setSelectedIndex(0);
+                    a_recusername_et.setText("");
+                    a_recpassword_et.setText("");
+                    a_recqual_combo.setSelectedIndex(0);
+                    a_recsalary_et.setText("");
+                    DefaultTableModel model1 = (DefaultTableModel) recepttable.getModel();
+                    model1.setRowCount(0);
+                    showdata();
+                    
                 }
                 conn.CloseConnection();
             }catch(HeadlessException e){System.out.println(e);}
@@ -959,11 +1036,235 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         _un_error.setVisible(false);
         _pss_error.setVisible(false);
         _sal_error.setVisible(false);
+        updatedata.setVisible(false);
+        adddata.setVisible(true);
+        deletedata.setVisible(false);
+        a_recid_tv.setText(conn.getID("select rid from Recept ORDER BY rid DESC Fetch first 1 rows only"));
+        a_recfname_et.setText("");
+        a_reclname_et.setText("");
+        a_recage_et.setText("");
+        a_recdob_date.setDate(null);
+//                    a_recdob_date.cleanup();
+        a_recgender_combo.setSelectedIndex(0);
+        a_recaddress_et.setText("");
+        a_recphoneno_et.setText("");
+        a_reccity_combo.setSelectedIndex(0);
+        a_recusername_et.setText("");
+        a_recpassword_et.setText("");
+        a_recqual_combo.setSelectedIndex(0);
+        a_recsalary_et.setText("");
+                    
     }//GEN-LAST:event_resetallActionPerformed
 
     private void deletedataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletedataActionPerformed
-        System.out.println(a_recsalary_et.getText());
+        int yesorno = JOptionPane.showConfirmDialog(null,"Do you want to Delete ","Deleted Record" , JOptionPane.YES_NO_OPTION);
+        if(yesorno == 0 ){
+            int row = recepttable.getSelectedRow();
+            int value = Integer.parseInt((recepttable.getModel().getValueAt(row, 0).toString()));
+            try{
+                conn.OpenConnection();
+                String query="delete from Recept where rid="+value;
+                int flag = conn.InsertUpdateDelete(query);
+                if(flag==1){
+                    JOptionPane.showMessageDialog(null,"Successfully Deleted..!");
+                    DefaultTableModel model1 = (DefaultTableModel) recepttable.getModel();
+                    model1.setRowCount(0);
+                    showdata();
+                    a_recfname_et.setText("");
+                    a_reclname_et.setText("");
+                    a_recage_et.setText("");
+                    a_recdob_date.setDate(null);
+                    a_recgender_combo.setSelectedIndex(0);
+                    a_recaddress_et.setText("");
+                    a_recphoneno_et.setText("");
+                    a_reccity_combo.setSelectedIndex(0);
+                    a_recusername_et.setText("");
+                    a_recpassword_et.setText("");
+                    a_recqual_combo.setSelectedIndex(0);
+                    a_recsalary_et.setText("");
+                    updatedata.setVisible(false);
+                    deletedata.setVisible(false);
+                    adddata.setVisible(true);
+                }
+            }catch(HeadlessException e){System.out.println(e);}
+        }
+        else{
+        JOptionPane.showMessageDialog(null,"Delete Canceled..!");
+        }
+        
     }//GEN-LAST:event_deletedataActionPerformed
+
+    private void a_recfname_etKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_a_recfname_etKeyTyped
+        char c = evt.getKeyChar();
+        if(!(Character.isAlphabetic(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_a_recfname_etKeyTyped
+
+    private void recepttableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_recepttableMouseClicked
+        _dob_error.setVisible(false);
+        _phone_error.setVisible(false);
+        _qal_error.setVisible(false);
+        _fname_error.setVisible(false);
+        _lname_error.setVisible(false);
+        _age_error.setVisible(false);
+        _gender_error.setVisible(false);
+        _city_error.setVisible(false);
+        _ads_error.setVisible(false);
+        _un_error.setVisible(false);
+        _pss_error.setVisible(false);
+        _sal_error.setVisible(false);
+        adddata.setVisible(false);
+        updatedata.setVisible(true);
+        deletedata.setVisible(true);
+        int i = recepttable.getSelectedRow();
+        TableModel model = recepttable.getModel();
+        a_recid_tv.setText(model.getValueAt(i,0).toString());
+        int id = Integer.valueOf(a_recid_tv.getText());
+        ArrayList<admin_addingclass.addnurseclass> listing = userlist();
+        for(int j=0 ; j<listing.size() ; j++){
+            if(listing.get(j).getRid()== id){
+                a_recid_tv.setText(String.valueOf(listing.get(j).getRid()));
+                a_recfname_et.setText(String.valueOf(listing.get(j).getRfname()));
+                a_reclname_et.setText(String.valueOf(listing.get(j).getRlname()));
+                a_recage_et.setText(String.valueOf(listing.get(j).getAge()));
+                try{
+                    
+                    Date dobdatee=new SimpleDateFormat("yyyy-MM-dd").parse(listing.get(j).getDob()); 
+                    a_recdob_date.setDate(dobdatee);
+                }catch(ParseException e ){System.out.println(e);}
+                a_recgender_combo.setSelectedItem(listing.get(j).getSex());
+                a_recaddress_et.setText(String.valueOf(listing.get(j).getAddress()));
+                a_recphoneno_et.setText(String.valueOf(listing.get(j).getPhno()));
+                a_reccity_combo.setSelectedItem(listing.get(j).getCity());
+                a_recusername_et.setText(String.valueOf(listing.get(j).getUsername()));
+                a_recpassword_et.setText(String.valueOf(listing.get(j).getPass()));
+                a_recsalary_et.setText(String.valueOf(listing.get(j).getSal()));
+                a_recqual_combo.setSelectedItem(listing.get(j).getQualification());
+               
+//                System.out.println(//listing.get(j).getRid()
+//                +listing.get(j).getRfname()+"\n"
+//                +listing.get(j).getRlname()+"\n"
+//                +listing.get(j).getAge()+"\n"
+//                +listing.get(j).getDob()+"\n"
+//                +listing.get(j).getSex()+"\n"
+//                +listing.get(j).getAddress()+"\n"
+//                +listing.get(j).getPhno()+"\n"
+//                +listing.get(j).getCity()+"\n"
+//                +listing.get(j).getRegdate()+"\n"
+//                +listing.get(j).getUsername()+"\n"
+//                +listing.get(j).getPass()+"\n"
+//                +listing.get(j).getQualification()+"\n"
+//                +listing.get(j).getSal()+"\n");
+                break;
+            }
+        }  
+    }//GEN-LAST:event_recepttableMouseClicked
+
+    private void a_reclname_etKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_a_reclname_etKeyTyped
+        char c = evt.getKeyChar();
+        if(!(Character.isAlphabetic(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_a_reclname_etKeyTyped
+
+    private void updatedataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatedataActionPerformed
+        Boolean emptyfiled=false;
+        int agee=-1;
+        if(a_recfname_et.getText().equals("")){ emptyfiled=false;_fname_error.setVisible(true);}
+        if(a_reclname_et.getText().equals("")){ emptyfiled=false;_lname_error.setVisible(true);}
+        if(a_recage_et.getText().equals("")){ emptyfiled=false;_age_error.setVisible(true);_dob_error.setVisible(true);}
+        if(a_recaddress_et.getText().equals("")){ emptyfiled=false;_ads_error.setVisible(true);}
+        if(a_recgender_combo.getSelectedItem().equals("Gender")){ emptyfiled=false;_gender_error.setVisible(true);}
+        if(a_reccity_combo.getSelectedItem().equals("Select City")){ emptyfiled=false;_city_error.setVisible(true);}
+        if(a_recqual_combo.getSelectedItem().equals("Select Qual")){ emptyfiled=false;_qal_error.setVisible(true);}
+        if(a_recphoneno_et.getText().equals("")){ emptyfiled=false;_phone_error.setVisible(true);}
+        if(a_recusername_et.getText().equals("")){ emptyfiled=false;_un_error.setVisible(true);}
+        if(a_recpassword_et.getText().equals("")){ emptyfiled=false;_pss_error.setVisible(true);}
+        if(a_recsalary_et.getText().equals("")){ emptyfiled=false;_sal_error.setVisible(true);}
+        
+        try{
+             agee=Integer.parseInt(a_recage_et.getText());
+            if(agee<18){
+                emptyfiled=false;
+                _age_error.setVisible(true);
+                _dob_error.setVisible(true);
+            }
+        }catch(NumberFormatException e){System.out.println(e);}
+        
+        if(!a_recfname_et.getText().isEmpty()
+                && !a_reclname_et.getText().isEmpty()
+                && !a_recage_et.getText().isEmpty()
+                && !a_recaddress_et.getText().isEmpty()
+                && !a_recgender_combo.getSelectedItem().equals("Gender")
+                && !a_reccity_combo.getSelectedItem().equals("Select City")
+                && !a_recqual_combo.getSelectedItem().equals("Select Qual")
+                && !a_recphoneno_et.getText().isEmpty()
+                && !a_recusername_et.getText().isEmpty()
+                && !a_recpassword_et.getText().isEmpty()
+                && !a_recsalary_et.getText().isEmpty()
+                && agee>=18
+                ){emptyfiled=true;}
+        if(emptyfiled == false){JOptionPane.showMessageDialog(null, "Please Fill the Fileds");}
+        
+        if(emptyfiled == true){
+            _dob_error.setVisible(false);
+            _phone_error.setVisible(false);
+            _qal_error.setVisible(false);
+            _fname_error.setVisible(false);
+            _lname_error.setVisible(false);
+            _age_error.setVisible(false);
+            _gender_error.setVisible(false);
+            _city_error.setVisible(false);
+            _ads_error.setVisible(false);
+            _un_error.setVisible(false);
+            _pss_error.setVisible(false);
+            _sal_error.setVisible(false);
+            
+            int row = recepttable.getSelectedRow();
+            int value = Integer.parseInt((recepttable.getModel().getValueAt(row, 0).toString()));
+            
+            try{
+                String query=("update Recept set rfname='"+a_recfname_et.getText()+"' ,rlname='"+a_reclname_et.getText()
+                +"' , age ="+a_recage_et.getText()+" , dob = to_date('"+dobirth+"','yyyy-mm-dd') , sexid="+genderid
+                +"  , address ='"+a_recaddress_et.getText()+"' , phno ='"+a_recphoneno_et.getText()+"' , cityid="+cityid
+                +"  , regdate =to_date('"+registrationdate.getText()+"','yyyy-mm-dd') , username = '"+a_recusername_et.getText()
+                +"' , pass ='"+a_recpassword_et.getText()+"' , qid="+qualid+" , salery="+a_recsalary_et.getText()
+                +" where rid="+value);
+                System.out.println(dobirth);
+                System.out.println(registrationdate.getText());
+                conn.OpenConnection();
+                int flag = conn.InsertUpdateDelete(query);
+                if(flag==1){
+                    JOptionPane.showMessageDialog(null,"Successfully Updated..!");
+                    a_recid_tv.setText(conn.getID("select rid from Recept ORDER BY rid DESC Fetch first 1 rows only"));
+                    a_recfname_et.setText("");
+                    a_reclname_et.setText("");
+                    a_recage_et.setText("");
+                    a_recdob_date.setDate(null);
+                    a_recgender_combo.setSelectedIndex(0);
+                    a_recaddress_et.setText("");
+                    a_recphoneno_et.setText("");
+                    a_reccity_combo.setSelectedIndex(0);
+                    a_recusername_et.setText("");
+                    a_recpassword_et.setText("");
+                    a_recqual_combo.setSelectedIndex(0);
+                    a_recsalary_et.setText("");
+                    DefaultTableModel model1 = (DefaultTableModel) recepttable.getModel();
+                    model1.setRowCount(0);
+                    showdata();
+                    updatedata.setVisible(false);
+                    deletedata.setVisible(false);
+                    adddata.setVisible(true);
+                }
+                conn.CloseConnection();
+            }catch(HeadlessException e){System.out.println(e);}
+        
+        }
+        
+    }//GEN-LAST:event_updatedataActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1043,7 +1344,7 @@ public class admin_addreceptionist extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable recepttable;
     private javax.swing.JTextField registrationdate;
     private javax.swing.JButton resetall;
     private javax.swing.JTextField searching;

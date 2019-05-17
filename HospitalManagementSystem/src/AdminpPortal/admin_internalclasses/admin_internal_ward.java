@@ -32,7 +32,7 @@ public class admin_internal_ward extends javax.swing.JFrame {
         show_data();
         _name_error.setVisible(false);
         updatedata.setVisible(false);
-        wardid_tv.setText(conn.getID("select * from DeptWard ORDER BY wid DESC Fetch first 1 rows only"));
+        wardid_tv.setText(conn.getID("select wid from DeptWard ORDER BY wid DESC Fetch first 1 rows only"));
     }
 
     @SuppressWarnings("unchecked")
@@ -409,7 +409,7 @@ public class admin_internal_ward extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null,"Successfully Inserted..!");
                     wardname_et.setText("");
                     DefaultTableModel model = (DefaultTableModel) wardtable.getModel();
-                    wardid_tv.setText(conn.getID("select * from DeptWard ORDER BY wid DESC Fetch first 1 rows only"));
+                    wardid_tv.setText(conn.getID("select wid from DeptWard ORDER BY wid DESC Fetch first 1 rows only"));
                     model.setRowCount(0);
                     show_data();
                     conn.CloseConnection();
@@ -438,7 +438,7 @@ public class admin_internal_ward extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null,"Successfully Updated..!");
                     wardname_et.setText("");
                     DefaultTableModel model1 = (DefaultTableModel) wardtable.getModel();
-                    wardid_tv.setText(conn.getID("select * from DeptWard ORDER BY wid DESC Fetch first 1 rows only"));
+                    wardid_tv.setText(conn.getID("select wid from DeptWard ORDER BY wid DESC Fetch first 1 rows only"));
                     model1.setRowCount(0);
                     show_data();
                     adddata.setVisible(true);
@@ -450,7 +450,7 @@ public class admin_internal_ward extends javax.swing.JFrame {
     }//GEN-LAST:event_updatedataActionPerformed
 
     private void resetallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetallActionPerformed
-        wardid_tv.setText(conn.getID("select * from DeptWard ORDER BY wid DESC Fetch first 1 rows only"));
+        wardid_tv.setText(conn.getID("select wid from DeptWard ORDER BY wid DESC Fetch first 1 rows only"));
         wardname_et.setText("");
         _name_error.setVisible(false);
         adddata.setVisible(true);

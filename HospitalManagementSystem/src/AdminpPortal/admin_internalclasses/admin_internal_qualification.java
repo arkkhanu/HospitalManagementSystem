@@ -94,7 +94,7 @@ public class admin_internal_qualification extends javax.swing.JFrame {
         qal_name_error.setVisible(false);
         Updatedata.setVisible(false);
 //        select * from Qualification ORDER BY qid DESC Fetch first 1 rows only;
-        qid_tv.setText(conn.getID("select * from Qualification ORDER BY qid DESC Fetch first 1 rows only"));
+        qid_tv.setText(conn.getID("select qid from Qualification ORDER BY qid DESC Fetch first 1 rows only"));
     }
 
     /**
@@ -454,7 +454,7 @@ public class admin_internal_qualification extends javax.swing.JFrame {
                     qname_ed.setText("");
                     qamount_ed.setText("");
                     DefaultTableModel model = (DefaultTableModel) qualtable.getModel();
-                    qid_tv.setText(conn.getID("select * from Qualification ORDER BY qid DESC Fetch first 1 rows only"));
+                    qid_tv.setText(conn.getID("select qid from Qualification ORDER BY qid DESC Fetch first 1 rows only"));
                     model.setRowCount(0);
                     show_data();
                     conn.CloseConnection();
@@ -474,7 +474,7 @@ public class admin_internal_qualification extends javax.swing.JFrame {
     }//GEN-LAST:event_qualtableMouseClicked
 
     private void allresetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allresetActionPerformed
-        qid_tv.setText(conn.getID("select * from Qualification ORDER BY qid DESC Fetch first 1 rows only"));
+        qid_tv.setText(conn.getID("select qid from Qualification ORDER BY qid DESC Fetch first 1 rows only"));
         qname_ed.setText("");
         qamount_ed.setText("");
         qal_amount_error.setVisible(false);
@@ -508,7 +508,7 @@ public class admin_internal_qualification extends javax.swing.JFrame {
                     qname_ed.setText("");
                     qamount_ed.setText("");
                     DefaultTableModel model1 = (DefaultTableModel) qualtable.getModel();
-                    qid_tv.setText(conn.getID("select * from Qualification ORDER BY qid DESC Fetch first 1 rows only"));
+                    qid_tv.setText(conn.getID("select qid from Qualification ORDER BY qid DESC Fetch first 1 rows only"));
                     model1.setRowCount(0);
                     show_data();
                     adddata.setVisible(true);

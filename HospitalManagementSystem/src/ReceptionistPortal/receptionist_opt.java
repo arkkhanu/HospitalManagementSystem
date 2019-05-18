@@ -5,11 +5,20 @@
  */
 package ReceptionistPortal;
 
+import AdminpPortal.admin_addingclass;
+import DBConnectionP.DBConnection;
+import LoginForm.loginsection;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
+import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 
 /**
  *
@@ -17,23 +26,35 @@ import javax.swing.Timer;
  */
 public class receptionist_opt extends javax.swing.JFrame {
 
-    int id = -1;
-    String username=null;
+    DBConnection conn = new DBConnection();
+    int id = -1, doctorid = -1;
+    String username=null, doctorname = null;
     
     public receptionist_opt() {
         initComponents();
         showtime();
         showdate();
+        showdata();
+        _docdept_error.setVisible(false);
+        _patid_error.setVisible(false);
+        rr_patoptid_tv.setText(conn.getID("select optid from PatientOPT ORDER BY optid DESC Fetch first 1 rows only"));
+        getdoctordata();
     }
 
     public receptionist_opt(int id , String username) {
         initComponents();
         showtime();
         showdate();
+        showdata();
         this.id=id;
         this.username=username;
         rr_patrecp_tv.setText(String.valueOf(id));
         receptionistname.setText(username);
+        
+        _docdept_error.setVisible(false);
+        _patid_error.setVisible(false);
+        rr_patoptid_tv.setText(conn.getID("select optid from PatientOPT ORDER BY optid DESC Fetch first 1 rows only"));
+        getdoctordata();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,16 +86,17 @@ public class receptionist_opt extends javax.swing.JFrame {
         rr_patid_ed = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         rr_patlname_ed = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         _docdept_error = new javax.swing.JLabel();
         _patid_error = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
+        gettingid = new javax.swing.JButton();
         jLabel20 = new javax.swing.JLabel();
         rr_patrecp_tv = new javax.swing.JTextField();
         receptionistname = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        doctable = new javax.swing.JTable();
+        logoutbtn = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -148,6 +170,11 @@ public class receptionist_opt extends javax.swing.JFrame {
         rr_patfname_ed.setBounds(120, 180, 150, 30);
 
         rr_patdoct_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Doctor" }));
+        rr_patdoct_combo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rr_patdoct_comboActionPerformed(evt);
+            }
+        });
         jPanel3.add(rr_patdoct_combo);
         rr_patdoct_combo.setBounds(120, 310, 150, 30);
 
@@ -164,8 +191,13 @@ public class receptionist_opt extends javax.swing.JFrame {
         addopt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         addopt.setText("ADD");
         addopt.setBorder(new javax.swing.border.MatteBorder(null));
+        addopt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addoptActionPerformed(evt);
+            }
+        });
         jPanel3.add(addopt);
-        addopt.setBounds(270, 430, 150, 40);
+        addopt.setBounds(230, 430, 150, 40);
 
         jLabel16.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel16.setText("Deptarment");
@@ -214,33 +246,6 @@ public class receptionist_opt extends javax.swing.JFrame {
         jPanel3.add(rr_patlname_ed);
         rr_patlname_ed.setBounds(120, 220, 150, 30);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "DoctorID", "D-F-Name", "D-L-Name", "Deptarment"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
-        jPanel3.add(jScrollPane1);
-        jScrollPane1.setBounds(370, 130, 290, 280);
-
         _docdept_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         _docdept_error.setForeground(new java.awt.Color(255, 0, 0));
         _docdept_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -255,11 +260,16 @@ public class receptionist_opt extends javax.swing.JFrame {
         jPanel3.add(_patid_error);
         _patid_error.setBounds(170, 150, 20, 10);
 
-        jButton5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton5.setText("Get");
-        jButton5.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel3.add(jButton5);
-        jButton5.setBounds(210, 140, 60, 30);
+        gettingid.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        gettingid.setText("Get");
+        gettingid.setBorder(new javax.swing.border.MatteBorder(null));
+        gettingid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gettingidActionPerformed(evt);
+            }
+        });
+        jPanel3.add(gettingid);
+        gettingid.setBounds(210, 140, 60, 30);
 
         jLabel20.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel20.setText("R ID : ");
@@ -283,15 +293,52 @@ public class receptionist_opt extends javax.swing.JFrame {
         jPanel3.add(jLabel18);
         jLabel18.setBounds(450, 60, 60, 30);
 
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.setToolTipText("");
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        doctable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "DoctorID", "D-F-Name", "D-L-Name", "Deptarment", "Sex", "Phone"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(doctable);
+        if (doctable.getColumnModel().getColumnCount() > 0) {
+            doctable.getColumnModel().getColumn(0).setResizable(false);
+            doctable.getColumnModel().getColumn(3).setPreferredWidth(110);
+            doctable.getColumnModel().getColumn(5).setPreferredWidth(100);
+        }
+
+        jScrollPane2.setViewportView(jScrollPane1);
+
+        jPanel3.add(jScrollPane2);
+        jScrollPane2.setBounds(390, 110, 260, 280);
+
         jPanel4.add(jPanel3);
         jPanel3.setBounds(250, 170, 670, 490);
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton1.setText("Logout");
-        jButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 0, 51)));
-        jPanel4.add(jButton1);
-        jButton1.setBounds(760, 70, 150, 30);
+        logoutbtn.setBackground(new java.awt.Color(255, 255, 255));
+        logoutbtn.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        logoutbtn.setText("Logout");
+        logoutbtn.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 0, 51)));
+        logoutbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutbtnActionPerformed(evt);
+            }
+        });
+        jPanel4.add(logoutbtn);
+        logoutbtn.setBounds(760, 70, 150, 30);
 
         jLabel6.setBackground(new java.awt.Color(0, 102, 153));
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
@@ -432,6 +479,57 @@ public class receptionist_opt extends javax.swing.JFrame {
         }).start();
     }
     
+    private void showdata(){
+        ArrayList<admin_addingclass.adddoctorclass> list = userlist();
+        DefaultTableModel model = (DefaultTableModel) doctable.getModel();
+        Object[] row = new Object[6];
+        for(int i=0 ; i<list.size() ; i++){
+            row[0] = list.get(i).getDid();
+            row[1] = list.get(i).getDfname();
+            row[2] = list.get(i).getDlname();
+            row[3] = list.get(i).getDeptward();
+            row[4] = list.get(i).getSex();
+            row[5] = list.get(i).getPhno();
+            model.addRow(row);
+            System.out.println(list.get(i).getRegdate());
+        }
+    }
+    
+    private ArrayList<admin_addingclass.adddoctorclass> userlist() {
+            ArrayList<admin_addingclass.adddoctorclass> userList = new ArrayList<>();
+            try{
+                conn.OpenConnection();
+//(did, age, sal, dfname, dlname, dob, sex, address, phno, city, regdate, username, pass, qualification, deptward)
+                String selectquery="select did,age,salery,dfname,dlname,dob,gname,address,phno,cname,regdate,username,pass,qname,wname from doctor d ,qualification q ,city c ,gender g , deptward dw where d.qid=q.qid and d.cityid=c.cid and d.sexid=g.gid and d.dwid=dw.wid order by did desc";
+                conn.GetData(selectquery);
+                admin_addingclass adc = new admin_addingclass();
+                admin_addingclass.adddoctorclass addc;
+                while(conn.rst.next()){
+                    addc = adc.new adddoctorclass(
+                    conn.rst.getInt("did"),
+                    conn.rst.getInt("age"),
+                    conn.rst.getInt("salery"),
+                    conn.rst.getString("dfname"),
+                    conn.rst.getString("dlname"),
+                    conn.rst.getString("dob"),
+                    conn.rst.getString("gname"),
+                    conn.rst.getString("address"),
+                    conn.rst.getString("phno"),
+                    conn.rst.getString("cname"),
+                    conn.rst.getString("regdate"),        
+                    conn.rst.getString("username"),
+                    conn.rst.getString("pass"),
+                    conn.rst.getString("qname"),
+                    conn.rst.getString("wname")
+                    );
+                 userList.add(addc);   
+                }
+                
+            }catch(SQLException e ){System.out.println(e);}
+        
+     return userList;
+    }
+    
     private void rr_patid_edKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rr_patid_edKeyTyped
         
         char c = evt.getKeyChar();
@@ -490,6 +588,117 @@ public class receptionist_opt extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_rp_appointment_btnActionPerformed
 
+    private void gettingidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gettingidActionPerformed
+        if(rr_patid_ed.getText().equals("")){_patid_error.setVisible(true);}
+        else{
+            boolean ispresnt1 = false;
+            _patid_error.setVisible(false);
+            try{
+                conn.OpenConnection();
+                String query = "select rpid , fname,lname,phno from RegPatient where rpid="+rr_patid_ed.getText();
+                conn.GetData(query);
+                while(conn.rst.next()){
+                    ispresnt1 = true;
+                    rr_patfname_ed.setText(conn.rst.getString("fname"));
+                    rr_patlname_ed.setText(conn.rst.getString("lname"));
+                    rr_patphno_ed.setText(conn.rst.getString("phno"));
+                   break;
+                }
+                conn.CloseConnection();
+                if(ispresnt1 == false){
+                    rr_patfname_ed.setText("");
+                    rr_patlname_ed.setText("");
+                    rr_patphno_ed.setText("");
+                    JOptionPane.showMessageDialog(null, "Sorry Not Found such Patient");
+                    
+                }
+            }catch(SQLException e ){System.out.println(e);}
+            
+        }
+        
+    }//GEN-LAST:event_gettingidActionPerformed
+
+    private void getdoctordata(){
+        try{
+            conn.OpenConnection();
+            String query="select did from doctor";
+            conn.GetData(query);
+            while(conn.rst.next()){
+                int did =conn.rst.getInt("did");
+                rr_patdoct_combo.addItem(String.valueOf(did));
+            }
+            conn.CloseConnection();
+        }catch(SQLException e){ System.out.println(e);}
+    }
+    
+    private void rr_patdoct_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rr_patdoct_comboActionPerformed
+        if(rr_patdoct_combo.getSelectedItem().equals("Select Doctor")){ _docdept_error.setVisible(true);doctorname=null;}
+        else{
+            _docdept_error.setVisible(false);
+            doctorname=String.valueOf(rr_patdoct_combo.getSelectedItem());
+            
+            try{
+                String query= "select did , wname from doctor d1 , deptward dw where d1.dwid=dw.wid";
+                conn.OpenConnection();
+                conn.GetData(query);
+                while(conn.rst.next()){
+                int    s1 = conn.rst.getInt("did");
+                String s2 = conn.rst.getString("wname");
+                if(s1 == Integer.valueOf(doctorname)){
+                    doctorid=s1;
+                    rr_patdocdept_ed.setText(s2);
+//                    System.out.println(s1 + " : " + s2 + " : " + doctorid); 
+                  }
+                }
+                conn.CloseConnection();
+            }catch(SQLException |ValueException e){System.out.println(e);}
+        }
+    }//GEN-LAST:event_rr_patdoct_comboActionPerformed
+
+    private void addoptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addoptActionPerformed
+        
+        boolean emptychk=false;
+        if(rr_patid_ed.getText().equals("")){_patid_error.setVisible(true); emptychk=false;}
+        
+        if(rr_patdoct_combo.getSelectedItem().equals("Select Doctor")){_docdept_error.setVisible(true);emptychk=false;}
+        
+        if(!rr_patid_ed.getText().isEmpty() && !rr_patdoct_combo.getSelectedItem().equals("Select Doctor")){emptychk=true;}
+        if(emptychk==false){JOptionPane.showMessageDialog(null, "Please Fill the Fileds");}
+        
+        if(emptychk==true){
+            _docdept_error.setVisible(false);
+            _patid_error.setVisible(false);
+            
+            try{
+                conn.OpenConnection();
+                String query="insert into PatientOPT (rpid,rid,did,billamount,entdate) values ("+rr_patid_ed.getText()
+                +" , "+rr_patrecp_tv.getText()+" , "+doctorid+" , "+rr_patoptbill_ed.getText()
+                +" , to_date('"+registrationdate.getText()+"','yyyy-MM-dd') )";
+                
+                int flag = conn.InsertUpdateDelete(query);
+                if(flag==1){
+                    JOptionPane.showMessageDialog(null, "Successfully Inserted..!");
+                    rr_patoptid_tv.setText(conn.getID("select optid from PatientOPT ORDER BY optid DESC Fetch first 1 rows only"));
+                    rr_patid_ed.setText("");
+                    rr_patfname_ed.setText("");
+                    rr_patlname_ed.setText("");
+                    rr_patphno_ed.setText("");
+                    rr_patdoct_combo.setSelectedIndex(0);
+                    rr_patdocdept_ed.setText("");
+                }
+                conn.CloseConnection();
+            }catch(HeadlessException e ){System.out.println(e);}
+        }
+        
+        
+    }//GEN-LAST:event_addoptActionPerformed
+
+    private void logoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutbtnActionPerformed
+        LoginForm.loginsection lfl = new loginsection();
+        lfl.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_logoutbtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -527,8 +736,8 @@ public class receptionist_opt extends javax.swing.JFrame {
     private javax.swing.JLabel _docdept_error;
     private javax.swing.JLabel _patid_error;
     private javax.swing.JButton addopt;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JTable doctable;
+    private javax.swing.JButton gettingid;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -546,7 +755,8 @@ public class receptionist_opt extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton logoutbtn;
     private javax.swing.JLabel receptionistname;
     private javax.swing.JTextField registrationdate;
     private javax.swing.JButton rp_admit_btn;

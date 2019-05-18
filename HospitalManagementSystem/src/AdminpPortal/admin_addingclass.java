@@ -10,7 +10,7 @@ package AdminpPortal;
  * @author AbdulRehman
  */
 public class admin_addingclass {
-    class adddoctorclass{
+  public class adddoctorclass{
         
         int did,age,sal;
         String dfname,dlname,dob,sex,address,phno,city,regdate,username,pass,qualification,deptward;

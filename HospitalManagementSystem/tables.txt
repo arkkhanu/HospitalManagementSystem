@@ -214,10 +214,31 @@ Wrote file afiedt.buf
   4  begin
   5  select RegPatient_sequence.nextval into :new.rpid from dual;
   6* end;
-SQL> /
+SQL> 
 
 Trigger created.
 
 /////////////////////////////////////////////////////////////
 
+SQL> create table PatientOPT (optid number primary key , rpid number ,rid number , did number , billamount number not null , entdate date not null , foreign key(rpid) references RegPatient(rpid) ,foreign key(rid) references Recept(rid), foreign key(did) references Doctor(did) );
 
+Table created.
+
+SQL> create sequence PatientOPT_sequence
+  2  start with 1
+  3  increment by 1;
+
+Sequence created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create or replace trigger PatientOPT_trigger
+  2  before insert on PatientOPT
+  3  for each row
+  4  begin
+  5  select PatientOPT_sequence.nextval into :new.optid from dual;
+  6* end;
+SQL> /
+
+Trigger created.

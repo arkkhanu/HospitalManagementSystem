@@ -17,6 +17,8 @@ import java.util.Date;
  */
 public class receptionist_admitpatient extends javax.swing.JFrame {
 
+    int id = -1;
+    String username = null;
    
     public receptionist_admitpatient() {
         initComponents();
@@ -24,6 +26,15 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
         showtime();
     }
 
+    public receptionist_admitpatient(int id ,String username) {
+        initComponents();
+        showdate();
+        showtime();
+        this.id=id;
+        this.username=username;
+        rr_patrecp_tv.setText(String.valueOf(id));
+        receptionistname.setText(username);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,15 +46,6 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
 
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        rp_registration_btn = new javax.swing.JButton();
-        rp_admit_btn = new javax.swing.JButton();
-        rp_bill_for_admit = new javax.swing.JButton();
-        rp_opt_details = new javax.swing.JButton();
-        rp_admit_details = new javax.swing.JButton();
-        rp_chk_room = new javax.swing.JButton();
-        rp_opt_btn = new javax.swing.JButton();
-        rp_appointment_btn = new javax.swing.JButton();
         logoutbtn = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
@@ -72,12 +74,21 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
         patientidd = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        receptionistname = new javax.swing.JLabel();
-        receptionistid = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
         registrationdate = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
+        rr_patrecp_tv = new javax.swing.JTextField();
+        receptionistname = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        rp_registration_btn = new javax.swing.JButton();
+        rp_admit_btn = new javax.swing.JButton();
+        rp_bill_for_admit = new javax.swing.JButton();
+        rp_opt_details = new javax.swing.JButton();
+        rp_admit_details = new javax.swing.JButton();
+        rp_chk_room = new javax.swing.JButton();
+        rp_opt_btn = new javax.swing.JButton();
+        rp_appointment_btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(947, 708));
@@ -92,101 +103,6 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pictures/p2.png"))); // NOI18N
         jPanel4.add(jLabel1);
         jLabel1.setBounds(50, 10, 130, 130);
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
-        jPanel2.setLayout(null);
-
-        rp_registration_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        rp_registration_btn.setText("Register Patient");
-        rp_registration_btn.setBorder(new javax.swing.border.MatteBorder(null));
-        rp_registration_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rp_registration_btnActionPerformed(evt);
-            }
-        });
-        jPanel2.add(rp_registration_btn);
-        rp_registration_btn.setBounds(10, 20, 190, 40);
-
-        rp_admit_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        rp_admit_btn.setText("Admit Patient");
-        rp_admit_btn.setBorder(new javax.swing.border.MatteBorder(null));
-        rp_admit_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rp_admit_btnActionPerformed(evt);
-            }
-        });
-        jPanel2.add(rp_admit_btn);
-        rp_admit_btn.setBounds(10, 200, 190, 40);
-
-        rp_bill_for_admit.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        rp_bill_for_admit.setText("Bill for Admit");
-        rp_bill_for_admit.setBorder(new javax.swing.border.MatteBorder(null));
-        rp_bill_for_admit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rp_bill_for_admitActionPerformed(evt);
-            }
-        });
-        jPanel2.add(rp_bill_for_admit);
-        rp_bill_for_admit.setBounds(10, 260, 190, 40);
-
-        rp_opt_details.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        rp_opt_details.setText("OPT Patient Detail");
-        rp_opt_details.setBorder(new javax.swing.border.MatteBorder(null));
-        rp_opt_details.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rp_opt_detailsActionPerformed(evt);
-            }
-        });
-        jPanel2.add(rp_opt_details);
-        rp_opt_details.setBounds(10, 440, 190, 40);
-
-        rp_admit_details.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        rp_admit_details.setText("Admited Patient Detail");
-        rp_admit_details.setBorder(new javax.swing.border.MatteBorder(null));
-        rp_admit_details.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rp_admit_detailsActionPerformed(evt);
-            }
-        });
-        jPanel2.add(rp_admit_details);
-        rp_admit_details.setBounds(10, 380, 190, 40);
-
-        rp_chk_room.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        rp_chk_room.setText("Check Room");
-        rp_chk_room.setBorder(new javax.swing.border.MatteBorder(null));
-        rp_chk_room.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rp_chk_roomActionPerformed(evt);
-            }
-        });
-        jPanel2.add(rp_chk_room);
-        rp_chk_room.setBounds(10, 320, 190, 40);
-
-        rp_opt_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        rp_opt_btn.setText("Add OPT");
-        rp_opt_btn.setBorder(new javax.swing.border.MatteBorder(null));
-        rp_opt_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rp_opt_btnActionPerformed(evt);
-            }
-        });
-        jPanel2.add(rp_opt_btn);
-        rp_opt_btn.setBounds(10, 80, 190, 40);
-
-        rp_appointment_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        rp_appointment_btn.setText("Appoinment");
-        rp_appointment_btn.setBorder(new javax.swing.border.MatteBorder(null));
-        rp_appointment_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rp_appointment_btnActionPerformed(evt);
-            }
-        });
-        jPanel2.add(rp_appointment_btn);
-        rp_appointment_btn.setBounds(10, 140, 190, 40);
-
-        jPanel4.add(jPanel2);
-        jPanel2.setBounds(20, 170, 210, 490);
 
         logoutbtn.setBackground(new java.awt.Color(255, 255, 255));
         logoutbtn.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
@@ -350,26 +266,6 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
         jPanel1.add(jLabel10);
         jLabel10.setBounds(20, 270, 90, 30);
 
-        receptionistname.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        receptionistname.setText("Null");
-        jPanel1.add(receptionistname);
-        receptionistname.setBounds(530, 50, 120, 20);
-
-        receptionistid.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        receptionistid.setText("Null");
-        jPanel1.add(receptionistid);
-        receptionistid.setBounds(530, 20, 120, 20);
-
-        jLabel20.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel20.setText("Reception ID : ");
-        jPanel1.add(jLabel20);
-        jLabel20.setBounds(420, 20, 90, 20);
-
-        jLabel18.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel18.setText("Reception Name : ");
-        jPanel1.add(jLabel18);
-        jLabel18.setBounds(410, 50, 110, 20);
-
         registrationdate.setEditable(false);
         registrationdate.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         registrationdate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
@@ -377,13 +273,130 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
         jPanel1.add(registrationdate);
         registrationdate.setBounds(220, 20, 140, 30);
 
+        jLabel20.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel20.setText("R ID : ");
+        jPanel1.add(jLabel20);
+        jLabel20.setBounds(470, 20, 40, 30);
+
+        rr_patrecp_tv.setEditable(false);
+        rr_patrecp_tv.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        rr_patrecp_tv.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        rr_patrecp_tv.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(rr_patrecp_tv);
+        rr_patrecp_tv.setBounds(520, 20, 60, 30);
+
+        receptionistname.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        receptionistname.setText("Null");
+        jPanel1.add(receptionistname);
+        receptionistname.setBounds(520, 60, 120, 30);
+
+        jLabel18.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel18.setText("R Name : ");
+        jPanel1.add(jLabel18);
+        jLabel18.setBounds(450, 60, 60, 30);
+
         jPanel4.add(jPanel1);
-        jPanel1.setBounds(260, 170, 660, 490);
+        jPanel1.setBounds(250, 170, 670, 490);
 
         jLabel19.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel19.setText("Admit Patient");
         jPanel4.add(jLabel19);
         jLabel19.setBounds(470, 130, 160, 40);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
+        jPanel2.setLayout(null);
+
+        rp_registration_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        rp_registration_btn.setText("Register Patient");
+        rp_registration_btn.setBorder(new javax.swing.border.MatteBorder(null));
+        rp_registration_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rp_registration_btnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(rp_registration_btn);
+        rp_registration_btn.setBounds(10, 20, 190, 40);
+
+        rp_admit_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        rp_admit_btn.setText("Admit Patient");
+        rp_admit_btn.setBorder(new javax.swing.border.MatteBorder(null));
+        rp_admit_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rp_admit_btnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(rp_admit_btn);
+        rp_admit_btn.setBounds(10, 200, 190, 40);
+
+        rp_bill_for_admit.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        rp_bill_for_admit.setText("Bill for Admit");
+        rp_bill_for_admit.setBorder(new javax.swing.border.MatteBorder(null));
+        rp_bill_for_admit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rp_bill_for_admitActionPerformed(evt);
+            }
+        });
+        jPanel2.add(rp_bill_for_admit);
+        rp_bill_for_admit.setBounds(10, 260, 190, 40);
+
+        rp_opt_details.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        rp_opt_details.setText("OPT Patient Detail");
+        rp_opt_details.setBorder(new javax.swing.border.MatteBorder(null));
+        rp_opt_details.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rp_opt_detailsActionPerformed(evt);
+            }
+        });
+        jPanel2.add(rp_opt_details);
+        rp_opt_details.setBounds(10, 440, 190, 40);
+
+        rp_admit_details.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        rp_admit_details.setText("Admited Patient Detail");
+        rp_admit_details.setBorder(new javax.swing.border.MatteBorder(null));
+        rp_admit_details.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rp_admit_detailsActionPerformed(evt);
+            }
+        });
+        jPanel2.add(rp_admit_details);
+        rp_admit_details.setBounds(10, 380, 190, 40);
+
+        rp_chk_room.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        rp_chk_room.setText("Check Room");
+        rp_chk_room.setBorder(new javax.swing.border.MatteBorder(null));
+        rp_chk_room.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rp_chk_roomActionPerformed(evt);
+            }
+        });
+        jPanel2.add(rp_chk_room);
+        rp_chk_room.setBounds(10, 320, 190, 40);
+
+        rp_opt_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        rp_opt_btn.setText("Add OPT");
+        rp_opt_btn.setBorder(new javax.swing.border.MatteBorder(null));
+        rp_opt_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rp_opt_btnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(rp_opt_btn);
+        rp_opt_btn.setBounds(10, 80, 190, 40);
+
+        rp_appointment_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        rp_appointment_btn.setText("Appoinment");
+        rp_appointment_btn.setBorder(new javax.swing.border.MatteBorder(null));
+        rp_appointment_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rp_appointment_btnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(rp_appointment_btn);
+        rp_appointment_btn.setBounds(10, 140, 190, 40);
+
+        jPanel4.add(jPanel2);
+        jPanel2.setBounds(20, 170, 210, 490);
 
         getContentPane().add(jPanel4);
         jPanel4.setBounds(0, 0, 940, 680);
@@ -419,59 +432,59 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
     }//GEN-LAST:event_patientidKeyTyped
 
 
-    private void rp_registration_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_registration_btnActionPerformed
-        receptionist_mainmenu rm = new receptionist_mainmenu();
-        rm.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_rp_registration_btnActionPerformed
-
-    private void rp_opt_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_opt_btnActionPerformed
-        receptionist_opt ropt = new receptionist_opt();
-        ropt.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_rp_opt_btnActionPerformed
-
-    private void rp_appointment_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_appointment_btnActionPerformed
-        receptionist_appoinment rap = new receptionist_appoinment();
-        rap.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_rp_appointment_btnActionPerformed
-
-    private void rp_admit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_admit_btnActionPerformed
-        receptionist_admitpatient  adp= new receptionist_admitpatient();
-        adp.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_rp_admit_btnActionPerformed
-
-    private void rp_bill_for_admitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_bill_for_admitActionPerformed
-        receptionist_billforadmit rba = new receptionist_billforadmit();
-        rba.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_rp_bill_for_admitActionPerformed
-
-    private void rp_chk_roomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_chk_roomActionPerformed
-        receptionist_checkroom rchr  = new receptionist_checkroom();
-        rchr.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_rp_chk_roomActionPerformed
-
-    private void rp_admit_detailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_admit_detailsActionPerformed
-        receptionist_admitpatientdetail adpd = new receptionist_admitpatientdetail();
-        adpd.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_rp_admit_detailsActionPerformed
-
-    private void rp_opt_detailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_opt_detailsActionPerformed
-        receptionist_optdetail roptd = new receptionist_optdetail();
-        roptd.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_rp_opt_detailsActionPerformed
-
     private void logoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutbtnActionPerformed
         LoginForm.loginsection lfl = new loginsection();
         lfl.setVisible(true);
         dispose();
     }//GEN-LAST:event_logoutbtnActionPerformed
+
+    private void rp_registration_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_registration_btnActionPerformed
+        receptionist_mainmenu rmm = new receptionist_mainmenu(id,username);
+        rmm.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_registration_btnActionPerformed
+
+    private void rp_admit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_admit_btnActionPerformed
+        receptionist_admitpatient radp = new receptionist_admitpatient(id,username);
+        radp.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_admit_btnActionPerformed
+
+    private void rp_bill_for_admitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_bill_for_admitActionPerformed
+        receptionist_billforadmit rba = new receptionist_billforadmit(id,username);
+        rba.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_bill_for_admitActionPerformed
+
+    private void rp_opt_detailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_opt_detailsActionPerformed
+        receptionist_optdetail roptd = new receptionist_optdetail(id,username);
+        roptd.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_opt_detailsActionPerformed
+
+    private void rp_admit_detailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_admit_detailsActionPerformed
+        receptionist_admitpatientdetail adpd = new receptionist_admitpatientdetail(id,username);
+        adpd.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_admit_detailsActionPerformed
+
+    private void rp_chk_roomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_chk_roomActionPerformed
+        receptionist_checkroom rchr  = new receptionist_checkroom(id,username);
+        rchr.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_chk_roomActionPerformed
+
+    private void rp_opt_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_opt_btnActionPerformed
+        receptionist_opt ropt = new receptionist_opt(id,username);
+        ropt.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_opt_btnActionPerformed
+
+    private void rp_appointment_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_appointment_btnActionPerformed
+        receptionist_appoinment rap = new receptionist_appoinment(id,username);
+        rap.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_appointment_btnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -540,7 +553,6 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
     private javax.swing.JButton logoutbtn;
     private javax.swing.JTextField patientid;
     private javax.swing.JTextField patientidd;
-    private javax.swing.JLabel receptionistid;
     private javax.swing.JLabel receptionistname;
     private javax.swing.JTextField registrationdate;
     private javax.swing.JButton rp_admit_btn;
@@ -551,6 +563,7 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
     private javax.swing.JButton rp_opt_btn;
     private javax.swing.JButton rp_opt_details;
     private javax.swing.JButton rp_registration_btn;
+    private javax.swing.JTextField rr_patrecp_tv;
     private javax.swing.JLabel timegetting;
     // End of variables declaration//GEN-END:variables
 }

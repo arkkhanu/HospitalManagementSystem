@@ -9,8 +9,12 @@ import AdminpPortal.admin_adddoctor;
 import DBConnectionP.DBConnection;
 import DoctorPortal.doctor_mainmenu;
 import ReceptionistPortal.receptionist_mainmenu;
+import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
@@ -25,6 +29,8 @@ public class loginsection extends javax.swing.JFrame {
         _pass_error.setVisible(false);
         _username_error.setVisible(false);
         _usertype_error.setVisible(false);
+        showdate();
+        showtime();
     }
 
     /**
@@ -96,22 +102,22 @@ public class loginsection extends javax.swing.JFrame {
         jPanel3.add(_usertype_error);
         _usertype_error.setBounds(480, 300, 20, 20);
 
-        username_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        username_ed.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         username_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel3.add(username_ed);
         username_ed.setBounds(310, 140, 230, 40);
 
-        password_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        password_ed.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         password_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel3.add(password_ed);
         password_ed.setBounds(310, 230, 230, 40);
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jLabel2.setText("Password");
         jPanel3.add(jLabel2);
         jLabel2.setBounds(310, 200, 150, 30);
 
-        logintype_combo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        logintype_combo.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         logintype_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select User", "Admin", "Doctor", "Receptionist" }));
         logintype_combo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,7 +127,7 @@ public class loginsection extends javax.swing.JFrame {
         jPanel3.add(logintype_combo);
         logintype_combo.setBounds(310, 290, 170, 40);
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jLabel3.setText("Username");
         jPanel3.add(jLabel3);
         jLabel3.setBounds(310, 110, 150, 30);
@@ -164,6 +170,23 @@ public class loginsection extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    void showtime(){
+        new Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("hh:mm:ss a");
+            timegetting.setText(t.format(d));
+        }).start();   
+    }
+    
+    void showdate(){
+        new Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd");
+            registrationdate.setText(t.format(d));
+        }).start();
+        
+    }
+    
     private void logintype_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logintype_comboActionPerformed
         if(logintype_combo.getSelectedItem().equals("Select User")){_usertype_error.setVisible(true);}
         if(logintype_combo.getSelectedItem().equals("Admin")){_usertype_error.setVisible(false);}
@@ -213,16 +236,17 @@ public class loginsection extends javax.swing.JFrame {
                 
                 if(logintype_combo.getSelectedItem().equals("Doctor")){
                     boolean loginok = false;
-                    String adminquery="select username,pass from Doctor";
+                    String adminquery="select did,username,pass from Doctor";
                     conn.GetData(adminquery);
                     while(conn.rst.next()){
+                      int id = conn.rst.getInt("did");
                       String username =  conn.rst.getString("username");
                       String password = conn.rst.getString("pass");
                       
                         if(username_ed.getText().equals(username) && password_ed.getText().equals(password)){
                             loginok=true;
                             JOptionPane.showMessageDialog(null, "Successfully Login ...!");
-                            DoctorPortal.doctor_mainmenu ddm = new doctor_mainmenu();
+                            DoctorPortal.doctor_mainmenu ddm = new doctor_mainmenu(id,username);
                             ddm.setVisible(true);
                             dispose();
                         }
@@ -232,16 +256,17 @@ public class loginsection extends javax.swing.JFrame {
                 
                 if(logintype_combo.getSelectedItem().equals("Receptionist")){
                     boolean loginok = false;
-                    String adminquery="select username,pass from Recept";
+                    String adminquery="select rid,username,pass from Recept";
                     conn.GetData(adminquery);
                     while(conn.rst.next()){
+                      int id = conn.rst.getInt("rid");  
                       String username =  conn.rst.getString("username");
                       String password = conn.rst.getString("pass");
                       
                         if(username_ed.getText().equals(username) && password_ed.getText().equals(password)){
                             loginok=true;
                             JOptionPane.showMessageDialog(null, "Successfully Login ...!");
-                            ReceptionistPortal.receptionist_mainmenu rmm = new receptionist_mainmenu();
+                            ReceptionistPortal.receptionist_mainmenu rmm = new receptionist_mainmenu(id,username);
                             rmm.setVisible(true);
                             dispose();
                         }
@@ -281,10 +306,8 @@ public class loginsection extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new loginsection().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new loginsection().setVisible(true);
         });
     }
 

@@ -31,8 +31,17 @@ public class doctor_mainmenu extends javax.swing.JFrame {
     
     public doctor_mainmenu() {
         initComponents();
+        _appid_error.setVisible(false);
     }
 
+    public doctor_mainmenu(int id , String username){
+        initComponents();
+        _appid_error.setVisible(false);
+        dd_id_tv.setText(String.valueOf(id));
+        dd_username_tv.setText(username);
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,22 +59,23 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         registrationdate = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        patientidd1 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        patientidd2 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         patientidd = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
-        appointmentid = new javax.swing.JTextField();
+        appointmentid_ed = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
         jTextField3 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        dd_username_tv = new javax.swing.JLabel();
+        dd_id_tv = new javax.swing.JTextField();
+        _appid_error = new javax.swing.JLabel();
         logout = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
@@ -96,7 +106,7 @@ public class doctor_mainmenu extends javax.swing.JFrame {
 
         jTextField2.setEditable(false);
         jTextField2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField2.setBorder(new javax.swing.border.MatteBorder(null));
+        jTextField2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel3.add(jTextField2);
         jTextField2.setBounds(130, 240, 150, 30);
 
@@ -107,7 +117,8 @@ public class doctor_mainmenu extends javax.swing.JFrame {
 
         registrationdate.setEditable(false);
         registrationdate.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        registrationdate.setBorder(new javax.swing.border.MatteBorder(null));
+        registrationdate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        registrationdate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel3.add(registrationdate);
         registrationdate.setBounds(380, 20, 150, 30);
 
@@ -115,26 +126,6 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         jLabel3.setText("Patient ID : ");
         jPanel3.add(jLabel3);
         jLabel3.setBounds(30, 140, 70, 30);
-
-        jLabel17.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel17.setText("Doctor ID : ");
-        jPanel3.add(jLabel17);
-        jLabel17.setBounds(680, 20, 80, 20);
-
-        patientidd1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        patientidd1.setText("Null");
-        jPanel3.add(patientidd1);
-        patientidd1.setBounds(780, 20, 120, 20);
-
-        jLabel18.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel18.setText("Doctor Name : ");
-        jPanel3.add(jLabel18);
-        jLabel18.setBounds(680, 50, 90, 20);
-
-        patientidd2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        patientidd2.setText("Null");
-        jPanel3.add(patientidd2);
-        patientidd2.setBounds(780, 50, 130, 20);
 
         jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton4.setText("Checked");
@@ -144,6 +135,8 @@ public class doctor_mainmenu extends javax.swing.JFrame {
 
         patientidd.setEditable(false);
         patientidd.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        patientidd.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        patientidd.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel3.add(patientidd);
         patientidd.setBounds(130, 140, 59, 30);
 
@@ -192,24 +185,31 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         jPanel3.add(jLabel4);
         jLabel4.setBounds(30, 100, 80, 30);
 
-        appointmentid.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        appointmentid.addKeyListener(new java.awt.event.KeyAdapter() {
+        appointmentid_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        appointmentid_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        appointmentid_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        appointmentid_ed.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                appointmentidKeyTyped(evt);
+                appointmentid_edKeyTyped(evt);
             }
         });
-        jPanel3.add(appointmentid);
-        appointmentid.setBounds(130, 100, 59, 30);
+        jPanel3.add(appointmentid_ed);
+        appointmentid_ed.setBounds(130, 100, 59, 30);
 
         jButton6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton6.setText("Check");
+        jButton6.setText("Get");
         jButton6.setBorder(new javax.swing.border.MatteBorder(null));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton6);
         jButton6.setBounds(210, 100, 70, 30);
 
         jTextField3.setEditable(false);
         jTextField3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField3.setBorder(new javax.swing.border.MatteBorder(null));
+        jTextField3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel3.add(jTextField3);
         jTextField3.setBounds(130, 290, 150, 30);
 
@@ -225,15 +225,44 @@ public class doctor_mainmenu extends javax.swing.JFrame {
 
         jTextField5.setEditable(false);
         jTextField5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField5.setBorder(new javax.swing.border.MatteBorder(null));
+        jTextField5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel3.add(jTextField5);
         jTextField5.setBounds(130, 340, 150, 30);
 
         jTextField6.setEditable(false);
         jTextField6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField6.setBorder(new javax.swing.border.MatteBorder(null));
+        jTextField6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel3.add(jTextField6);
         jTextField6.setBounds(130, 190, 150, 30);
+
+        jLabel20.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel20.setText("D ID : ");
+        jPanel3.add(jLabel20);
+        jLabel20.setBounds(720, 20, 40, 30);
+
+        jLabel18.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel18.setText("D Name : ");
+        jPanel3.add(jLabel18);
+        jLabel18.setBounds(700, 60, 60, 30);
+
+        dd_username_tv.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        dd_username_tv.setText("Null");
+        jPanel3.add(dd_username_tv);
+        dd_username_tv.setBounds(770, 60, 120, 30);
+
+        dd_id_tv.setEditable(false);
+        dd_id_tv.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        dd_id_tv.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        dd_id_tv.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel3.add(dd_id_tv);
+        dd_id_tv.setBounds(770, 20, 60, 30);
+
+        _appid_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _appid_error.setForeground(new java.awt.Color(255, 0, 0));
+        _appid_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _appid_error.setText("*");
+        jPanel3.add(_appid_error);
+        _appid_error.setBounds(190, 110, 20, 10);
 
         jPanel4.add(jPanel3);
         jPanel3.setBounds(10, 170, 920, 490);
@@ -276,19 +305,25 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void appointmentidKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_appointmentidKeyTyped
+    private void appointmentid_edKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_appointmentid_edKeyTyped
         char c = evt.getKeyChar();
         if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
             getToolkit().beep();
             evt.consume();
         }
-    }//GEN-LAST:event_appointmentidKeyTyped
+    }//GEN-LAST:event_appointmentid_edKeyTyped
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
         LoginForm.loginsection lfl = new loginsection();
         lfl.setVisible(true);
         dispose();
     }//GEN-LAST:event_logoutActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        if(appointmentid_ed.getText().equals("")){
+            _appid_error.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     
     void showtime(){
@@ -339,13 +374,16 @@ public class doctor_mainmenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField appointmentid;
+    private javax.swing.JLabel _appid_error;
+    private javax.swing.JTextField appointmentid_ed;
+    private javax.swing.JTextField dd_id_tv;
+    private javax.swing.JLabel dd_username_tv;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -363,8 +401,6 @@ public class doctor_mainmenu extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField6;
     private javax.swing.JButton logout;
     private javax.swing.JTextField patientidd;
-    private javax.swing.JLabel patientidd1;
-    private javax.swing.JLabel patientidd2;
     private javax.swing.JTextField registrationdate;
     private javax.swing.JLabel timegetting;
     // End of variables declaration//GEN-END:variables

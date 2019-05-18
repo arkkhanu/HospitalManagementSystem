@@ -17,70 +17,24 @@ import javax.swing.table.DefaultTableModel;
  */
 public class receptionist_optdetail extends javax.swing.JFrame {
 
-  
-    public ArrayList<receptionist_optdetailjavaclass> userlist(){
-        ArrayList<receptionist_optdetailjavaclass> userList = new ArrayList<>();
-        try{
-            DBConnectionP.DBConnection conn = new DBConnection();
-            conn.OpenConnection();
-            String sql = "select * from ark";
-            conn.GetData(sql);
-            receptionist_optdetailjavaclass rpd ;
-            while(conn.rst.next()){
-                rpd = new receptionist_optdetailjavaclass(
-                        conn.rst.getInt("optid"),
-                        conn.rst.getInt("pid"),
-                        conn.rst.getInt("age"),
-                        conn.rst.getString("pfn"),
-                        conn.rst.getString("pln"),
-                        conn.rst.getString("gender"),
-                        conn.rst.getString("doctor")
-                );
-               userList.add(rpd);
-            }
-            
-        }catch(SQLException e ){System.out.println(e);}
-     return userList;   
-    }
-    
-    public void show_user(){
-    
-        ArrayList<receptionist_optdetailjavaclass> list = userlist();
-        DefaultTableModel model = (DefaultTableModel) jTable_opt.getModel();
-        Object[] row = new Object[7];
-        for(int i=0 ; i<list.size() ; i++){
-            row[0] = list.get(i).getOptid();
-            row[1] = list.get(i).getPno();
-            row[2] = list.get(i).getP_f_name();
-            row[3] = list.get(i).getP_l_name();
-            row[4] = list.get(i).getAe();
-            row[5] = list.get(i).getGender();
-            row[6] = list.get(i).getDoctorname();
-            model.addRow(row);
-        }
-           
-    }
-    
-    private void fillcombo(){
-        try{
-            String query = "select * from rk";
-            DBConnection conn = new DBConnection();
-            conn.OpenConnection();
-            conn.GetData(query);
-            while(conn.rst.next()){
-                String value = conn.rst.getString("c2");
-                optidcombo.addItem(value);
-            }
-            conn.CloseConnection();
-        }catch(SQLException e ){System.out.println(e);}
-    }
-    
+    int id= -1;
+    String username=null;
+ 
     public receptionist_optdetail() {
         initComponents();
 //        show_user();
 //        fillcombo();
     }
 
+    public receptionist_optdetail(int id , String username) {
+        initComponents();
+        this.id=id;
+        this.username=username;
+        rr_patrecp_tv.setText(String.valueOf(id));
+        receptionistname.setText(username);
+//        show_user();
+//        fillcombo();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -100,12 +54,14 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         selection_id_contact = new javax.swing.JTextField();
         searching = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        receptionistname = new javax.swing.JLabel();
-        receptionistid = new javax.swing.JLabel();
         registrationdate = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
+        rr_patrecp_tv = new javax.swing.JTextField();
+        receptionistname = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        logoutbtn = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         rp_registration_btn = new javax.swing.JButton();
         rp_admit_btn = new javax.swing.JButton();
@@ -115,8 +71,6 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         rp_chk_room = new javax.swing.JButton();
         rp_opt_btn = new javax.swing.JButton();
         rp_appointment_btn = new javax.swing.JButton();
-        logoutbtn = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(947, 708));
@@ -180,32 +134,34 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         jPanel1.add(jLabel17);
         jLabel17.setBounds(90, 100, 130, 20);
 
-        jLabel18.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel18.setText("Reception Name : ");
-        jPanel1.add(jLabel18);
-        jLabel18.setBounds(410, 60, 110, 20);
-
-        jLabel19.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel19.setText("Reception ID : ");
-        jPanel1.add(jLabel19);
-        jLabel19.setBounds(420, 30, 90, 20);
-
-        receptionistname.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        receptionistname.setText("Null");
-        jPanel1.add(receptionistname);
-        receptionistname.setBounds(530, 60, 120, 20);
-
-        receptionistid.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        receptionistid.setText("Null");
-        jPanel1.add(receptionistid);
-        receptionistid.setBounds(530, 30, 120, 20);
-
         registrationdate.setEditable(false);
         registrationdate.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         registrationdate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.gray, java.awt.Color.darkGray, java.awt.Color.gray, java.awt.Color.gray));
         registrationdate.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel1.add(registrationdate);
         registrationdate.setBounds(220, 20, 140, 30);
+
+        jLabel20.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel20.setText("R ID : ");
+        jPanel1.add(jLabel20);
+        jLabel20.setBounds(470, 20, 40, 30);
+
+        rr_patrecp_tv.setEditable(false);
+        rr_patrecp_tv.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        rr_patrecp_tv.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        rr_patrecp_tv.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(rr_patrecp_tv);
+        rr_patrecp_tv.setBounds(520, 20, 60, 30);
+
+        receptionistname.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        receptionistname.setText("Null");
+        jPanel1.add(receptionistname);
+        receptionistname.setBounds(520, 60, 120, 30);
+
+        jLabel18.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel18.setText("R Name : ");
+        jPanel1.add(jLabel18);
+        jLabel18.setBounds(450, 60, 60, 30);
 
         jPanel4.add(jPanel1);
         jPanel1.setBounds(260, 170, 660, 490);
@@ -214,6 +170,27 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         jLabel11.setText("OPT Details");
         jPanel4.add(jLabel11);
         jLabel11.setBounds(490, 130, 130, 40);
+
+        logoutbtn.setBackground(new java.awt.Color(255, 255, 255));
+        logoutbtn.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        logoutbtn.setText("Logout");
+        logoutbtn.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 0, 51)));
+        logoutbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutbtnActionPerformed(evt);
+            }
+        });
+        jPanel4.add(logoutbtn);
+        logoutbtn.setBounds(780, 60, 150, 30);
+
+        jLabel6.setBackground(new java.awt.Color(0, 102, 153));
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("                      Receptionist Portal");
+        jLabel6.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 0, 0)));
+        jLabel6.setOpaque(true);
+        jPanel4.add(jLabel6);
+        jLabel6.setBounds(230, 40, 710, 70);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
@@ -310,27 +287,6 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         jPanel4.add(jPanel2);
         jPanel2.setBounds(20, 170, 210, 490);
 
-        logoutbtn.setBackground(new java.awt.Color(255, 255, 255));
-        logoutbtn.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        logoutbtn.setText("Logout");
-        logoutbtn.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 0, 51)));
-        logoutbtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logoutbtnActionPerformed(evt);
-            }
-        });
-        jPanel4.add(logoutbtn);
-        logoutbtn.setBounds(780, 60, 150, 30);
-
-        jLabel6.setBackground(new java.awt.Color(0, 102, 153));
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("                      Receptionist Portal");
-        jLabel6.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 0, 0)));
-        jLabel6.setOpaque(true);
-        jPanel4.add(jLabel6);
-        jLabel6.setBounds(230, 40, 710, 70);
-
         getContentPane().add(jPanel4);
         jPanel4.setBounds(0, 0, 940, 680);
 
@@ -338,74 +294,131 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public ArrayList<receptionist_optdetailjavaclass> userlist(){
+        ArrayList<receptionist_optdetailjavaclass> userList = new ArrayList<>();
+        try{
+            DBConnectionP.DBConnection conn = new DBConnection();
+            conn.OpenConnection();
+            String sql = "select * from ark";
+            conn.GetData(sql);
+            receptionist_optdetailjavaclass rpd ;
+            while(conn.rst.next()){
+                rpd = new receptionist_optdetailjavaclass(
+                        conn.rst.getInt("optid"),
+                        conn.rst.getInt("pid"),
+                        conn.rst.getInt("age"),
+                        conn.rst.getString("pfn"),
+                        conn.rst.getString("pln"),
+                        conn.rst.getString("gender"),
+                        conn.rst.getString("doctor")
+                );
+               userList.add(rpd);
+            }
+            
+        }catch(SQLException e ){System.out.println(e);}
+     return userList;   
+    }
+    
+    public void show_user(){
+    
+        ArrayList<receptionist_optdetailjavaclass> list = userlist();
+        DefaultTableModel model = (DefaultTableModel) jTable_opt.getModel();
+        Object[] row = new Object[7];
+        for(int i=0 ; i<list.size() ; i++){
+            row[0] = list.get(i).getOptid();
+            row[1] = list.get(i).getPno();
+            row[2] = list.get(i).getP_f_name();
+            row[3] = list.get(i).getP_l_name();
+            row[4] = list.get(i).getAe();
+            row[5] = list.get(i).getGender();
+            row[6] = list.get(i).getDoctorname();
+            model.addRow(row);
+        }
+           
+    }
+    
+    private void fillcombo(){
+        try{
+            String query = "select * from rk";
+            DBConnection conn = new DBConnection();
+            conn.OpenConnection();
+            conn.GetData(query);
+            while(conn.rst.next()){
+                String value = conn.rst.getString("c2");
+                optidcombo.addItem(value);
+            }
+            conn.CloseConnection();
+        }catch(SQLException e ){System.out.println(e);}
+    }
+    
     private void optidcomboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optidcomboActionPerformed
 
         //        String ss = optidcombo.getSelectedItem().toString();
         //        patientidd1.setText(ss);
 
-        String data = optidcombo.getSelectedItem().toString();
-        if(!data.equals("Select one")){
-            receptionistid.setText(data);
-        }
-        else{
-            receptionistid.setText(data);
-        }
+//        String data = optidcombo.getSelectedItem().toString();
+//        if(!data.equals("Select one")){
+//            rr_patrecp_tv.setText(data);
+//        }
+//        else{
+//            receptionistid.setText(data);
+//        }
 
     }//GEN-LAST:event_optidcomboActionPerformed
-
-    private void rp_registration_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_registration_btnActionPerformed
-        receptionist_mainmenu rm = new receptionist_mainmenu();
-        rm.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_rp_registration_btnActionPerformed
-
-    private void rp_admit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_admit_btnActionPerformed
-        receptionist_admitpatient radp = new receptionist_admitpatient();
-        radp.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_rp_admit_btnActionPerformed
-
-    private void rp_bill_for_admitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_bill_for_admitActionPerformed
-        receptionist_billforadmit rba = new receptionist_billforadmit();
-        rba.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_rp_bill_for_admitActionPerformed
-
-    private void rp_opt_detailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_opt_detailsActionPerformed
-        receptionist_optdetail roptd= new receptionist_optdetail();
-        roptd.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_rp_opt_detailsActionPerformed
-
-    private void rp_admit_detailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_admit_detailsActionPerformed
-        receptionist_admitpatientdetail adpd = new receptionist_admitpatientdetail();
-        adpd.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_rp_admit_detailsActionPerformed
-
-    private void rp_chk_roomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_chk_roomActionPerformed
-        receptionist_checkroom rchr  = new receptionist_checkroom();
-        rchr.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_rp_chk_roomActionPerformed
-
-    private void rp_opt_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_opt_btnActionPerformed
-        receptionist_opt ropt = new receptionist_opt();
-        ropt.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_rp_opt_btnActionPerformed
-
-    private void rp_appointment_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_appointment_btnActionPerformed
-        receptionist_appoinment rap = new receptionist_appoinment();
-        rap.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_rp_appointment_btnActionPerformed
 
     private void logoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutbtnActionPerformed
         LoginForm.loginsection lfl = new loginsection();
         lfl.setVisible(true);
         dispose();
     }//GEN-LAST:event_logoutbtnActionPerformed
+
+    private void rp_registration_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_registration_btnActionPerformed
+        receptionist_mainmenu rmm = new receptionist_mainmenu(id,username);
+        rmm.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_registration_btnActionPerformed
+
+    private void rp_admit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_admit_btnActionPerformed
+        receptionist_admitpatient radp = new receptionist_admitpatient(id,username);
+        radp.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_admit_btnActionPerformed
+
+    private void rp_bill_for_admitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_bill_for_admitActionPerformed
+        receptionist_billforadmit rba = new receptionist_billforadmit(id,username);
+        rba.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_bill_for_admitActionPerformed
+
+    private void rp_opt_detailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_opt_detailsActionPerformed
+        receptionist_optdetail roptd = new receptionist_optdetail(id,username);
+        roptd.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_opt_detailsActionPerformed
+
+    private void rp_admit_detailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_admit_detailsActionPerformed
+        receptionist_admitpatientdetail adpd = new receptionist_admitpatientdetail(id,username);
+        adpd.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_admit_detailsActionPerformed
+
+    private void rp_chk_roomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_chk_roomActionPerformed
+        receptionist_checkroom rchr  = new receptionist_checkroom(id,username);
+        rchr.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_chk_roomActionPerformed
+
+    private void rp_opt_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_opt_btnActionPerformed
+        receptionist_opt ropt = new receptionist_opt(id,username);
+        ropt.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_opt_btnActionPerformed
+
+    private void rp_appointment_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_appointment_btnActionPerformed
+        receptionist_appoinment rap = new receptionist_appoinment(id,username);
+        rap.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_rp_appointment_btnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -437,7 +450,7 @@ public class receptionist_optdetail extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -446,7 +459,6 @@ public class receptionist_optdetail extends javax.swing.JFrame {
     private javax.swing.JTable jTable_opt;
     private javax.swing.JButton logoutbtn;
     private javax.swing.JComboBox<String> optidcombo;
-    private javax.swing.JLabel receptionistid;
     private javax.swing.JLabel receptionistname;
     private javax.swing.JTextField registrationdate;
     private javax.swing.JButton rp_admit_btn;
@@ -457,6 +469,7 @@ public class receptionist_optdetail extends javax.swing.JFrame {
     private javax.swing.JButton rp_opt_btn;
     private javax.swing.JButton rp_opt_details;
     private javax.swing.JButton rp_registration_btn;
+    private javax.swing.JTextField rr_patrecp_tv;
     private javax.swing.JButton searching;
     private javax.swing.JTextField selection_id_contact;
     private javax.swing.JLabel timegetting;

@@ -134,3 +134,56 @@ SQL> /
 Trigger created.
 
 select rid,age,salery,rfname,rlname,dob,gname,address,phno,cname,regdate,username,pass,qname from recept r ,qualification q ,city c ,gender g where r.qid=q.qid and r.cityid=c.cid and r.sexid=g.gid order by rid desc;
+
+////////////////////////////////////////////////////////////////
+
+SQL> create table Nurse(nid number primary key , nfname varchar(20) not null, nlname varchar(20) not null , age number not null , dob date not null , sexid number, address varchar(50) not null , phno varchar(12) not null , cityid number , regdate date not null , qid number , salery number(5) not null, foreign key(sexid) references Gender(gid), foreign key(cityid) references City(cid) , foreign key(qid) references Qualification(qid));
+
+Table created.
+
+SQL> create sequence Nurse_sequence
+  2  start with 1
+  3  increment by 1;
+
+Sequence created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create or replace trigger Nurse_trigger
+  2  before insert on Nurse
+  3  for each row
+  4  begin
+  5  select Nurse_sequence.nextval into :new.nid from dual;
+  6* end;
+SQL> /
+
+Trigger created.
+
+////////////////////////////////////////////////////////////////
+
+SQL> create table Doctor(did number primary key , dfname varchar(20) not null, dlname varchar(20) not null , age number not null , dob date not null , sexid number, address varchar(50) not null , phno varchar(12) not null , cityid number , regdate date not null , username varchar(30) not null , pass varchar(30) not null , qid number , salery number(5) not null,dwid number, foreign key(sexid) references Gender(gid), foreign key(cityid) references City(cid) , foreign key(qid) references Qualification(qid) , foreign key(dwid) references DeptWard(wid));
+
+Table created.
+
+SQL> create sequence Doctor_sequence
+  2  start with 1
+  3  increment by 1;
+
+Sequence created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create or replace trigger Doctor_trigger
+  2  before insert on Doctor
+  3  for each row
+  4  begin
+  5  select Doctor_sequence.nextval into :new.did from dual;
+  6* end;
+SQL> /
+
+Trigger created.
+//////////////////////////////////////////////////////////////
+
+

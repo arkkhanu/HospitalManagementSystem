@@ -39,6 +39,8 @@ public class admin_addreceptionist extends javax.swing.JFrame {
     
     public admin_addreceptionist() {
         initComponents();
+        showtime();
+        showdate();
         _dob_error.setVisible(false);
         _phone_error.setVisible(false);
         _qal_error.setVisible(false);
@@ -53,8 +55,6 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         _sal_error.setVisible(false);
         updatedata.setVisible(false);
         deletedata.setVisible(false);
-        showtime();
-        showdate();
         getcitydata();
         getgenderdata();
         getqualifdata();
@@ -185,7 +185,7 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         jPanel1.add(getagebtn);
         getagebtn.setBounds(160, 190, 60, 30);
 
-        adddata.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        adddata.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         adddata.setText("Add");
         adddata.setBorder(new javax.swing.border.MatteBorder(null));
         adddata.addActionListener(new java.awt.event.ActionListener() {
@@ -194,9 +194,9 @@ public class admin_addreceptionist extends javax.swing.JFrame {
             }
         });
         jPanel1.add(adddata);
-        adddata.setBounds(90, 450, 90, 30);
+        adddata.setBounds(90, 450, 100, 30);
 
-        updatedata.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        updatedata.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         updatedata.setText("Update");
         updatedata.setBorder(new javax.swing.border.MatteBorder(null));
         updatedata.addActionListener(new java.awt.event.ActionListener() {
@@ -533,7 +533,7 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         jPanel1.add(_dob_error);
         _dob_error.setBounds(460, 110, 20, 10);
 
-        deletedata.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        deletedata.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         deletedata.setText("Delete");
         deletedata.setBorder(new javax.swing.border.MatteBorder(null));
         deletedata.addActionListener(new java.awt.event.ActionListener() {
@@ -700,7 +700,7 @@ public class admin_addreceptionist extends javax.swing.JFrame {
     }
     
     private void showdata(){
-        ArrayList<admin_addingclass.addnurseclass> list = userlist();
+        ArrayList<admin_addingclass.addreceptclass> list = userlist();
         DefaultTableModel model = (DefaultTableModel) recepttable.getModel();
         Object[] row = new Object[6];
         for(int i=0 ; i<list.size() ; i++){
@@ -715,8 +715,8 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         }
     }
     
-    private ArrayList<admin_addingclass.addnurseclass> userlist() {
-            ArrayList<admin_addingclass.addnurseclass> userList = new ArrayList<>();
+    private ArrayList<admin_addingclass.addreceptclass> userlist() {
+            ArrayList<admin_addingclass.addreceptclass> userList = new ArrayList<>();
 //            int rid,age,sal;
 //        String rfname,rlname,dob,sex,address,phno,city,regdate,username,pass,qualification;
 //(rid, age, sal, rfname, rlname, dob, sex, address, phno, city, regdate, username, pass,qualification)
@@ -725,9 +725,9 @@ public class admin_addreceptionist extends javax.swing.JFrame {
                 String selectquery="select rid,age,salery,rfname,rlname,dob,gname,address,phno,cname,regdate,username,pass,qname from recept r ,qualification q ,city c ,gender g where r.qid=q.qid and r.cityid=c.cid and r.sexid=g.gid order by rid desc";
                 conn.GetData(selectquery);
                 admin_addingclass adc = new admin_addingclass();
-                admin_addingclass.addnurseclass anc;
+                admin_addingclass.addreceptclass anc;
                 while(conn.rst.next()){
-                    anc = adc.new addnurseclass(
+                    anc = adc.new addreceptclass(
                     conn.rst.getInt("rid"),
                     conn.rst.getInt("age"),
                     conn.rst.getInt("salery"),
@@ -807,7 +807,18 @@ public class admin_addreceptionist extends javax.swing.JFrame {
             getToolkit().beep();
             evt.consume();
         }
+        if(a_recsalary_et.getText().length() ==6 ){
+            if((Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
+                getToolkit().beep();
+                evt.consume();
+            }
+        }
 
+        if(a_recsalary_et.getText().length() == 6){
+            a_recsalary_et.requestFocusInWindow();
+
+        }
+        
     }//GEN-LAST:event_a_recsalary_etKeyTyped
 
     private void a_doctor_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_doctor_btnActionPerformed
@@ -858,8 +869,13 @@ public class admin_addreceptionist extends javax.swing.JFrame {
             diff = d2.getYear()-d1.getYear();
             String totaldays = String.valueOf(diff);
             a_recage_et.setText(totaldays);
-            if(diff < 18){
+            if(diff >= 18){
+                _age_error.setVisible(false);
+                _dob_error.setVisible(false);
+            }
+            else{
                 JOptionPane.showMessageDialog(null, "Receptionist's age must be greater than 18");
+                _dob_error.setVisible(true);
                 _age_error.setVisible(true);
             }
             if(dobirth.equals("")){ _dob_error.setVisible(true);}
@@ -1122,7 +1138,7 @@ public class admin_addreceptionist extends javax.swing.JFrame {
         TableModel model = recepttable.getModel();
         a_recid_tv.setText(model.getValueAt(i,0).toString());
         int id = Integer.valueOf(a_recid_tv.getText());
-        ArrayList<admin_addingclass.addnurseclass> listing = userlist();
+        ArrayList<admin_addingclass.addreceptclass> listing = userlist();
         for(int j=0 ; j<listing.size() ; j++){
             if(listing.get(j).getRid()== id){
                 a_recid_tv.setText(String.valueOf(listing.get(j).getRid()));

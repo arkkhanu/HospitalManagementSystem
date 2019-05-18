@@ -5,6 +5,7 @@
  */
 package DoctorPortal;
 
+import LoginForm.loginsection;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
@@ -65,7 +66,7 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        logout = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -237,12 +238,17 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         jPanel4.add(jPanel3);
         jPanel3.setBounds(10, 170, 920, 490);
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton1.setText("Logout");
-        jButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 0, 51)));
-        jPanel4.add(jButton1);
-        jButton1.setBounds(760, 70, 150, 30);
+        logout.setBackground(new java.awt.Color(255, 255, 255));
+        logout.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        logout.setText("Logout");
+        logout.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 0, 51)));
+        logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutActionPerformed(evt);
+            }
+        });
+        jPanel4.add(logout);
+        logout.setBounds(760, 70, 150, 30);
 
         jLabel6.setBackground(new java.awt.Color(0, 102, 153));
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
@@ -277,6 +283,12 @@ public class doctor_mainmenu extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_appointmentidKeyTyped
+
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+        LoginForm.loginsection lfl = new loginsection();
+        lfl.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_logoutActionPerformed
 
     
     void showtime(){
@@ -328,7 +340,6 @@ public class doctor_mainmenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField appointmentid;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
@@ -350,6 +361,7 @@ public class doctor_mainmenu extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
+    private javax.swing.JButton logout;
     private javax.swing.JTextField patientidd;
     private javax.swing.JLabel patientidd1;
     private javax.swing.JLabel patientidd2;

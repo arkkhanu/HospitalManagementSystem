@@ -6,6 +6,7 @@
 package ReceptionistPortal;
 
 import DBConnectionP.DBConnection;
+import LoginForm.loginsection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -91,8 +92,6 @@ public class receptionist_optdetail extends javax.swing.JFrame {
 
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -116,6 +115,8 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         rp_chk_room = new javax.swing.JButton();
         rp_opt_btn = new javax.swing.JButton();
         rp_appointment_btn = new javax.swing.JButton();
+        logoutbtn = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(947, 708));
@@ -131,26 +132,10 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         jPanel4.add(jLabel1);
         jLabel1.setBounds(50, 10, 130, 130);
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton1.setText("Logout");
-        jButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 0, 51)));
-        jPanel4.add(jButton1);
-        jButton1.setBounds(760, 70, 150, 30);
-
-        jLabel6.setBackground(new java.awt.Color(0, 102, 153));
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("                      Receptionist Portal");
-        jLabel6.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 0, 0)));
-        jLabel6.setOpaque(true);
-        jPanel4.add(jLabel6);
-        jLabel6.setBounds(230, 50, 710, 70);
-
         timegetting.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         timegetting.setText("Time");
         jPanel4.add(timegetting);
-        timegetting.setBounds(440, 10, 120, 30);
+        timegetting.setBounds(510, 10, 120, 30);
 
         jPanel1.setBackground(new java.awt.Color(0, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
@@ -325,6 +310,27 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         jPanel4.add(jPanel2);
         jPanel2.setBounds(20, 170, 210, 490);
 
+        logoutbtn.setBackground(new java.awt.Color(255, 255, 255));
+        logoutbtn.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        logoutbtn.setText("Logout");
+        logoutbtn.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 0, 51)));
+        logoutbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutbtnActionPerformed(evt);
+            }
+        });
+        jPanel4.add(logoutbtn);
+        logoutbtn.setBounds(780, 60, 150, 30);
+
+        jLabel6.setBackground(new java.awt.Color(0, 102, 153));
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("                      Receptionist Portal");
+        jLabel6.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 0, 0)));
+        jLabel6.setOpaque(true);
+        jPanel4.add(jLabel6);
+        jLabel6.setBounds(230, 40, 710, 70);
+
         getContentPane().add(jPanel4);
         jPanel4.setBounds(0, 0, 940, 680);
 
@@ -395,6 +401,12 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_rp_appointment_btnActionPerformed
 
+    private void logoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutbtnActionPerformed
+        LoginForm.loginsection lfl = new loginsection();
+        lfl.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_logoutbtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -421,7 +433,6 @@ public class receptionist_optdetail extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel17;
@@ -433,6 +444,7 @@ public class receptionist_optdetail extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable_opt;
+    private javax.swing.JButton logoutbtn;
     private javax.swing.JComboBox<String> optidcombo;
     private javax.swing.JLabel receptionistid;
     private javax.swing.JLabel receptionistname;

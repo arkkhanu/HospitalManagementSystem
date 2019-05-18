@@ -5,6 +5,7 @@
  */
 package ReceptionistPortal;
 
+import LoginForm.loginsection;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
@@ -40,7 +41,7 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
 
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        logout = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -92,12 +93,17 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         jPanel4.add(jLabel1);
         jLabel1.setBounds(50, 10, 130, 130);
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton1.setText("Logout");
-        jButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 0, 51)));
-        jPanel4.add(jButton1);
-        jButton1.setBounds(760, 70, 150, 30);
+        logout.setBackground(new java.awt.Color(255, 255, 255));
+        logout.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        logout.setText("Logout");
+        logout.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 0, 51)));
+        logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutActionPerformed(evt);
+            }
+        });
+        jPanel4.add(logout);
+        logout.setBounds(760, 70, 150, 30);
 
         jLabel6.setBackground(new java.awt.Color(0, 102, 153));
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
@@ -500,6 +506,12 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_rp_appointment_btnActionPerformed
 
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+        LoginForm.loginsection lfl = new loginsection();
+        lfl.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_logoutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -538,7 +550,6 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
     private javax.swing.JTextField days;
     private javax.swing.JTextField dischargedate;
     private javax.swing.JButton dischargedateget;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -557,6 +568,7 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField6;
+    private javax.swing.JButton logout;
     private javax.swing.JLabel receptionistid;
     private javax.swing.JLabel receptionistname;
     private javax.swing.JTextField registrationdate;

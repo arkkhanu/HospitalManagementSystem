@@ -5,11 +5,11 @@
  */
 package ReceptionistPortal;
 
+import LoginForm.loginsection;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import javax.swing.Timer;
 
 /**
@@ -19,7 +19,6 @@ import javax.swing.Timer;
 public class receptionist_mainmenu extends javax.swing.JFrame {
 
     String gender =null;
-    String registerationdatee =null;
     
     
     /**
@@ -63,35 +62,40 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         registrationdate = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        rr_patlname_et = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        phone2 = new javax.swing.JTextField();
+        rr_patphno_et = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        age = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        rr_patage_et = new javax.swing.JTextField();
+        rr_patdob_et = new com.toedter.calendar.JDateChooser();
         jLabel10 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rr_patcity_combo = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        rr_pataddress_et = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        rr_patfname_et = new javax.swing.JTextField();
+        gettingdate = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        phone1 = new javax.swing.JTextField();
-        billfee1 = new javax.swing.JTextField();
-        patientidd = new javax.swing.JTextField();
+        rr_patregbill_ed = new javax.swing.JTextField();
+        rr_patrecp_tv = new javax.swing.JTextField();
         receptionistname = new javax.swing.JLabel();
-        receptionistid = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        adddata = new javax.swing.JButton();
+        _dob_error = new javax.swing.JLabel();
+        _fname_error = new javax.swing.JLabel();
+        _lname_error = new javax.swing.JLabel();
+        _age_error = new javax.swing.JLabel();
+        _phoneno_error = new javax.swing.JLabel();
+        _address_error = new javax.swing.JLabel();
+        _fname_error7 = new javax.swing.JLabel();
+        _city_error = new javax.swing.JLabel();
+        a_recgender_combo = new javax.swing.JComboBox<>();
+        rr_patid_tv = new javax.swing.JTextField();
+        logout = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -126,194 +130,226 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
 
         registrationdate.setEditable(false);
         registrationdate.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        registrationdate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         registrationdate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         registrationdate.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel3.add(registrationdate);
-        registrationdate.setBounds(480, 100, 160, 30);
+        registrationdate.setBounds(240, 10, 130, 30);
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel5.setText("Last Name");
         jPanel3.add(jLabel5);
-        jLabel5.setBounds(20, 150, 90, 30);
+        jLabel5.setBounds(30, 160, 70, 30);
 
-        jTextField2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel3.add(jTextField2);
-        jTextField2.setBounds(120, 150, 150, 30);
+        rr_patlname_et.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        rr_patlname_et.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel3.add(rr_patlname_et);
+        rr_patlname_et.setBounds(120, 160, 140, 30);
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel7.setText("Phone No.");
         jPanel3.add(jLabel7);
-        jLabel7.setBounds(20, 320, 90, 30);
+        jLabel7.setBounds(20, 330, 60, 30);
 
-        phone2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        phone2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        phone2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                phone2KeyTyped(evt);
-            }
-        });
-        jPanel3.add(phone2);
-        phone2.setBounds(170, 320, 100, 30);
+        rr_patphno_et.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        rr_patphno_et.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel3.add(rr_patphno_et);
+        rr_patphno_et.setBounds(120, 330, 140, 30);
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel8.setText("First Name");
         jPanel3.add(jLabel8);
-        jLabel8.setBounds(20, 100, 90, 30);
-
-        jTextField4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel3.add(jTextField4);
-        jTextField4.setBounds(120, 100, 150, 30);
+        jLabel8.setBounds(30, 110, 70, 30);
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel9.setText("Date of Birth");
         jPanel3.add(jLabel9);
-        jLabel9.setBounds(20, 280, 90, 30);
+        jLabel9.setBounds(20, 210, 80, 30);
 
-        age.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        age.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        age.addKeyListener(new java.awt.event.KeyAdapter() {
+        rr_patage_et.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        rr_patage_et.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        rr_patage_et.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        rr_patage_et.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                ageKeyTyped(evt);
+                rr_patage_etKeyTyped(evt);
             }
         });
-        jPanel3.add(age);
-        age.setBounds(120, 200, 150, 30);
+        jPanel3.add(rr_patage_et);
+        rr_patage_et.setBounds(120, 290, 60, 30);
 
-        jDateChooser1.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel3.add(jDateChooser1);
-        jDateChooser1.setBounds(120, 280, 150, 30);
+        rr_patdob_et.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel3.add(rr_patdob_et);
+        rr_patdob_et.setBounds(120, 210, 140, 30);
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel10.setText("Gender");
         jPanel3.add(jLabel10);
-        jLabel10.setBounds(20, 240, 90, 30);
+        jLabel10.setBounds(50, 250, 50, 30);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel3.add(jComboBox1);
-        jComboBox1.setBounds(480, 210, 150, 30);
-
-        jRadioButton1.setBackground(new java.awt.Color(0, 255, 255));
-        jRadioButton1.setText("Male ");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jRadioButton1);
-        jRadioButton1.setBounds(130, 240, 60, 30);
-
-        jRadioButton2.setBackground(new java.awt.Color(0, 255, 255));
-        jRadioButton2.setText("Female");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jRadioButton2);
-        jRadioButton2.setBounds(200, 240, 70, 30);
+        rr_patcity_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel3.add(rr_patcity_combo);
+        rr_patcity_combo.setBounds(460, 210, 120, 30);
 
         jLabel13.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel13.setText("Address");
         jPanel3.add(jLabel13);
-        jLabel13.setBounds(20, 360, 90, 30);
+        jLabel13.setBounds(40, 370, 50, 30);
 
-        jTextField6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel3.add(jTextField6);
-        jTextField6.setBounds(120, 360, 540, 30);
+        rr_pataddress_et.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        rr_pataddress_et.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel3.add(rr_pataddress_et);
+        rr_pataddress_et.setBounds(120, 370, 500, 30);
 
         jLabel15.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel15.setText("Age");
         jPanel3.add(jLabel15);
-        jLabel15.setBounds(20, 200, 90, 30);
+        jLabel15.setBounds(60, 290, 30, 30);
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel3.setText("Patient ID : ");
         jPanel3.add(jLabel3);
-        jLabel3.setBounds(20, 50, 70, 30);
+        jLabel3.setBounds(30, 70, 70, 30);
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel11.setText("Registration Fee Rs: ");
         jPanel3.add(jLabel11);
-        jLabel11.setBounds(350, 150, 120, 30);
+        jLabel11.setBounds(330, 160, 120, 30);
 
-        jTextField7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField7.setBorder(new javax.swing.border.MatteBorder(null));
-        jTextField7.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel3.add(jTextField7);
-        jTextField7.setBounds(120, 100, 150, 30);
+        rr_patfname_et.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        rr_patfname_et.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        rr_patfname_et.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPanel3.add(rr_patfname_et);
+        rr_patfname_et.setBounds(120, 110, 140, 30);
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton4.setText("ADD");
-        jButton4.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel3.add(jButton4);
-        jButton4.setBounds(280, 420, 150, 40);
+        gettingdate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        gettingdate.setText("Get");
+        gettingdate.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel3.add(gettingdate);
+        gettingdate.setBounds(210, 290, 50, 30);
 
         jLabel16.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel16.setText("City");
         jPanel3.add(jLabel16);
-        jLabel16.setBounds(430, 210, 30, 30);
+        jLabel16.setBounds(420, 210, 30, 30);
 
-        jLabel19.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel19.setText("Registration Date :");
-        jPanel3.add(jLabel19);
-        jLabel19.setBounds(360, 100, 104, 30);
+        rr_patregbill_ed.setEditable(false);
+        rr_patregbill_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        rr_patregbill_ed.setText("1000");
+        rr_patregbill_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        rr_patregbill_ed.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPanel3.add(rr_patregbill_ed);
+        rr_patregbill_ed.setBounds(460, 160, 60, 30);
 
-        phone1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        phone1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        phone1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                phone1KeyTyped(evt);
-            }
-        });
-        jPanel3.add(phone1);
-        phone1.setBounds(120, 320, 40, 30);
-
-        billfee1.setEditable(false);
-        billfee1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        billfee1.setText("1000");
-        billfee1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        billfee1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel3.add(billfee1);
-        billfee1.setBounds(480, 150, 60, 30);
-
-        patientidd.setEditable(false);
-        patientidd.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        patientidd.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel3.add(patientidd);
-        patientidd.setBounds(120, 50, 59, 30);
+        rr_patrecp_tv.setEditable(false);
+        rr_patrecp_tv.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        rr_patrecp_tv.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        rr_patrecp_tv.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel3.add(rr_patrecp_tv);
+        rr_patrecp_tv.setBounds(520, 20, 60, 30);
 
         receptionistname.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         receptionistname.setText("Null");
         jPanel3.add(receptionistname);
-        receptionistname.setBounds(530, 50, 120, 20);
-
-        receptionistid.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        receptionistid.setText("Null");
-        jPanel3.add(receptionistid);
-        receptionistid.setBounds(530, 20, 120, 20);
+        receptionistname.setBounds(520, 60, 120, 30);
 
         jLabel20.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel20.setText("Reception ID : ");
+        jLabel20.setText("R ID : ");
         jPanel3.add(jLabel20);
-        jLabel20.setBounds(420, 20, 90, 20);
+        jLabel20.setBounds(470, 20, 40, 30);
 
         jLabel18.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel18.setText("Reception Name : ");
+        jLabel18.setText("R Name : ");
         jPanel3.add(jLabel18);
-        jLabel18.setBounds(410, 50, 110, 20);
+        jLabel18.setBounds(450, 60, 60, 30);
+
+        adddata.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        adddata.setText("ADD");
+        adddata.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel3.add(adddata);
+        adddata.setBounds(270, 430, 150, 40);
+
+        _dob_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _dob_error.setForeground(new java.awt.Color(255, 0, 0));
+        _dob_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _dob_error.setText("*");
+        jPanel3.add(_dob_error);
+        _dob_error.setBounds(260, 220, 20, 10);
+
+        _fname_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _fname_error.setForeground(new java.awt.Color(255, 0, 0));
+        _fname_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _fname_error.setText("*");
+        jPanel3.add(_fname_error);
+        _fname_error.setBounds(260, 120, 20, 10);
+
+        _lname_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _lname_error.setForeground(new java.awt.Color(255, 0, 0));
+        _lname_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _lname_error.setText("*");
+        jPanel3.add(_lname_error);
+        _lname_error.setBounds(260, 170, 20, 10);
+
+        _age_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _age_error.setForeground(new java.awt.Color(255, 0, 0));
+        _age_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _age_error.setText("*");
+        jPanel3.add(_age_error);
+        _age_error.setBounds(180, 300, 20, 10);
+
+        _phoneno_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _phoneno_error.setForeground(new java.awt.Color(255, 0, 0));
+        _phoneno_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _phoneno_error.setText("*");
+        jPanel3.add(_phoneno_error);
+        _phoneno_error.setBounds(260, 340, 20, 10);
+
+        _address_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _address_error.setForeground(new java.awt.Color(255, 0, 0));
+        _address_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _address_error.setText("*");
+        jPanel3.add(_address_error);
+        _address_error.setBounds(620, 380, 20, 10);
+
+        _fname_error7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _fname_error7.setForeground(new java.awt.Color(255, 0, 0));
+        _fname_error7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _fname_error7.setText("*");
+        jPanel3.add(_fname_error7);
+        _fname_error7.setBounds(260, 260, 20, 10);
+
+        _city_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _city_error.setForeground(new java.awt.Color(255, 0, 0));
+        _city_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _city_error.setText("*");
+        jPanel3.add(_city_error);
+        _city_error.setBounds(580, 220, 20, 10);
+
+        a_recgender_combo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        a_recgender_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gender" }));
+        jPanel3.add(a_recgender_combo);
+        a_recgender_combo.setBounds(120, 250, 140, 30);
+
+        rr_patid_tv.setEditable(false);
+        rr_patid_tv.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        rr_patid_tv.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        rr_patid_tv.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel3.add(rr_patid_tv);
+        rr_patid_tv.setBounds(120, 70, 59, 30);
 
         jPanel4.add(jPanel3);
         jPanel3.setBounds(250, 170, 670, 490);
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton1.setText("Logout");
-        jButton1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 0, 51)));
-        jPanel4.add(jButton1);
-        jButton1.setBounds(760, 70, 150, 30);
+        logout.setBackground(new java.awt.Color(255, 255, 255));
+        logout.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        logout.setText("Logout");
+        logout.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 0, 51)));
+        logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutActionPerformed(evt);
+            }
+        });
+        jPanel4.add(logout);
+        logout.setBounds(760, 70, 150, 30);
 
         jLabel6.setBackground(new java.awt.Color(0, 102, 153));
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
@@ -436,25 +472,7 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
-        if(jRadioButton2.isSelected())
-        {
-            jRadioButton1.setSelected(false);
-            gender="female";
-        }
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
-
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-         if(jRadioButton1.isSelected())
-        {
-            jRadioButton2.setSelected(false);
-            gender="male";
-        }
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
-
-    private void ageKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ageKeyTyped
+    private void rr_patage_etKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rr_patage_etKeyTyped
        
         char c = evt.getKeyChar();
         if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
@@ -462,62 +480,19 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
             evt.consume();
         }
         
-       if(age.getText().length() ==2 ){
+       if(rr_patage_et.getText().length() ==2 ){
            if((Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
                 getToolkit().beep();
                 evt.consume();
             }
        }
        
-       if(age.getText().length() == 2){
-           age.requestFocusInWindow();
+       if(rr_patage_et.getText().length() == 2){
+           rr_patage_et.requestFocusInWindow();
            
        }
        
-    }//GEN-LAST:event_ageKeyTyped
-
-    private void phone1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phone1KeyTyped
-        char c = evt.getKeyChar();
-        if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
-            getToolkit().beep();
-            evt.consume();
-        }
-        
-       if(phone1.getText().length() ==4 ){
-           if((Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
-                getToolkit().beep();
-                evt.consume();
-            }
-       }
-       
-       if(phone1.getText().length() == 4){
-           phone1.requestFocusInWindow();
-           
-       }
-       
-    }//GEN-LAST:event_phone1KeyTyped
-
-    private void phone2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phone2KeyTyped
-        
-          char c = evt.getKeyChar();
-        if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
-            getToolkit().beep();
-            evt.consume();
-        }
-        
-       if(phone2.getText().length() ==7 ){
-           if((Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
-                getToolkit().beep();
-                evt.consume();
-            }
-       }
-       
-       if(phone2.getText().length() == 7){
-           phone2.requestFocusInWindow();
-           
-       }
-       
-    }//GEN-LAST:event_phone2KeyTyped
+    }//GEN-LAST:event_rr_patage_etKeyTyped
 
     private void rp_registration_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_registration_btnActionPerformed
         receptionist_mainmenu rmm = new receptionist_mainmenu();
@@ -567,6 +542,12 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_rp_appointment_btnActionPerformed
 
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+        LoginForm.loginsection lfl = new loginsection();
+        lfl.setVisible(true);
+        dispose();        
+    }//GEN-LAST:event_logoutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -597,12 +578,17 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField age;
-    private javax.swing.JTextField billfee1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JLabel _address_error;
+    private javax.swing.JLabel _age_error;
+    private javax.swing.JLabel _city_error;
+    private javax.swing.JLabel _dob_error;
+    private javax.swing.JLabel _fname_error;
+    private javax.swing.JLabel _fname_error7;
+    private javax.swing.JLabel _lname_error;
+    private javax.swing.JLabel _phoneno_error;
+    private javax.swing.JComboBox<String> a_recgender_combo;
+    private javax.swing.JButton adddata;
+    private javax.swing.JButton gettingdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -611,7 +597,6 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -622,16 +607,7 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField patientidd;
-    private javax.swing.JTextField phone1;
-    private javax.swing.JTextField phone2;
-    private javax.swing.JLabel receptionistid;
+    private javax.swing.JButton logout;
     private javax.swing.JLabel receptionistname;
     private javax.swing.JTextField registrationdate;
     private javax.swing.JButton rp_admit_btn;
@@ -642,6 +618,16 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
     private javax.swing.JButton rp_opt_btn;
     private javax.swing.JButton rp_opt_details;
     private javax.swing.JButton rp_registration_btn;
+    private javax.swing.JTextField rr_pataddress_et;
+    private javax.swing.JTextField rr_patage_et;
+    private javax.swing.JComboBox<String> rr_patcity_combo;
+    private com.toedter.calendar.JDateChooser rr_patdob_et;
+    private javax.swing.JTextField rr_patfname_et;
+    private javax.swing.JTextField rr_patid_tv;
+    private javax.swing.JTextField rr_patlname_et;
+    private javax.swing.JTextField rr_patphno_et;
+    private javax.swing.JTextField rr_patrecp_tv;
+    private javax.swing.JTextField rr_patregbill_ed;
     private javax.swing.JLabel timegetting;
     // End of variables declaration//GEN-END:variables
 }

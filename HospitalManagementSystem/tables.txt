@@ -1,3 +1,12 @@
+///////////////////////////////////////////////////////////////
+
+SQL> create table adminprotal(aid number primary key , username varchar(30) not null, pass varchar(30) not null );
+
+Table created.
+
+SQL> insert into adminprotal values(1,'ark','khan');
+
+1 row created.
 
 ///////////////////////////////////////////////////////////////
 

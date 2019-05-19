@@ -677,7 +677,6 @@ public class admin_adddoctor extends javax.swing.JFrame {
             SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd");
             registrationdate.setText(t.format(d));
         }).start();
-        
     }
     
     private void getcitydata(){

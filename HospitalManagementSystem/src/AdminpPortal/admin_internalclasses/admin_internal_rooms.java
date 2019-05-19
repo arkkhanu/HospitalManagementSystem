@@ -5,8 +5,20 @@
  */
 package AdminpPortal.admin_internalclasses;
 
+import AdminpPortal.admin_addingclass;
 import AdminpPortal.admin_internal;
+import DBConnectionP.DBConnection;
+import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -14,11 +26,30 @@ import java.awt.event.KeyEvent;
  */
 public class admin_internal_rooms extends javax.swing.JFrame {
 
-    /**
-     * Creates new form admin_internal_rooms
-     */
+    int roomcatid=-1 , wardtypeid=-1 , statusid =-1;
+    String roomcats = null , wardtypes = null , statuss = null;
+    
+    DBConnection conn = new DBConnection();
+    
     public admin_internal_rooms() {
         initComponents();
+        _searching_error.setVisible(false);
+        
+        rr_id_tv.setText(conn.getID("select rrid from room ORDER BY rrid DESC Fetch first 1 rows only"));
+        
+        _nurse_error.setVisible(false);
+        _roomcate_error.setVisible(false);
+        _status_error.setVisible(false);
+        _ward_error.setVisible(false);
+        
+        adddata.setVisible(true);
+        updatedata.setVisible(false);
+        
+        showdata();
+        showtime();
+        getWardtype();
+        getRoomCat();
+        
     }
 
     /**
@@ -43,8 +74,7 @@ public class admin_internal_rooms extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         nurseidcheck = new javax.swing.JButton();
         resetall = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        rr_rcatcombo = new javax.swing.JComboBox<>();
+        rr_rcat_combo = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         rr_nlname = new javax.swing.JTextField();
@@ -53,14 +83,17 @@ public class admin_internal_rooms extends javax.swing.JFrame {
         rr_nfname = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        updatedata = new javax.swing.JButton();
         rr_statuscombo = new javax.swing.JComboBox<>();
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         searching = new javax.swing.JTextField();
-        nurseidupdate = new javax.swing.JButton();
+        _ward_error = new javax.swing.JLabel();
+        rr_ward_combo = new javax.swing.JComboBox<>();
+        _searching_error = new javax.swing.JLabel();
+        _status_error = new javax.swing.JLabel();
         _nurse_error = new javax.swing.JLabel();
-        rr_wardcombo = new javax.swing.JComboBox<>();
+        updatedata = new javax.swing.JButton();
+        _roomcate_error = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         back = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
@@ -138,32 +171,47 @@ public class admin_internal_rooms extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(320, 150, 370, 270);
 
         nurseidcheck.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        nurseidcheck.setText("Check");
+        nurseidcheck.setText("Get");
         nurseidcheck.setBorder(new javax.swing.border.MatteBorder(null));
+        nurseidcheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nurseidcheckActionPerformed(evt);
+            }
+        });
         jPanel1.add(nurseidcheck);
-        nurseidcheck.setBounds(180, 280, 60, 30);
+        nurseidcheck.setBounds(180, 280, 50, 30);
 
         resetall.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         resetall.setText("Reset");
         resetall.setBorder(new javax.swing.border.MatteBorder(null));
+        resetall.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetallActionPerformed(evt);
+            }
+        });
         jPanel1.add(resetall);
         resetall.setBounds(170, 100, 60, 30);
 
-        jComboBox1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select ID", "RoomID", "NurseID" }));
-        jPanel1.add(jComboBox1);
-        jComboBox1.setBounds(320, 100, 100, 30);
-
-        rr_rcatcombo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        rr_rcatcombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Cate" }));
-        jPanel1.add(rr_rcatcombo);
-        rr_rcatcombo.setBounds(100, 150, 130, 30);
+        rr_rcat_combo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        rr_rcat_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Cate" }));
+        rr_rcat_combo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rr_rcat_comboActionPerformed(evt);
+            }
+        });
+        jPanel1.add(rr_rcat_combo);
+        rr_rcat_combo.setBounds(100, 150, 130, 30);
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel5.setText("Status");
@@ -184,8 +232,13 @@ public class admin_internal_rooms extends javax.swing.JFrame {
         adddata.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         adddata.setText("Add");
         adddata.setBorder(new javax.swing.border.MatteBorder(null));
+        adddata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adddataActionPerformed(evt);
+            }
+        });
         jPanel1.add(adddata);
-        adddata.setBounds(100, 440, 100, 30);
+        adddata.setBounds(90, 450, 90, 30);
 
         rr_nurseid_et.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         rr_nurseid_et.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -214,15 +267,14 @@ public class admin_internal_rooms extends javax.swing.JFrame {
         jPanel1.add(jLabel10);
         jLabel10.setBounds(20, 320, 70, 30);
 
-        updatedata.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        updatedata.setText("Update");
-        updatedata.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(updatedata);
-        updatedata.setBounds(220, 440, 100, 30);
-
         rr_statuscombo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         rr_statuscombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "OUT", "IN" }));
         rr_statuscombo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        rr_statuscombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rr_statuscomboActionPerformed(evt);
+            }
+        });
         jPanel1.add(rr_statuscombo);
         rr_statuscombo.setBounds(100, 240, 130, 30);
 
@@ -246,24 +298,63 @@ public class admin_internal_rooms extends javax.swing.JFrame {
             }
         });
         jPanel1.add(searching);
-        searching.setBounds(440, 100, 70, 30);
+        searching.setBounds(420, 100, 70, 30);
 
-        nurseidupdate.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        nurseidupdate.setText("Update");
-        nurseidupdate.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(nurseidupdate);
-        nurseidupdate.setBounds(250, 280, 60, 30);
+        _ward_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _ward_error.setForeground(new java.awt.Color(255, 0, 0));
+        _ward_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _ward_error.setText("*");
+        jPanel1.add(_ward_error);
+        _ward_error.setBounds(230, 210, 20, 10);
+
+        rr_ward_combo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        rr_ward_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Ward" }));
+        rr_ward_combo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rr_ward_comboActionPerformed(evt);
+            }
+        });
+        jPanel1.add(rr_ward_combo);
+        rr_ward_combo.setBounds(100, 200, 130, 30);
+
+        _searching_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _searching_error.setForeground(new java.awt.Color(255, 0, 0));
+        _searching_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _searching_error.setText("*");
+        jPanel1.add(_searching_error);
+        _searching_error.setBounds(490, 110, 20, 10);
+
+        _status_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _status_error.setForeground(new java.awt.Color(255, 0, 0));
+        _status_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _status_error.setText("*");
+        jPanel1.add(_status_error);
+        _status_error.setBounds(230, 250, 20, 10);
 
         _nurse_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         _nurse_error.setForeground(new java.awt.Color(255, 0, 0));
+        _nurse_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         _nurse_error.setText("*");
         jPanel1.add(_nurse_error);
-        _nurse_error.setBounds(160, 290, 10, 10);
+        _nurse_error.setBounds(160, 290, 20, 10);
 
-        rr_wardcombo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        rr_wardcombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Ward" }));
-        jPanel1.add(rr_wardcombo);
-        rr_wardcombo.setBounds(100, 200, 130, 30);
+        updatedata.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        updatedata.setText("Update");
+        updatedata.setBorder(new javax.swing.border.MatteBorder(null));
+        updatedata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updatedataActionPerformed(evt);
+            }
+        });
+        jPanel1.add(updatedata);
+        updatedata.setBounds(190, 450, 90, 30);
+
+        _roomcate_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _roomcate_error.setForeground(new java.awt.Color(255, 0, 0));
+        _roomcate_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _roomcate_error.setText("*");
+        jPanel1.add(_roomcate_error);
+        _roomcate_error.setBounds(230, 160, 20, 10);
 
         jPanel4.add(jPanel1);
         jPanel1.setBounds(230, 160, 700, 500);
@@ -352,6 +443,93 @@ public class admin_internal_rooms extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    void showtime(){
+        new Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("hh:mm:ss a");
+            timegetting.setText(t.format(d));
+        }).start();   
+    }
+    
+    void showdate(){
+        new Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd");
+            registrationdate.setText(t.format(d));
+        }).start();
+    }
+    private void getWardtype(){
+        try{
+            conn.OpenConnection();
+            String query="select * from deptward";
+            conn.GetData(query);
+            while(conn.rst.next()){
+                String gname =conn.rst.getString("wname");
+                rr_ward_combo.addItem(gname);
+            }
+            conn.CloseConnection();
+        }catch(SQLException e){ System.out.println(e);}
+    }
+    private void getRoomCat(){
+        try{
+            conn.OpenConnection();
+            String query="select * from roomcategory";
+            conn.GetData(query);
+            while(conn.rst.next()){
+                String gname =conn.rst.getString("rcatname");
+                rr_rcat_combo.addItem(gname);
+            }
+            conn.CloseConnection();
+        }catch(SQLException e){ System.out.println(e);}
+    }
+    
+    private void showdata(){
+        
+        ArrayList<admin_addingclass.addrooms> list = userlist();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        Object[] row = new Object[6];
+        for(int i=0 ; i<list.size() ; i++){
+            row[0] = list.get(i).getRrid();
+            row[1] = list.get(i).getRoomtypename();
+            row[2] = list.get(i).getDeptwardname();
+            row[3] = list.get(i).getNurseid();
+            row[4] = list.get(i).getNfname();
+            row[5] = list.get(i).getNlname();
+            model.addRow(row);
+        }
+    
+    }
+    
+    private ArrayList<admin_addingclass.addrooms> userlist() {
+            ArrayList<admin_addingclass.addrooms> userList = new ArrayList<>();
+            try{
+                conn.OpenConnection();
+//(rrid, nurseid, roomtypeid, deptwardid, ramount, nfname, nlname, roomtypename, deptwardname, status)
+                String selectquery="select r.rrid ,rc.rcid, r.wid,n.nid, rc.rcatname , rc.ramount , w.wname , r.rstatus , n.nfname , n.nlname from room r , roomcategory rc , deptward w , nurse n where r.rcid=rc.rcid and r.wid=w.wid and r.nid=n.nid order by rrid desc";
+                conn.GetData(selectquery);
+                admin_addingclass adc = new admin_addingclass();
+                admin_addingclass.addrooms adrc;
+                while(conn.rst.next()){
+                    adrc = adc.new addrooms(
+                    conn.rst.getInt("rrid"),
+                    conn.rst.getInt("nid"),
+                    conn.rst.getInt("rcid"),
+                    conn.rst.getInt("wid"),
+                    conn.rst.getInt("ramount"),
+                    conn.rst.getString("nfname"),
+                    conn.rst.getString("nlname"),
+                    conn.rst.getString("rcatname"),
+                    conn.rst.getString("wname"),
+                    conn.rst.getString("rstatus")
+                    );
+                 userList.add(adrc);   
+                }
+                
+            }catch(SQLException e ){System.out.println(e);}
+        
+     return userList;
+    }
+    
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         admin_internal aii = new admin_internal();
         aii.setVisible(true);
@@ -398,6 +576,230 @@ public class admin_internal_rooms extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_searchingKeyTyped
 
+    private void resetallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetallActionPerformed
+        _nurse_error.setVisible(false);
+        _roomcate_error.setVisible(false);
+        _status_error.setVisible(false);
+        _ward_error.setVisible(false);
+        
+        rr_id_tv.setText(conn.getID("select rrid from room ORDER BY rrid DESC Fetch first 1 rows only"));
+        rr_rcat_combo.setSelectedIndex(0);
+        rr_statuscombo.setSelectedIndex(0);
+        rr_ward_combo.setSelectedIndex(0);
+        rr_nurseid_et.setText("");
+        rr_nfname.setText("");
+        rr_nlname.setText("");
+        
+        updatedata.setVisible(false);
+        adddata.setVisible(true);
+        
+    }//GEN-LAST:event_resetallActionPerformed
+
+    private void rr_rcat_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rr_rcat_comboActionPerformed
+        
+        if(rr_rcat_combo.getSelectedItem().equals("Select Cate")){roomcats=null;}
+        else{
+            _roomcate_error.setVisible(false);
+            roomcats=String.valueOf(rr_rcat_combo.getSelectedItem());
+            try{
+                conn.OpenConnection();
+                String query= "select * from roomcategory";
+                conn.GetData(query);
+                while(conn.rst.next()){
+                int    s1 = conn.rst.getInt("rcid");
+                String s2 = conn.rst.getString("rcatname");
+                if(s2.equals(roomcats)){
+                    roomcatid=s1;
+//                    System.out.println(s1 + " : " + s2 + " : " + cityid); 
+                  }
+                }
+                conn.CloseConnection();
+            }catch(SQLException e){System.out.println(e);}
+        }
+    }//GEN-LAST:event_rr_rcat_comboActionPerformed
+
+    private void rr_ward_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rr_ward_comboActionPerformed
+        if(rr_ward_combo.getSelectedItem().equals("Select Ward")){wardtypes=null;}
+        else{
+            _ward_error.setVisible(false);
+            wardtypes=String.valueOf(rr_ward_combo.getSelectedItem());
+            try{
+                conn.OpenConnection();
+                String query= "select * from deptward";
+                conn.GetData(query);
+                while(conn.rst.next()){
+                int    s1 = conn.rst.getInt("wid");
+                String s2 = conn.rst.getString("wname");
+                if(s2.equals(wardtypes)){
+                    wardtypeid=s1;
+//                    System.out.println(s1 + " : " + s2 + " : " + cityid); 
+                  }
+                }
+                conn.CloseConnection();
+            }catch(SQLException e){System.out.println(e);}
+        }
+    }//GEN-LAST:event_rr_ward_comboActionPerformed
+
+    private void rr_statuscomboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rr_statuscomboActionPerformed
+        if(rr_statuscombo.getSelectedItem().equals("OUT")){ statusid=0;statuss="OUT";}
+        if(rr_statuscombo.getSelectedItem().equals("IN")){ statusid=1;statuss="IN";}
+    }//GEN-LAST:event_rr_statuscomboActionPerformed
+
+    private void nurseidcheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nurseidcheckActionPerformed
+        
+        
+        if(rr_nurseid_et.getText().equals("")){_nurse_error.setVisible(true);}
+        if(!rr_nurseid_et.getText().isEmpty()){
+            boolean found = false;
+            _nurse_error.setVisible(false);
+           try{
+               conn.OpenConnection();
+               String query = "select nfname,nlname from nurse where nid="+rr_nurseid_et.getText();
+               conn.GetData(query);
+               while(conn.rst.next()){
+                   found = true;
+                   rr_nfname.setText(conn.rst.getString("nfname"));
+                   rr_nlname.setText(conn.rst.getString("nlname"));
+                   break;
+               }
+               
+            if(found == false){
+                JOptionPane.showMessageDialog(null, "Sorry ..! Not Found such Nurse");
+                rr_nurseid_et.setText("");
+                rr_nfname.setText("");
+                rr_nlname.setText("");
+            }   
+           }catch(SQLException e ){System.out.println(e);}
+           
+        }
+    }//GEN-LAST:event_nurseidcheckActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        _nurse_error.setVisible(false);
+        _roomcate_error.setVisible(false);
+        _status_error.setVisible(false);
+        _ward_error.setVisible(false);
+        
+        updatedata.setVisible(true);
+        adddata.setVisible(false);
+        
+        int i = jTable1.getSelectedRow();
+        TableModel model = jTable1.getModel();
+        rr_id_tv.setText(model.getValueAt(i,0).toString());
+        int id = Integer.valueOf(rr_id_tv.getText());
+        
+        ArrayList<admin_addingclass.addrooms> listing = userlist();
+        for(int j=0 ; j<listing.size() ; j++){
+            if(listing.get(j).getRrid()== id){
+                
+                rr_rcat_combo.setSelectedItem(listing.get(j).getRoomtypename());
+                rr_ward_combo.setSelectedItem(listing.get(j).getDeptwardname());
+                rr_statuscombo.setSelectedItem(listing.get(j).getStatus());
+                rr_nurseid_et.setText(String.valueOf(listing.get(j).getNurseid()));
+                rr_nfname.setText(String.valueOf(listing.get(j).getNfname()));
+                rr_nlname.setText(String.valueOf(listing.get(j).getNlname()));
+                
+                break;
+            }
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void adddataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adddataActionPerformed
+        
+        boolean chkempty = false;
+        
+        if(rr_ward_combo.getSelectedItem().equals("Select Ward")){_ward_error.setVisible(true);chkempty = false;}
+        if(rr_rcat_combo.getSelectedItem().equals("Select Cate")){_roomcate_error.setVisible(true);chkempty = false;}
+        if(rr_nurseid_et.getText().equals("")){_nurse_error.setVisible(true);chkempty = false;}
+        
+        if(!rr_ward_combo.getSelectedItem().equals("Select Ward")
+          && !rr_rcat_combo.getSelectedItem().equals("Select Cate")
+          && !rr_nurseid_et.getText().isEmpty()){chkempty=true;}
+        
+        if(chkempty==false){JOptionPane.showMessageDialog(null, "Please Fill the Fileds");}
+        if(chkempty==true){
+            _nurse_error.setVisible(false);
+            _roomcate_error.setVisible(false);
+            _status_error.setVisible(false);
+            _ward_error.setVisible(false);
+            try{
+                conn.OpenConnection();
+                System.out.println(roomcatid + ": " + wardtypeid + ": " + statuss + ": " + rr_nurseid_et.getText());
+                String query = "insert into room(rcid,wid,rstatus,nid) values ("+roomcatid+" , "+wardtypeid
+                +" , '"+statuss+"' , "+rr_nurseid_et.getText()+" )";
+                int flag = conn.InsertUpdateDelete(query);
+                
+                if(flag == 1 ){
+                    JOptionPane.showMessageDialog(null, "Successfully Inserted..!");
+                    
+                    rr_id_tv.setText(conn.getID("select rrid from room ORDER BY rrid DESC Fetch first 1 rows only"));
+                    rr_rcat_combo.setSelectedIndex(0);
+                    rr_ward_combo.setSelectedIndex(0);
+                    rr_statuscombo.setSelectedIndex(0);
+                    rr_nurseid_et.setText("");
+                    rr_nfname.setText("");
+                    rr_nlname.setText("");
+                    
+                    DefaultTableModel model1 = (DefaultTableModel) jTable1.getModel();
+                    model1.setRowCount(0);
+                    showdata();
+             
+                }
+            }catch(HeadlessException e){System.out.println(e);}
+        }
+        
+    }//GEN-LAST:event_adddataActionPerformed
+
+    private void updatedataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatedataActionPerformed
+        boolean chkempty = false;
+        
+        if(rr_ward_combo.getSelectedItem().equals("Select Ward")){_ward_error.setVisible(true);chkempty = false;}
+        if(rr_rcat_combo.getSelectedItem().equals("Select Cate")){_roomcate_error.setVisible(true);chkempty = false;}
+        if(rr_nurseid_et.getText().equals("")){_nurse_error.setVisible(true);chkempty = false;}
+        
+        if(!rr_ward_combo.getSelectedItem().equals("Select Ward")
+          && !rr_rcat_combo.getSelectedItem().equals("Select Cate")
+          && !rr_nurseid_et.getText().isEmpty()){chkempty=true;}
+        
+        if(chkempty==false){JOptionPane.showMessageDialog(null, "Please Fill the Fileds");}
+        if(chkempty==true){
+            _nurse_error.setVisible(false);
+            _roomcate_error.setVisible(false);
+            _status_error.setVisible(false);
+            _ward_error.setVisible(false);
+            try{
+                int row = jTable1.getSelectedRow();
+                int value = Integer.parseInt((jTable1.getModel().getValueAt(row, 0).toString()));
+            
+                conn.OpenConnection();
+                String query = "update room set rcid="+roomcatid+" , wid="+wardtypeid+" , rstatus='"+statuss+"' , nid="
+                +rr_nurseid_et.getText()+" where rrid="+value;
+                int flag = conn.InsertUpdateDelete(query);
+                
+                if(flag == 1 ){
+                    JOptionPane.showMessageDialog(null, "Successfully Updated..!");
+                    
+                    rr_id_tv.setText(conn.getID("select rrid from room ORDER BY rrid DESC Fetch first 1 rows only"));
+                    rr_rcat_combo.setSelectedIndex(0);
+                    rr_ward_combo.setSelectedIndex(0);
+                    rr_statuscombo.setSelectedIndex(0);
+                    rr_nurseid_et.setText("");
+                    rr_nfname.setText("");
+                    rr_nlname.setText("");
+                    
+                    DefaultTableModel model1 = (DefaultTableModel) jTable1.getModel();
+                    model1.setRowCount(0);
+                    showdata();
+                    
+                    updatedata.setVisible(false);
+                    adddata.setVisible(true);
+                    
+                }
+            }catch(HeadlessException e){System.out.println(e);}
+            
+        }
+    }//GEN-LAST:event_updatedataActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -426,15 +828,17 @@ public class admin_internal_rooms extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new admin_internal_rooms().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new admin_internal_rooms().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel _nurse_error;
+    private javax.swing.JLabel _roomcate_error;
+    private javax.swing.JLabel _searching_error;
+    private javax.swing.JLabel _status_error;
+    private javax.swing.JLabel _ward_error;
     private javax.swing.JButton adddata;
     private javax.swing.JButton back;
     private javax.swing.JButton i_addqualification;
@@ -443,7 +847,6 @@ public class admin_internal_rooms extends javax.swing.JFrame {
     private javax.swing.JButton i_addward;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -460,16 +863,15 @@ public class admin_internal_rooms extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton nurseidcheck;
-    private javax.swing.JButton nurseidupdate;
     private javax.swing.JTextField registrationdate;
     private javax.swing.JButton resetall;
     private javax.swing.JTextField rr_id_tv;
     private javax.swing.JTextField rr_nfname;
     private javax.swing.JTextField rr_nlname;
     private javax.swing.JTextField rr_nurseid_et;
-    private javax.swing.JComboBox<String> rr_rcatcombo;
+    private javax.swing.JComboBox<String> rr_rcat_combo;
     private javax.swing.JComboBox<String> rr_statuscombo;
-    private javax.swing.JComboBox<String> rr_wardcombo;
+    private javax.swing.JComboBox<String> rr_ward_combo;
     private javax.swing.JTextField searching;
     private javax.swing.JLabel timegetting;
     private javax.swing.JButton updatedata;

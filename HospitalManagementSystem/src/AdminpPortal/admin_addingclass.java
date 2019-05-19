@@ -236,7 +236,66 @@ public class admin_addingclass {
         public String getQualification() {
             return qualification;
         }
+    }
+    
+    public class addrooms{
 
         
+        int rrid, nurseid, roomtypeid, deptwardid, ramount;
+        String nfname , nlname , roomtypename , deptwardname , status ;
+
+        public addrooms(int rrid, int nurseid, int roomtypeid, int deptwardid, int ramount, String nfname, String nlname, String roomtypename, String deptwardname, String status) {
+            this.rrid = rrid;
+            this.nurseid = nurseid;
+            this.roomtypeid = roomtypeid;
+            this.deptwardid = deptwardid;
+            this.ramount = ramount;
+            this.nfname = nfname;
+            this.nlname = nlname;
+            this.roomtypename = roomtypename;
+            this.deptwardname = deptwardname;
+            this.status = status;
+        }
+
+        public int getRrid() {
+            return rrid;
+        }
+
+        public int getNurseid() {
+            return nurseid;
+        }
+
+        public int getRoomtypeid() {
+            return roomtypeid;
+        }
+
+        public int getDeptwardid() {
+            return deptwardid;
+        }
+
+        public int getRamount() {
+            return ramount;
+        }
+
+        public String getNfname() {
+            return nfname;
+        }
+
+        public String getNlname() {
+            return nlname;
+        }
+
+        public String getRoomtypename() {
+            return roomtypename;
+        }
+
+        public String getDeptwardname() {
+            return deptwardname;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+    
     }
 }

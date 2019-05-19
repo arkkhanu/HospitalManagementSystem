@@ -7,6 +7,7 @@ package DoctorPortal;
 
 import DBConnectionP.DBConnection;
 import LoginForm.loginsection;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
@@ -41,11 +42,15 @@ public class doctor_mainmenu extends javax.swing.JFrame {
     
     public doctor_mainmenu() {
         initComponents();
+        showdate();
+        showtime();
         _appid_error.setVisible(false);
     }
 
     public doctor_mainmenu(int id , String username){
         initComponents();
+        showdate();
+        showtime();
         _appid_error.setVisible(false);
         dd_id_tv.setText(String.valueOf(id));
         dd_username_tv.setText(username);
@@ -69,7 +74,7 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         registrationdate = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        checkedbtn = new javax.swing.JButton();
         ap_patid_ed = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         appointmentid_ed = new javax.swing.JTextField();
@@ -84,9 +89,10 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         dd_username_tv = new javax.swing.JLabel();
         dd_id_tv = new javax.swing.JTextField();
         _appid_error = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        apptable = new javax.swing.JTable();
+        ap_pataptdate_ed = new javax.swing.JTextField();
+        ap_patstatus_ed = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         logout = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
@@ -113,19 +119,19 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel5.setText("Last Name");
         jPanel3.add(jLabel5);
-        jLabel5.setBounds(30, 240, 90, 30);
+        jLabel5.setBounds(230, 180, 70, 30);
 
         ap_patlname_ed.setEditable(false);
         ap_patlname_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         ap_patlname_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         ap_patlname_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel3.add(ap_patlname_ed);
-        ap_patlname_ed.setBounds(130, 240, 150, 30);
+        ap_patlname_ed.setBounds(230, 210, 150, 30);
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel8.setText("First Name");
         jPanel3.add(jLabel8);
-        jLabel8.setBounds(30, 190, 90, 30);
+        jLabel8.setBounds(60, 180, 70, 30);
 
         registrationdate.setEditable(false);
         registrationdate.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
@@ -137,25 +143,30 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel3.setText("Patient ID : ");
         jPanel3.add(jLabel3);
-        jLabel3.setBounds(30, 140, 70, 30);
+        jLabel3.setBounds(60, 110, 70, 30);
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton4.setText("Checked");
-        jButton4.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel3.add(jButton4);
-        jButton4.setBounds(290, 420, 150, 40);
+        checkedbtn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        checkedbtn.setText("Checked");
+        checkedbtn.setBorder(new javax.swing.border.MatteBorder(null));
+        checkedbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkedbtnActionPerformed(evt);
+            }
+        });
+        jPanel3.add(checkedbtn);
+        checkedbtn.setBounds(150, 420, 150, 40);
 
         ap_patid_ed.setEditable(false);
         ap_patid_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         ap_patid_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         ap_patid_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel3.add(ap_patid_ed);
-        ap_patid_ed.setBounds(130, 140, 59, 30);
+        ap_patid_ed.setBounds(60, 140, 59, 30);
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel4.setText("Appoint ID : ");
         jPanel3.add(jLabel4);
-        jLabel4.setBounds(30, 100, 80, 30);
+        jLabel4.setBounds(230, 110, 80, 30);
 
         appointmentid_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         appointmentid_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -166,7 +177,7 @@ public class doctor_mainmenu extends javax.swing.JFrame {
             }
         });
         jPanel3.add(appointmentid_ed);
-        appointmentid_ed.setBounds(130, 100, 59, 30);
+        appointmentid_ed.setBounds(230, 140, 59, 30);
 
         getingid.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         getingid.setText("Get");
@@ -177,38 +188,38 @@ public class doctor_mainmenu extends javax.swing.JFrame {
             }
         });
         jPanel3.add(getingid);
-        getingid.setBounds(220, 100, 60, 30);
+        getingid.setBounds(330, 140, 60, 30);
 
         ap_patage_ed.setEditable(false);
         ap_patage_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         ap_patage_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         ap_patage_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel3.add(ap_patage_ed);
-        ap_patage_ed.setBounds(130, 290, 150, 30);
+        ap_patage_ed.setBounds(60, 280, 150, 30);
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel7.setText("Age");
         jPanel3.add(jLabel7);
-        jLabel7.setBounds(60, 290, 40, 30);
+        jLabel7.setBounds(60, 250, 40, 30);
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel9.setText("Gender");
+        jLabel9.setText("Status");
         jPanel3.add(jLabel9);
-        jLabel9.setBounds(50, 340, 50, 30);
+        jLabel9.setBounds(230, 310, 50, 30);
 
         ap_patgender_ed.setEditable(false);
         ap_patgender_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         ap_patgender_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         ap_patgender_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel3.add(ap_patgender_ed);
-        ap_patgender_ed.setBounds(130, 340, 150, 30);
+        ap_patgender_ed.setBounds(230, 280, 150, 30);
 
         ap_patfname_ed.setEditable(false);
         ap_patfname_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         ap_patfname_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         ap_patfname_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel3.add(ap_patfname_ed);
-        ap_patfname_ed.setBounds(130, 190, 150, 30);
+        ap_patfname_ed.setBounds(60, 210, 150, 30);
 
         jLabel20.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel20.setText("D ID : ");
@@ -237,32 +248,29 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         _appid_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         _appid_error.setText("*");
         jPanel3.add(_appid_error);
-        _appid_error.setBounds(190, 110, 20, 10);
+        _appid_error.setBounds(290, 150, 20, 10);
 
-        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        ap_pataptdate_ed.setEditable(false);
+        ap_pataptdate_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ap_pataptdate_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel3.add(ap_pataptdate_ed);
+        ap_pataptdate_ed.setBounds(60, 340, 150, 30);
 
-        apptable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        ap_patstatus_ed.setEditable(false);
+        ap_patstatus_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ap_patstatus_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel3.add(ap_patstatus_ed);
+        ap_patstatus_ed.setBounds(230, 340, 150, 30);
 
-            },
-            new String [] {
-                "AppID", "DID", "PatID", "PFName", "PLName", "Status", "APDate"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel10.setText("Gender");
+        jPanel3.add(jLabel10);
+        jLabel10.setBounds(230, 250, 50, 30);
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(apptable);
-
-        jScrollPane2.setViewportView(jScrollPane1);
-
-        jPanel3.add(jScrollPane2);
-        jScrollPane2.setBounds(550, 120, 350, 330);
+        jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel11.setText("Appointment Date");
+        jPanel3.add(jLabel11);
+        jLabel11.setBounds(60, 310, 110, 30);
 
         jPanel4.add(jPanel3);
         jPanel3.setBounds(10, 170, 920, 490);
@@ -305,6 +313,10 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
+    
+    
     private void appointmentid_edKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_appointmentid_edKeyTyped
         char c = evt.getKeyChar();
         if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
@@ -330,7 +342,10 @@ public class doctor_mainmenu extends javax.swing.JFrame {
             try{
                 conn.OpenConnection();
 //                String query = "select rpid , fname,lname,age,gname from RegPatient p ,gender g where p.sexid=g.gid and rpid="+appointmentid_ed.getText();
-                String query = "select apid ,p.rpid ,fname , lname ,age  , gname from appointment a , regpatient p , gender g where p.sexid=g.gid and  a.rpid=p.rpid and a.apid="+appointmentid_ed.getText();
+//                String query = "select apid ,p.rpid ,fname , lname ,age  , gname , apdate,status from appointment a , regpatient p , gender g where p.sexid=g.gid and  a.rpid=p.rpid and a.apid="+appointmentid_ed.getText();
+                String query = "select apid ,p.rpid ,p.fname ,p.lname ,p.age  , gname ,a.apdate , a.status , a.did from "
+                +"appointment a , regpatient p , gender g , doctor d  where p.sexid=g.gid and  a.rpid=p.rpid and "
+                + "a.did=d.did and a.apid="+appointmentid_ed.getText()+" and a.did="+dd_id_tv.getText();
                 conn.GetData(query);
                 while(conn.rst.next()){
                     ispresnt1 = true;
@@ -339,15 +354,21 @@ public class doctor_mainmenu extends javax.swing.JFrame {
                     ap_patlname_ed.setText(conn.rst.getString("lname"));
                     ap_patgender_ed.setText(conn.rst.getString("gname"));
                     ap_patage_ed.setText(String.valueOf(conn.rst.getInt("age")));
-                   break;
+                    ap_pataptdate_ed.setText(conn.rst.getString("apdate").substring(0,11));
+                    ap_patstatus_ed.setText(conn.rst.getString("status"));
+                    
                 }
+                System.out.println(dd_id_tv.getText());
                 conn.CloseConnection();
                 if(ispresnt1 == false){
+                    appointmentid_ed.setText("");
                     ap_patid_ed.setText("");
                     ap_patfname_ed.setText("");
                     ap_patlname_ed.setText("");
                     ap_patgender_ed.setText("");
                     ap_patage_ed.setText("");
+                    ap_pataptdate_ed.setText("");
+                    ap_patstatus_ed.setText("");
                     JOptionPane.showMessageDialog(null, "Sorry Not Found such Patient");
                     
                 }
@@ -356,6 +377,31 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_getingidActionPerformed
+
+    private void checkedbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkedbtnActionPerformed
+       
+        if(appointmentid_ed.getText().equals("")){_appid_error.setVisible(true);}
+        if(!appointmentid_ed.getText().isEmpty()){
+            _appid_error.setVisible(false);
+           try{
+               conn.OpenConnection();
+               String query = "update appointment set status='Checked' where apid="+appointmentid_ed.getText();
+               int flag = conn.InsertUpdateDelete(query);
+               if(flag==1){
+                   JOptionPane.showMessageDialog(null,"Successfully Inserted..!");
+                    appointmentid_ed.setText("");
+                    ap_patid_ed.setText("");
+                    ap_patfname_ed.setText("");
+                    ap_patlname_ed.setText("");
+                    ap_patgender_ed.setText("");
+                    ap_patage_ed.setText("");
+                    ap_pataptdate_ed.setText("");
+                    ap_patstatus_ed.setText("");
+               }
+           }catch(HeadlessException e ){System.out.println(e);}
+        }
+        
+    }//GEN-LAST:event_checkedbtnActionPerformed
 
     
     
@@ -393,17 +439,20 @@ public class doctor_mainmenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel _appid_error;
     private javax.swing.JTextField ap_patage_ed;
+    private javax.swing.JTextField ap_pataptdate_ed;
     private javax.swing.JTextField ap_patfname_ed;
     private javax.swing.JTextField ap_patgender_ed;
     private javax.swing.JTextField ap_patid_ed;
     private javax.swing.JTextField ap_patlname_ed;
+    private javax.swing.JTextField ap_patstatus_ed;
     private javax.swing.JTextField appointmentid_ed;
-    private javax.swing.JTable apptable;
+    private javax.swing.JButton checkedbtn;
     private javax.swing.JTextField dd_id_tv;
     private javax.swing.JLabel dd_username_tv;
     private javax.swing.JButton getingid;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel20;
@@ -416,8 +465,6 @@ public class doctor_mainmenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton logout;
     private javax.swing.JTextField registrationdate;
     private javax.swing.JLabel timegetting;

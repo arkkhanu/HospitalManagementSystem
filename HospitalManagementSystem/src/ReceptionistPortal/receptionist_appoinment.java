@@ -13,6 +13,7 @@ import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -43,10 +44,13 @@ public class receptionist_appoinment extends javax.swing.JFrame {
         _patid_error.setVisible(false);
         _phon_error.setVisible(false);
         _docdept_error.setVisible(false);
+        updatata.setVisible(false);
+        deletedata.setVisible(false);
         
-//        a_apid_tv.setText(conn.getID("select appid from Appointment ORDER BY appid DESC Fetch first 1 rows only"));
+//        a_apid_tv.setText(conn.getID("select apid from Appointment ORDER BY apid DESC Fetch first 1 rows only"));
         getdoctordata();
-//        showdata();
+        showdata();
+
     }
 
     public receptionist_appoinment(int id , String username) {
@@ -62,10 +66,12 @@ public class receptionist_appoinment extends javax.swing.JFrame {
         _patid_error.setVisible(false);
         _phon_error.setVisible(false);
         _docdept_error.setVisible(false);
+        updatata.setVisible(false);
+        deletedata.setVisible(false);
         
-//        a_apid_tv.setText(conn.getID("select appid from Appoinment ORDER BY appid DESC Fetch first 1 rows only"));
+//        a_apid_tv.setText(conn.getID("select apid from Appointment ORDER BY apid DESC Fetch first 1 rows only"));
         getdoctordata();
-//        showdata();
+        showdata();
     }
     
     /**
@@ -265,28 +271,14 @@ public class receptionist_appoinment extends javax.swing.JFrame {
 
         apptable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "AppID", "PatID", "PFname", "DID", "DDept", "Status"
+                "AppID", "PatID", "PName", "DID", "DLame", "DDept", "Status", "APDate"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -299,11 +291,18 @@ public class receptionist_appoinment extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(apptable);
+        if (apptable.getColumnModel().getColumnCount() > 0) {
+            apptable.getColumnModel().getColumn(0).setPreferredWidth(60);
+            apptable.getColumnModel().getColumn(1).setPreferredWidth(60);
+            apptable.getColumnModel().getColumn(3).setPreferredWidth(50);
+            apptable.getColumnModel().getColumn(6).setPreferredWidth(80);
+            apptable.getColumnModel().getColumn(7).setPreferredWidth(110);
+        }
 
         jScrollPane2.setViewportView(jScrollPane1);
 
         jPanel3.add(jScrollPane2);
-        jScrollPane2.setBounds(400, 150, 250, 320);
+        jScrollPane2.setBounds(360, 150, 290, 320);
 
         _searching_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         _searching_error.setForeground(new java.awt.Color(255, 0, 0));
@@ -385,7 +384,7 @@ public class receptionist_appoinment extends javax.swing.JFrame {
             }
         });
         jPanel3.add(updatata);
-        updatata.setBounds(290, 450, 80, 30);
+        updatata.setBounds(230, 450, 80, 30);
 
         a_apdate_date.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel3.add(a_apdate_date);
@@ -424,7 +423,7 @@ public class receptionist_appoinment extends javax.swing.JFrame {
             }
         });
         jPanel3.add(deletedata);
-        deletedata.setBounds(180, 450, 80, 30);
+        deletedata.setBounds(70, 450, 80, 30);
 
         adddata.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         adddata.setText("ADD");
@@ -435,7 +434,7 @@ public class receptionist_appoinment extends javax.swing.JFrame {
             }
         });
         jPanel3.add(adddata);
-        adddata.setBounds(90, 450, 80, 30);
+        adddata.setBounds(150, 450, 80, 30);
 
         ResetAll.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         ResetAll.setText("Reset");
@@ -615,56 +614,58 @@ public class receptionist_appoinment extends javax.swing.JFrame {
         }catch(SQLException e){ System.out.println(e);}
     }
     
-   /* private void showdata(){
-        ArrayList<admin_addingclass.adddoctorclass> list = userlist();
-        DefaultTableModel model = (DefaultTableModel) recepttable.getModel();
-        Object[] row = new Object[6];
+    private void showdata(){
+        ArrayList<receptionistpatientclass.appointmentclass> list = userlist();
+        DefaultTableModel model = (DefaultTableModel) apptable.getModel();
+        Object[] row = new Object[8];
         for(int i=0 ; i<list.size() ; i++){
-            row[0] = list.get(i).getDid();
-            row[1] = list.get(i).getDfname();
-            row[2] = list.get(i).getDlname();
-            row[3] = list.get(i).getSex();
-            row[4] = list.get(i).getPhno();
-            row[5] = list.get(i).getRegdate();
+            row[0] = list.get(i).getApid();
+            row[1] = list.get(i).getRpid();
+            row[2] = list.get(i).getPfname();
+            row[3] = list.get(i).getDid();
+            row[4] = list.get(i).getDfname();
+            row[5] = list.get(i).getDdeptward();
+            row[6] = list.get(i).getStatus();
+            row[7] = list.get(i).getApdate();
             model.addRow(row);
             System.out.println(list.get(i).getRegdate());
         }
     }
     
-    private ArrayList<admin_addingclass.adddoctorclass> userlist() {
-            ArrayList<admin_addingclass.adddoctorclass> userList = new ArrayList<>();
+    private ArrayList<receptionistpatientclass.appointmentclass> userlist() {
+            ArrayList<receptionistpatientclass.appointmentclass> userList = new ArrayList<>();
             try{
+//(apid,rpid,did, billamount, pfname, plname, rfname, rlname, dfname, dlname, ddeptward, pphno, status, apdate,  regdate)                               
                 conn.OpenConnection();
-//(did, age, sal, dfname, dlname, dob, sex, address, phno, city, regdate, username, pass, qualification, deptward)
-                String selectquery="select did,age,salery,dfname,dlname,dob,gname,address,phno,cname,regdate,username,pass,qname,wname from doctor d ,qualification q ,city c ,gender g , deptward dw where d.qid=q.qid and d.cityid=c.cid and d.sexid=g.gid and d.dwid=dw.wid order by did desc";
+                String selectquery=" select apid,p.rpid,d.did ,a.regdate,apphno ,fname , lname , rfname , rlname , dfname , dlname , bill , status , apdate , wname from appointment a , regpatient p , recept r , doctor d , deptward w where a.rpid=p.rpid and a.rid=r.rid and a.did=d.did and d.dwid=w.wid order by apid desc";
                 conn.GetData(selectquery);
-                admin_addingclass adc = new admin_addingclass();
-                admin_addingclass.adddoctorclass addc;
+                receptionistpatientclass rpc = new receptionistpatientclass();
+                receptionistpatientclass.appointmentclass apt;
                 while(conn.rst.next()){
-                    addc = adc.new adddoctorclass(
-                    conn.rst.getInt("did"),
-                    conn.rst.getInt("age"),
-                    conn.rst.getInt("salery"),
+                    apt = rpc.new appointmentclass(
+                    conn.rst.getInt("apid"),
+                    conn.rst.getInt("rpid"),
+                    conn.rst.getInt("did"),        
+                    conn.rst.getInt("bill"),
+                    conn.rst.getString("fname"),
+                    conn.rst.getString("lname"),
+                    conn.rst.getString("rfname"),
+                    conn.rst.getString("rlname"),
                     conn.rst.getString("dfname"),
                     conn.rst.getString("dlname"),
-                    conn.rst.getString("dob"),
-                    conn.rst.getString("gname"),
-                    conn.rst.getString("address"),
-                    conn.rst.getString("phno"),
-                    conn.rst.getString("cname"),
-                    conn.rst.getString("regdate"),        
-                    conn.rst.getString("username"),
-                    conn.rst.getString("pass"),
-                    conn.rst.getString("qname"),
-                    conn.rst.getString("wname")
+                    conn.rst.getString("wname"),
+                    conn.rst.getString("apphno"),        
+                    conn.rst.getString("status"),
+                    conn.rst.getString("apdate"),
+                    conn.rst.getString("regdate")
                     );
-                 userList.add(addc);   
+                 userList.add(apt);   
                 }
                 
             }catch(SQLException e ){System.out.println(e);}
         
      return userList;
-    }*/
+    }
     
     private void rr_patid_edKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rr_patid_edKeyTyped
         
@@ -866,9 +867,10 @@ public class receptionist_appoinment extends javax.swing.JFrame {
                 long diff = -1;
                 Date d1 = t.parse(appointdate);
                 Date d2 = t.parse(today);
-                diff = d2.getDate()-d1.getDate();
+                diff = d1.getDate()-d2.getDate();
                 if(diff <=0){JOptionPane.showMessageDialog(null,"Can not Appoint today \nPlease select Future date ");datechk=false;}
                 if(diff >= 1){datechk=true;}
+//                System.out.println(diff);
             }
             else{
              _appdate_error.setVisible(true);
@@ -891,11 +893,15 @@ public class receptionist_appoinment extends javax.swing.JFrame {
             
            try{
                conn.OpenConnection();
-               String query = "";
+               String status = "Empty";
+               String query = "insert into Appointment(rpid,rid,did,bill,status,apdate,regdate,apphno) values ("
+                +a_appatid_tv.getText()+" , "+rr_patrecp_tv.getText()+" , "+doctorid+" ,"+a_appatbill_ed.getText()
+                +" , '"+status+"' , to_date('"+appointdate+"','yyyy-MM-dd'),to_date('"+registrationdate.getText()
+                +"','yyyy-MM-dd') , '"+a_appatphon_ed.getText()+"' )";
                int flag = conn.InsertUpdateDelete(query);
                if(flag==1){
                     JOptionPane.showMessageDialog(null,"Successfully Inserted..!");  
-                    a_apid_tv.setText(conn.getID("select did from Doctor ORDER BY did DESC Fetch first 1 rows only"));
+                    a_apid_tv.setText(conn.getID("select apid from Appointment ORDER BY apid DESC Fetch first 1 rows only"));
                     
                     a_apdate_date.setDate(null);
                     a_appatid_tv.setText("");
@@ -915,7 +921,7 @@ public class receptionist_appoinment extends javax.swing.JFrame {
     }//GEN-LAST:event_adddataActionPerformed
 
     private void deletedataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletedataActionPerformed
-        int yesorno = JOptionPane.showConfirmDialog(null,"Do you want to Delete ","Deleted Record" , JOptionPane.YES_NO_OPTION);
+      /*  int yesorno = JOptionPane.showConfirmDialog(null,"Do you want to Delete ","Deleted Record" , JOptionPane.YES_NO_OPTION);
         
         if(yesorno==1){
             int row = apptable.getSelectedRow();
@@ -946,11 +952,11 @@ public class receptionist_appoinment extends javax.swing.JFrame {
         }
         else{
         JOptionPane.showMessageDialog(null,"Delete Canceled..!");
-        }
+        }*/
     }//GEN-LAST:event_deletedataActionPerformed
 
     private void updatataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatataActionPerformed
-        boolean emptyfiled = false;
+      /*  boolean emptyfiled = false;
         boolean datechk = false;
         if(a_appatid_tv.getText().equals("")){_patid_error.setVisible(true);emptyfiled=false;}
         if(a_appatphon_ed.getText().equals("")){_phon_error.setVisible(true);emptyfiled=false;}
@@ -995,7 +1001,7 @@ public class receptionist_appoinment extends javax.swing.JFrame {
                int flag = conn.InsertUpdateDelete(query);
                if(flag==1){
                     JOptionPane.showMessageDialog(null,"Successfully Updated..!");  
-                    a_apid_tv.setText(conn.getID("select did from Doctor ORDER BY did DESC Fetch first 1 rows only"));
+                    a_apid_tv.setText(conn.getID("select apid from Appointment ORDER BY apid DESC Fetch first 1 rows only"));
                     
                     a_apdate_date.setDate(null);
                     a_appatid_tv.setText("");
@@ -1010,7 +1016,7 @@ public class receptionist_appoinment extends javax.swing.JFrame {
            }catch(HeadlessException e){System.out.println(e);}
            
         
-        }
+        }*/
     }//GEN-LAST:event_updatataActionPerformed
 
     private void ResetAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetAllActionPerformed
@@ -1020,7 +1026,7 @@ public class receptionist_appoinment extends javax.swing.JFrame {
         _patid_error.setVisible(false);
         _phon_error.setVisible(false);
         _docdept_error.setVisible(false);
-//        a_apid_tv.setText(conn.getID("select appid from Appointment ORDER BY appid DESC Fetch first 1 rows only"));
+//        a_apid_tv.setText(conn.getID("select apid from Appointment ORDER BY apid DESC Fetch first 1 rows only"));
 
         a_apdate_date.setDate(null);
         a_appatid_tv.setText("");

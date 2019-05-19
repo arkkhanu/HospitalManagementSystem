@@ -242,3 +242,29 @@ Wrote file afiedt.buf
 SQL> /
 
 Trigger created.
+
+//////////////////////////////////////////////////////
+
+
+SQL> create table Appointment (apid number primary key , rpid number , rid number , did number , bill number not null , status varchar(9) default 'Empty' not null, apdate date not null , regdate date not null , foreign key(rpid) references RegPatient(rpid) , foreign key(rid) references Recept(rid) , foreign key(did) references Doctor(did) );
+
+Table created.
+
+SQL> create sequence Appointment_sequence
+  2  start with 1
+  3  increment by 1;
+
+Sequence created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create or replace trigger Appointment_trigger
+  2  before insert on Appointment
+  3  for each row
+  4  begin
+  5  select Appointment_sequence.nextval into :new.apid from dual;
+  6* end;
+SQL> /
+
+Trigger created.

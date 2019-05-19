@@ -1009,7 +1009,7 @@ public class admin_addnurse extends javax.swing.JFrame {
                 && !a_recqual_combo.getSelectedItem().equals("Select Qual")
                 && !a_recphoneno_et.getText().isEmpty()
                 && !a_recsalary_et.getText().isEmpty()
-                && (agee >= 18 || agee<=60)
+                && (agee >= 18 && agee<=60)
                 ){emptyfiled=true;}
         if(emptyfiled == false){JOptionPane.showMessageDialog(null, "Please Fill the Fileds");}
         
@@ -1089,7 +1089,7 @@ public class admin_addnurse extends javax.swing.JFrame {
                 && !a_recqual_combo.getSelectedItem().equals("Select Qual")
                 && !a_recphoneno_et.getText().isEmpty()
                 && !a_recsalary_et.getText().isEmpty()
-                && (agee>=18 || agee<=60)
+                && (agee>=18 && agee<=60)
                 ){emptyfiled=true;}
         if(emptyfiled == false){JOptionPane.showMessageDialog(null, "Please Fill the Fileds");}
         

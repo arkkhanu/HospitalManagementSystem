@@ -5,12 +5,20 @@
  */
 package ReceptionistPortal;
 
+import DBConnectionP.DBConnection;
 import LoginForm.loginsection;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 
 /**
  *
@@ -20,14 +28,25 @@ import javax.swing.Timer;
 */
 public class receptionist_appoinment extends javax.swing.JFrame {
 
-    int id = -1;
-    String username = null;
-    String gender = null;
+    DBConnection conn = new DBConnection();
+    
+    int id = -1, doctorid = -1;
+    String username=null, doctorname = null,appointdate = null;
+    
     
     public receptionist_appoinment() {
         initComponents();
         showdate();
         showtime();
+        
+        _appdate_error.setVisible(false);
+        _patid_error.setVisible(false);
+        _phon_error.setVisible(false);
+        _docdept_error.setVisible(false);
+        
+//        a_apid_tv.setText(conn.getID("select appid from Appointment ORDER BY appid DESC Fetch first 1 rows only"));
+        getdoctordata();
+//        showdata();
     }
 
     public receptionist_appoinment(int id , String username) {
@@ -38,6 +57,15 @@ public class receptionist_appoinment extends javax.swing.JFrame {
         this.username=username;
         rr_patrecp_tv.setText(String.valueOf(id));
         receptionistname.setText(username);
+        
+        _appdate_error.setVisible(false);
+        _patid_error.setVisible(false);
+        _phon_error.setVisible(false);
+        _docdept_error.setVisible(false);
+        
+//        a_apid_tv.setText(conn.getID("select appid from Appoinment ORDER BY appid DESC Fetch first 1 rows only"));
+        getdoctordata();
+//        showdata();
     }
     
     /**
@@ -54,34 +82,43 @@ public class receptionist_appoinment extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         registrationdate = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        rr_patdocdept_ed = new javax.swing.JTextField();
+        a_apdocdept_ed = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        rr_patphnno_ed = new javax.swing.JTextField();
+        a_appatphon_ed = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        rr_patfname_ed = new javax.swing.JTextField();
-        rr_patdoc_combo = new javax.swing.JComboBox<>();
+        a_appatfname_ed = new javax.swing.JTextField();
+        a_apdocid_combo = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        statuschk = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        rr_patappbill_ed = new javax.swing.JTextField();
-        rr_patappid_tv = new javax.swing.JTextField();
+        a_appatbill_ed = new javax.swing.JTextField();
+        a_apid_tv = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         rr_patid_ed = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        rr_patlname_ed = new javax.swing.JTextField();
+        a_appatlname_ed = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        _patid_error = new javax.swing.JLabel();
+        apptable = new javax.swing.JTable();
+        _searching_error = new javax.swing.JLabel();
         _docdept_error = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jLabel20 = new javax.swing.JLabel();
         rr_patrecp_tv = new javax.swing.JTextField();
         receptionistname = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        a_appatid_tv = new javax.swing.JTextField();
+        _patid_error = new javax.swing.JLabel();
+        getingpatient = new javax.swing.JButton();
+        updatata = new javax.swing.JButton();
+        a_apdate_date = new com.toedter.calendar.JDateChooser();
+        jLabel9 = new javax.swing.JLabel();
+        _appdate_error = new javax.swing.JLabel();
+        _phon_error = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        deletedata = new javax.swing.JButton();
+        adddata = new javax.swing.JButton();
+        ResetAll = new javax.swing.JButton();
         logout = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
@@ -120,79 +157,82 @@ public class receptionist_appoinment extends javax.swing.JFrame {
         registrationdate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         registrationdate.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel3.add(registrationdate);
-        registrationdate.setBounds(230, 10, 140, 30);
+        registrationdate.setBounds(240, 10, 140, 30);
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel5.setText("Last Name");
         jPanel3.add(jLabel5);
-        jLabel5.setBounds(30, 190, 70, 30);
+        jLabel5.setBounds(30, 180, 70, 30);
 
-        rr_patdocdept_ed.setEditable(false);
-        rr_patdocdept_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        rr_patdocdept_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel3.add(rr_patdocdept_ed);
-        rr_patdocdept_ed.setBounds(120, 330, 150, 30);
+        a_apdocdept_ed.setEditable(false);
+        a_apdocdept_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        a_apdocdept_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel3.add(a_apdocdept_ed);
+        a_apdocdept_ed.setBounds(120, 340, 150, 30);
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel7.setText("Phone No.");
+        jLabel7.setText("App Date");
         jPanel3.add(jLabel7);
-        jLabel7.setBounds(40, 240, 70, 30);
+        jLabel7.setBounds(40, 260, 70, 30);
 
-        rr_patphnno_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        rr_patphnno_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel3.add(rr_patphnno_ed);
-        rr_patphnno_ed.setBounds(120, 240, 150, 30);
+        a_appatphon_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        a_appatphon_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        a_appatphon_ed.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                a_appatphon_edKeyTyped(evt);
+            }
+        });
+        jPanel3.add(a_appatphon_ed);
+        a_appatphon_ed.setBounds(120, 220, 150, 30);
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel8.setText("First Name");
         jPanel3.add(jLabel8);
         jLabel8.setBounds(30, 140, 70, 30);
 
-        rr_patfname_ed.setEditable(false);
-        rr_patfname_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        rr_patfname_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel3.add(rr_patfname_ed);
-        rr_patfname_ed.setBounds(120, 140, 150, 30);
+        a_appatfname_ed.setEditable(false);
+        a_appatfname_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        a_appatfname_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel3.add(a_appatfname_ed);
+        a_appatfname_ed.setBounds(120, 140, 150, 30);
 
-        rr_patdoc_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Doctor" }));
-        jPanel3.add(rr_patdoc_combo);
-        rr_patdoc_combo.setBounds(120, 290, 150, 30);
+        a_apdocid_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Doctor" }));
+        a_apdocid_combo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_apdocid_comboActionPerformed(evt);
+            }
+        });
+        jPanel3.add(a_apdocid_combo);
+        a_apdocid_combo.setBounds(120, 300, 150, 30);
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel3.setText("Appoint ID : ");
         jPanel3.add(jLabel3);
         jLabel3.setBounds(30, 60, 80, 30);
 
-        jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel11.setText("Bill Fee Rs: ");
-        jPanel3.add(jLabel11);
-        jLabel11.setBounds(40, 370, 70, 30);
-
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton4.setText("ADD");
-        jButton4.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel3.add(jButton4);
-        jButton4.setBounds(130, 430, 150, 40);
+        statuschk.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
+        jPanel3.add(statuschk);
+        statuschk.setBounds(200, 380, 150, 30);
 
         jLabel16.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel16.setText("Deptarment");
         jPanel3.add(jLabel16);
-        jLabel16.setBounds(30, 330, 70, 30);
+        jLabel16.setBounds(30, 340, 70, 30);
 
-        rr_patappbill_ed.setEditable(false);
-        rr_patappbill_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        rr_patappbill_ed.setText("1000");
-        rr_patappbill_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        rr_patappbill_ed.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel3.add(rr_patappbill_ed);
-        rr_patappbill_ed.setBounds(120, 370, 60, 30);
+        a_appatbill_ed.setEditable(false);
+        a_appatbill_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        a_appatbill_ed.setText("1000");
+        a_appatbill_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        a_appatbill_ed.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPanel3.add(a_appatbill_ed);
+        a_appatbill_ed.setBounds(120, 380, 60, 30);
 
-        rr_patappid_tv.setEditable(false);
-        rr_patappid_tv.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        rr_patappid_tv.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        rr_patappid_tv.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel3.add(rr_patappid_tv);
-        rr_patappid_tv.setBounds(120, 60, 59, 30);
+        a_apid_tv.setEditable(false);
+        a_apid_tv.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        a_apid_tv.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        a_apid_tv.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel3.add(a_apid_tv);
+        a_apid_tv.setBounds(120, 60, 59, 30);
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel4.setText("Patient ID : ");
@@ -208,96 +248,82 @@ public class receptionist_appoinment extends javax.swing.JFrame {
             }
         });
         jPanel3.add(rr_patid_ed);
-        rr_patid_ed.setBounds(120, 100, 59, 30);
+        rr_patid_ed.setBounds(440, 110, 59, 30);
 
         jLabel21.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel21.setText("Doctor");
         jPanel3.add(jLabel21);
-        jLabel21.setBounds(50, 290, 50, 30);
+        jLabel21.setBounds(50, 300, 50, 30);
 
-        rr_patlname_ed.setEditable(false);
-        rr_patlname_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        rr_patlname_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel3.add(rr_patlname_ed);
-        rr_patlname_ed.setBounds(120, 190, 150, 30);
+        a_appatlname_ed.setEditable(false);
+        a_appatlname_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        a_appatlname_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel3.add(a_appatlname_ed);
+        a_appatlname_ed.setBounds(120, 180, 150, 30);
 
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        apptable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "DoctorID", "D-F-Name", "D-L-Name", "Deptarment"
+                "AppID", "PatID", "PFname", "DID", "DDept", "Status"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        apptable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                apptableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(apptable);
 
         jScrollPane2.setViewportView(jScrollPane1);
 
         jPanel3.add(jScrollPane2);
-        jScrollPane2.setBounds(400, 150, 250, 130);
+        jScrollPane2.setBounds(400, 150, 250, 320);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "DoctorID", "D-F-Name", "D-L-Name", "Deptarment"
-            }
-        ));
-        jScrollPane3.setViewportView(jTable2);
-
-        jPanel3.add(jScrollPane3);
-        jScrollPane3.setBounds(390, 320, 270, 130);
-
-        _patid_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        _patid_error.setForeground(new java.awt.Color(255, 0, 0));
-        _patid_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        _patid_error.setText("*");
-        jPanel3.add(_patid_error);
-        _patid_error.setBounds(180, 110, 20, 10);
+        _searching_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _searching_error.setForeground(new java.awt.Color(255, 0, 0));
+        _searching_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _searching_error.setText("*");
+        jPanel3.add(_searching_error);
+        _searching_error.setBounds(500, 120, 20, 10);
 
         _docdept_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         _docdept_error.setForeground(new java.awt.Color(255, 0, 0));
         _docdept_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         _docdept_error.setText("*");
         jPanel3.add(_docdept_error);
-        _docdept_error.setBounds(270, 300, 20, 10);
+        _docdept_error.setBounds(270, 310, 20, 10);
 
         jButton5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton5.setText("Get");
         jButton5.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel3.add(jButton5);
-        jButton5.setBounds(220, 100, 50, 30);
+        jButton5.setBounds(560, 110, 80, 30);
 
         jLabel20.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel20.setText("R ID : ");
@@ -321,8 +347,109 @@ public class receptionist_appoinment extends javax.swing.JFrame {
         jPanel3.add(jLabel18);
         jLabel18.setBounds(450, 60, 60, 30);
 
+        a_appatid_tv.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        a_appatid_tv.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        a_appatid_tv.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        a_appatid_tv.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                a_appatid_tvKeyTyped(evt);
+            }
+        });
+        jPanel3.add(a_appatid_tv);
+        a_appatid_tv.setBounds(120, 100, 59, 30);
+
+        _patid_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _patid_error.setForeground(new java.awt.Color(255, 0, 0));
+        _patid_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _patid_error.setText("*");
+        jPanel3.add(_patid_error);
+        _patid_error.setBounds(180, 110, 20, 10);
+
+        getingpatient.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        getingpatient.setText("Get");
+        getingpatient.setBorder(new javax.swing.border.MatteBorder(null));
+        getingpatient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getingpatientActionPerformed(evt);
+            }
+        });
+        jPanel3.add(getingpatient);
+        getingpatient.setBounds(210, 100, 60, 30);
+
+        updatata.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        updatata.setText("Delete");
+        updatata.setBorder(new javax.swing.border.MatteBorder(null));
+        updatata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updatataActionPerformed(evt);
+            }
+        });
+        jPanel3.add(updatata);
+        updatata.setBounds(290, 450, 80, 30);
+
+        a_apdate_date.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel3.add(a_apdate_date);
+        a_apdate_date.setBounds(120, 260, 150, 30);
+
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel9.setText("Phone No.");
+        jPanel3.add(jLabel9);
+        jLabel9.setBounds(40, 220, 70, 30);
+
+        _appdate_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _appdate_error.setForeground(new java.awt.Color(255, 0, 0));
+        _appdate_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _appdate_error.setText("*");
+        jPanel3.add(_appdate_error);
+        _appdate_error.setBounds(270, 270, 20, 10);
+
+        _phon_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _phon_error.setForeground(new java.awt.Color(255, 0, 0));
+        _phon_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _phon_error.setText("*");
+        jPanel3.add(_phon_error);
+        _phon_error.setBounds(270, 230, 20, 10);
+
+        jLabel13.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel13.setText("Bill Fee Rs: ");
+        jPanel3.add(jLabel13);
+        jLabel13.setBounds(40, 380, 70, 30);
+
+        deletedata.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        deletedata.setText("Update");
+        deletedata.setBorder(new javax.swing.border.MatteBorder(null));
+        deletedata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deletedataActionPerformed(evt);
+            }
+        });
+        jPanel3.add(deletedata);
+        deletedata.setBounds(180, 450, 80, 30);
+
+        adddata.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        adddata.setText("ADD");
+        adddata.setBorder(new javax.swing.border.MatteBorder(null));
+        adddata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adddataActionPerformed(evt);
+            }
+        });
+        jPanel3.add(adddata);
+        adddata.setBounds(90, 450, 80, 30);
+
+        ResetAll.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ResetAll.setText("Reset");
+        ResetAll.setBorder(new javax.swing.border.MatteBorder(null));
+        ResetAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ResetAllActionPerformed(evt);
+            }
+        });
+        jPanel3.add(ResetAll);
+        ResetAll.setBounds(210, 60, 60, 30);
+
         jPanel4.add(jPanel3);
-        jPanel3.setBounds(250, 170, 670, 490);
+        jPanel3.setBounds(250, 160, 670, 500);
 
         logout.setBackground(new java.awt.Color(255, 255, 255));
         logout.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
@@ -353,7 +480,7 @@ public class receptionist_appoinment extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel12.setText("Add Appointment");
         jPanel4.add(jLabel12);
-        jLabel12.setBounds(460, 130, 190, 40);
+        jLabel12.setBounds(460, 120, 190, 40);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
@@ -448,7 +575,7 @@ public class receptionist_appoinment extends javax.swing.JFrame {
         rp_appointment_btn.setBounds(10, 140, 190, 40);
 
         jPanel4.add(jPanel2);
-        jPanel2.setBounds(20, 170, 210, 490);
+        jPanel2.setBounds(20, 160, 210, 500);
 
         getContentPane().add(jPanel4);
         jPanel4.setBounds(0, 0, 940, 680);
@@ -473,6 +600,71 @@ public class receptionist_appoinment extends javax.swing.JFrame {
             registrationdate.setText(t.format(d));
         }).start(); 
     }
+    
+    private void getdoctordata(){
+    
+        try{
+            conn.OpenConnection();
+            String query="select did from doctor";
+            conn.GetData(query);
+            while(conn.rst.next()){
+                int did =conn.rst.getInt("did");
+                a_apdocid_combo.addItem(String.valueOf(did));
+            }
+            conn.CloseConnection();
+        }catch(SQLException e){ System.out.println(e);}
+    }
+    
+   /* private void showdata(){
+        ArrayList<admin_addingclass.adddoctorclass> list = userlist();
+        DefaultTableModel model = (DefaultTableModel) recepttable.getModel();
+        Object[] row = new Object[6];
+        for(int i=0 ; i<list.size() ; i++){
+            row[0] = list.get(i).getDid();
+            row[1] = list.get(i).getDfname();
+            row[2] = list.get(i).getDlname();
+            row[3] = list.get(i).getSex();
+            row[4] = list.get(i).getPhno();
+            row[5] = list.get(i).getRegdate();
+            model.addRow(row);
+            System.out.println(list.get(i).getRegdate());
+        }
+    }
+    
+    private ArrayList<admin_addingclass.adddoctorclass> userlist() {
+            ArrayList<admin_addingclass.adddoctorclass> userList = new ArrayList<>();
+            try{
+                conn.OpenConnection();
+//(did, age, sal, dfname, dlname, dob, sex, address, phno, city, regdate, username, pass, qualification, deptward)
+                String selectquery="select did,age,salery,dfname,dlname,dob,gname,address,phno,cname,regdate,username,pass,qname,wname from doctor d ,qualification q ,city c ,gender g , deptward dw where d.qid=q.qid and d.cityid=c.cid and d.sexid=g.gid and d.dwid=dw.wid order by did desc";
+                conn.GetData(selectquery);
+                admin_addingclass adc = new admin_addingclass();
+                admin_addingclass.adddoctorclass addc;
+                while(conn.rst.next()){
+                    addc = adc.new adddoctorclass(
+                    conn.rst.getInt("did"),
+                    conn.rst.getInt("age"),
+                    conn.rst.getInt("salery"),
+                    conn.rst.getString("dfname"),
+                    conn.rst.getString("dlname"),
+                    conn.rst.getString("dob"),
+                    conn.rst.getString("gname"),
+                    conn.rst.getString("address"),
+                    conn.rst.getString("phno"),
+                    conn.rst.getString("cname"),
+                    conn.rst.getString("regdate"),        
+                    conn.rst.getString("username"),
+                    conn.rst.getString("pass"),
+                    conn.rst.getString("qname"),
+                    conn.rst.getString("wname")
+                    );
+                 userList.add(addc);   
+                }
+                
+            }catch(SQLException e ){System.out.println(e);}
+        
+     return userList;
+    }*/
     
     private void rr_patid_edKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rr_patid_edKeyTyped
         
@@ -537,6 +729,310 @@ public class receptionist_appoinment extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_rp_appointment_btnActionPerformed
 
+    private void a_appatid_tvKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_a_appatid_tvKeyTyped
+        char c = evt.getKeyChar();
+        if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_a_appatid_tvKeyTyped
+
+    private void a_appatphon_edKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_a_appatphon_edKeyTyped
+        char c = evt.getKeyChar();
+        if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
+            getToolkit().beep();
+            evt.consume();
+        }
+        
+       if(a_appatphon_ed.getText().length() ==11 ){
+           if((Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
+                getToolkit().beep();
+                evt.consume();
+            }
+       }
+       
+       if(a_appatphon_ed.getText().length() == 11){
+           a_appatphon_ed.requestFocusInWindow();
+           
+       }
+    }//GEN-LAST:event_a_appatphon_edKeyTyped
+
+    private void getingpatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getingpatientActionPerformed
+        
+        if(a_appatid_tv.getText().equals("")){_patid_error.setVisible(true);}
+        else{
+            boolean ispresnt1 = false;
+            _patid_error.setVisible(false);
+            try{
+                conn.OpenConnection();
+                String query = "select rpid , fname,lname,phno from RegPatient where rpid="+a_appatid_tv.getText();
+                conn.GetData(query);
+                while(conn.rst.next()){
+                    ispresnt1 = true;
+                    a_appatfname_ed.setText(conn.rst.getString("fname"));
+                    a_appatlname_ed.setText(conn.rst.getString("lname"));
+                    a_appatphon_ed.setText(conn.rst.getString("phno"));
+                   break;
+                }
+                conn.CloseConnection();
+                if(ispresnt1 == false){
+                    a_appatfname_ed.setText("");
+                    a_appatlname_ed.setText("");
+                    a_appatphon_ed.setText("");
+                    JOptionPane.showMessageDialog(null, "Sorry Not Found such Patient");
+                    
+                }
+            }catch(SQLException e ){System.out.println(e);}
+            
+        }
+    }//GEN-LAST:event_getingpatientActionPerformed
+
+    private void a_apdocid_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_apdocid_comboActionPerformed
+        if(a_apdocid_combo.getSelectedItem().equals("Select Doctor")){ _docdept_error.setVisible(true);doctorname=null;}
+        else{
+            _docdept_error.setVisible(false);
+            doctorname=String.valueOf(a_apdocid_combo.getSelectedItem());
+            
+            try{
+                String query= "select did , wname from doctor d1 , deptward dw where d1.dwid=dw.wid";
+                conn.OpenConnection();
+                conn.GetData(query);
+                while(conn.rst.next()){
+                int    s1 = conn.rst.getInt("did");
+                String s2 = conn.rst.getString("wname");
+                if(s1 == Integer.valueOf(doctorname)){
+                    doctorid=s1;
+                    a_apdocdept_ed.setText(s2);
+//                    System.out.println(s1 + " : " + s2 + " : " + doctorid); 
+                  }
+                }
+                conn.CloseConnection();
+            }catch(SQLException |ValueException e){System.out.println(e);}
+        }
+    }//GEN-LAST:event_a_apdocid_comboActionPerformed
+
+    private void apptableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_apptableMouseClicked
+            _appdate_error.setVisible(false);
+            _patid_error.setVisible(false);
+            _phon_error.setVisible(false);
+            _docdept_error.setVisible(false);
+            
+     /*   int i = recepttable.getSelectedRow();
+        TableModel model = recepttable.getModel();
+        a_recid_tv.setText(model.getValueAt(i,0).toString());
+        int id = Integer.valueOf(a_recid_tv.getText());
+        ArrayList<admin_addingclass.adddoctorclass> listing = userlist();
+        for(int j=0 ; j<listing.size() ; j++){
+            if(listing.get(j).getDid()== id){
+                a_recid_tv.setText(String.valueOf(listing.get(j).getDid()));
+                a_recfname_et.setText(String.valueOf(listing.get(j).getDfname()));
+                a_reclname_et.setText(String.valueOf(listing.get(j).getDlname()));
+                a_recage_et.setText(String.valueOf(listing.get(j).getAge()));
+                try{
+                    
+                    Date dobdatee=new SimpleDateFormat("yyyy-MM-dd").parse(listing.get(j).getDob()); 
+                    a_recdob_date.setDate(dobdatee);
+                }catch(ParseException e ){System.out.println(e);}
+                a_recgender_combo.setSelectedItem(listing.get(j).getSex());
+                a_recdept_combo.setSelectedItem(listing.get(j).getDeptward());
+                a_recaddress_et.setText(String.valueOf(listing.get(j).getAddress()));
+                a_recphoneno_et.setText(String.valueOf(listing.get(j).getPhno()));
+                a_reccity_combo.setSelectedItem(listing.get(j).getCity());
+                a_recusername_et.setText(String.valueOf(listing.get(j).getUsername()));
+                a_recpassword_et.setText(String.valueOf(listing.get(j).getPass()));
+                a_recsalary_et.setText(String.valueOf(listing.get(j).getSal()));
+                a_recqual_combo.setSelectedItem(listing.get(j).getQualification());
+               
+                break;
+            }
+        }*/
+    }//GEN-LAST:event_apptableMouseClicked
+
+    private void adddataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adddataActionPerformed
+        
+        boolean emptyfiled = false;
+        boolean datechk = false;
+        if(a_appatid_tv.getText().equals("")){_patid_error.setVisible(true);emptyfiled=false;}
+        if(a_appatphon_ed.getText().equals("")){_phon_error.setVisible(true);emptyfiled=false;}
+        if(a_apdocid_combo.getSelectedItem().equals("Select Doctor")){_docdept_error.setVisible(true);emptyfiled=false;}
+        if(a_apdate_date.getDate() == null){_appdate_error.setVisible(true);emptyfiled=false;}
+        
+        try{
+            SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd");
+            if(a_apdate_date.getDate() != null){
+                _appdate_error.setVisible(false);
+                appointdate= t.format(a_apdate_date.getDate());
+                String today = registrationdate.getText();
+                long diff = -1;
+                Date d1 = t.parse(appointdate);
+                Date d2 = t.parse(today);
+                diff = d2.getDate()-d1.getDate();
+                if(diff <=0){JOptionPane.showMessageDialog(null,"Can not Appoint today \nPlease select Future date ");datechk=false;}
+                if(diff >= 1){datechk=true;}
+            }
+            else{
+             _appdate_error.setVisible(true);
+            }
+        }catch(ParseException e ){System.out.println(e);}
+        
+        if(!a_appatid_tv.getText().isEmpty()
+           && !a_appatphon_ed.getText().isEmpty()
+           && !a_apdocid_combo.getSelectedItem().equals("Select Doctor")
+           && a_apdate_date.getDate() != null
+           && datechk==true){ emptyfiled = true;}
+        
+        if(emptyfiled == false){JOptionPane.showMessageDialog(null, "Please Fill the Fileds");}
+        
+        if(emptyfiled == true && datechk == true){
+            _appdate_error.setVisible(false);
+            _patid_error.setVisible(false);
+            _phon_error.setVisible(false);
+            _docdept_error.setVisible(false);
+            
+           try{
+               conn.OpenConnection();
+               String query = "";
+               int flag = conn.InsertUpdateDelete(query);
+               if(flag==1){
+                    JOptionPane.showMessageDialog(null,"Successfully Inserted..!");  
+                    a_apid_tv.setText(conn.getID("select did from Doctor ORDER BY did DESC Fetch first 1 rows only"));
+                    
+                    a_apdate_date.setDate(null);
+                    a_appatid_tv.setText("");
+                    a_appatfname_ed.setText("");
+                    a_appatlname_ed.setText("");
+                    a_appatphon_ed.setText("");
+                    a_apdocid_combo.setSelectedIndex(0);
+                    a_apdocdept_ed.setText("");
+                    statuschk.setText("");
+               }
+            conn.CloseConnection();
+           }catch(HeadlessException e){System.out.println(e);}
+           
+        
+        }
+        
+    }//GEN-LAST:event_adddataActionPerformed
+
+    private void deletedataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletedataActionPerformed
+        int yesorno = JOptionPane.showConfirmDialog(null,"Do you want to Delete ","Deleted Record" , JOptionPane.YES_NO_OPTION);
+        
+        if(yesorno==1){
+            int row = apptable.getSelectedRow();
+            int value = Integer.parseInt((apptable.getModel().getValueAt(row, 0).toString()));
+            try{
+                conn.OpenConnection();
+                String query="delete from Doctor where did="+value;
+                int flag = conn.InsertUpdateDelete(query);
+                if(flag==1){
+                    JOptionPane.showMessageDialog(null,"Successfully Deleted..!");
+                    DefaultTableModel model1 = (DefaultTableModel) apptable.getModel();
+                    model1.setRowCount(0);
+//                    showdata();
+                    a_apdate_date.setDate(null);
+                    a_appatid_tv.setText("");
+                    a_appatfname_ed.setText("");
+                    a_appatlname_ed.setText("");
+                    a_appatphon_ed.setText("");
+                    a_apdocid_combo.setSelectedIndex(0);
+                    a_apdocdept_ed.setText("");
+                    statuschk.setText("");
+                    
+                    updatata.setVisible(false);
+                    deletedata.setVisible(false);
+                    adddata.setVisible(true);
+                }
+            }catch(HeadlessException e ){System.out.println(e);}
+        }
+        else{
+        JOptionPane.showMessageDialog(null,"Delete Canceled..!");
+        }
+    }//GEN-LAST:event_deletedataActionPerformed
+
+    private void updatataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatataActionPerformed
+        boolean emptyfiled = false;
+        boolean datechk = false;
+        if(a_appatid_tv.getText().equals("")){_patid_error.setVisible(true);emptyfiled=false;}
+        if(a_appatphon_ed.getText().equals("")){_phon_error.setVisible(true);emptyfiled=false;}
+        if(a_apdocid_combo.getSelectedItem().equals("Select Doctor")){_docdept_error.setVisible(true);emptyfiled=false;}
+        if(a_apdate_date.getDate() == null){_appdate_error.setVisible(true);emptyfiled=false;}
+        
+        try{
+            SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd");
+            if(a_apdate_date.getDate() != null){
+                _appdate_error.setVisible(false);
+                appointdate= t.format(a_apdate_date.getDate());
+                String today = registrationdate.getText();
+                long diff = -1;
+                Date d1 = t.parse(appointdate);
+                Date d2 = t.parse(today);
+                diff = d2.getDate()-d1.getDate();
+                if(diff <=0){JOptionPane.showMessageDialog(null,"Can not Appoint today \nPlease select Future date ");datechk=false;}
+                if(diff >= 1){datechk=true;}
+            }
+            else{
+             _appdate_error.setVisible(true);
+            }
+        }catch(ParseException e ){System.out.println(e);}
+        
+        if(!a_appatid_tv.getText().isEmpty()
+           && !a_appatphon_ed.getText().isEmpty()
+           && !a_apdocid_combo.getSelectedItem().equals("Select Doctor")
+           && a_apdate_date.getDate() != null
+           && datechk==true){ emptyfiled = true;}
+        
+        if(emptyfiled == false){JOptionPane.showMessageDialog(null, "Please Fill the Fileds");}
+        
+        if(emptyfiled == true && datechk == true){
+            _appdate_error.setVisible(false);
+            _patid_error.setVisible(false);
+            _phon_error.setVisible(false);
+            _docdept_error.setVisible(false);
+            
+           try{
+               conn.OpenConnection();
+               String query = "";
+               int flag = conn.InsertUpdateDelete(query);
+               if(flag==1){
+                    JOptionPane.showMessageDialog(null,"Successfully Updated..!");  
+                    a_apid_tv.setText(conn.getID("select did from Doctor ORDER BY did DESC Fetch first 1 rows only"));
+                    
+                    a_apdate_date.setDate(null);
+                    a_appatid_tv.setText("");
+                    a_appatfname_ed.setText("");
+                    a_appatlname_ed.setText("");
+                    a_appatphon_ed.setText("");
+                    a_apdocid_combo.setSelectedIndex(0);
+                    a_apdocdept_ed.setText("");
+                    statuschk.setText("");
+               }
+            conn.CloseConnection();
+           }catch(HeadlessException e){System.out.println(e);}
+           
+        
+        }
+    }//GEN-LAST:event_updatataActionPerformed
+
+    private void ResetAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetAllActionPerformed
+        updatata.setVisible(false);
+        deletedata.setVisible(false);
+        _appdate_error.setVisible(false);
+        _patid_error.setVisible(false);
+        _phon_error.setVisible(false);
+        _docdept_error.setVisible(false);
+//        a_apid_tv.setText(conn.getID("select appid from Appointment ORDER BY appid DESC Fetch first 1 rows only"));
+
+        a_apdate_date.setDate(null);
+        a_appatid_tv.setText("");
+        a_appatfname_ed.setText("");
+        a_appatlname_ed.setText("");
+        a_appatphon_ed.setText("");
+        a_apdocid_combo.setSelectedIndex(0);
+        a_apdocdept_ed.setText("");
+        statuschk.setText("");
+        
+    }//GEN-LAST:event_ResetAllActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -571,13 +1067,29 @@ public class receptionist_appoinment extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ResetAll;
+    private javax.swing.JLabel _appdate_error;
     private javax.swing.JLabel _docdept_error;
     private javax.swing.JLabel _patid_error;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel _phon_error;
+    private javax.swing.JLabel _searching_error;
+    private com.toedter.calendar.JDateChooser a_apdate_date;
+    private javax.swing.JTextField a_apdocdept_ed;
+    private javax.swing.JComboBox<String> a_apdocid_combo;
+    private javax.swing.JTextField a_apid_tv;
+    private javax.swing.JTextField a_appatbill_ed;
+    private javax.swing.JTextField a_appatfname_ed;
+    private javax.swing.JTextField a_appatid_tv;
+    private javax.swing.JTextField a_appatlname_ed;
+    private javax.swing.JTextField a_appatphon_ed;
+    private javax.swing.JButton adddata;
+    private javax.swing.JTable apptable;
+    private javax.swing.JButton deletedata;
+    private javax.swing.JButton getingpatient;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel20;
@@ -588,14 +1100,12 @@ public class receptionist_appoinment extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JButton logout;
     private javax.swing.JLabel receptionistname;
     private javax.swing.JTextField registrationdate;
@@ -607,15 +1117,10 @@ public class receptionist_appoinment extends javax.swing.JFrame {
     private javax.swing.JButton rp_opt_btn;
     private javax.swing.JButton rp_opt_details;
     private javax.swing.JButton rp_registration_btn;
-    private javax.swing.JTextField rr_patappbill_ed;
-    private javax.swing.JTextField rr_patappid_tv;
-    private javax.swing.JComboBox<String> rr_patdoc_combo;
-    private javax.swing.JTextField rr_patdocdept_ed;
-    private javax.swing.JTextField rr_patfname_ed;
     private javax.swing.JTextField rr_patid_ed;
-    private javax.swing.JTextField rr_patlname_ed;
-    private javax.swing.JTextField rr_patphnno_ed;
     private javax.swing.JTextField rr_patrecp_tv;
+    private javax.swing.JLabel statuschk;
     private javax.swing.JLabel timegetting;
+    private javax.swing.JButton updatata;
     // End of variables declaration//GEN-END:variables
 }

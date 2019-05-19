@@ -1134,7 +1134,7 @@ public class admin_adddoctor extends javax.swing.JFrame {
                 && !a_recusername_et.getText().isEmpty()
                 && !a_recpassword_et.getText().isEmpty()
                 && !a_recsalary_et.getText().isEmpty()
-                && (agee >= 18 || agee<=60)
+                && (agee >= 18 && agee<=60)
                 ){emptyfiled=true;}
         if(emptyfiled == false){JOptionPane.showMessageDialog(null, "Please Fill the Fileds");}
         
@@ -1226,7 +1226,7 @@ public class admin_adddoctor extends javax.swing.JFrame {
                 && !a_recpassword_et.getText().isEmpty()
                 && !a_recsalary_et.getText().isEmpty()
                 && !a_recdept_combo.getSelectedItem().equals("Select Dept")
-                && agee>=18 && agee<=60
+                && (agee>=18 && agee<=60)
                 ){emptyfiled=true;}
         if(emptyfiled == false){JOptionPane.showMessageDialog(null, "Please Fill the Fileds");}
         

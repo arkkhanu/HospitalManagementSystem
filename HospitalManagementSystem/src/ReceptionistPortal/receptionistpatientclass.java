@@ -12,13 +12,14 @@ package ReceptionistPortal;
 public class receptionistpatientclass {
     public class appointmentclass{
 
-        int apid,rpid,did,billamount;
-        String pfname,plname,rfname,rlname,dfname,dlname,ddeptward,pphno,status,apdate,regdate;
+        int apid,rpid,did,billamount,age;
+        String pfname,plname,rfname,rlname,dfname,dlname,ddeptward,pphno,status,apdate,regdate,gender;
         
-        public appointmentclass(int apid, int rpid, int did, int billamount, String pfname, String plname, String rfname, String rlname, String dfname, String dlname, String ddeptward, String pphno, String status, String apdate, String regdate) {
+        public appointmentclass(int apid, int rpid, int did, int billamount,int age, String pfname, String plname, String rfname, String rlname, String dfname, String dlname, String ddeptward, String pphno, String status, String apdate, String regdate,String gender) {
             this.apid = apid;
             this.rpid = rpid;
             this.did = did;
+            this.age = age;
             this.billamount = billamount;
             this.pfname = pfname;
             this.plname = plname;
@@ -31,6 +32,7 @@ public class receptionistpatientclass {
             this.status = status;
             this.apdate = apdate;
             this.regdate = regdate;
+            this.gender = gender;
         }
 
         public int getApid() {
@@ -49,6 +51,10 @@ public class receptionistpatientclass {
             return billamount;
         }
 
+        public int getAge(){
+            return age;
+        }
+        
         public String getPfname() {
             return pfname;
         }
@@ -93,7 +99,9 @@ public class receptionistpatientclass {
             return regdate;
         }
         
-        
+        public String getGender(){
+            return gender;
+        }
          
 
        

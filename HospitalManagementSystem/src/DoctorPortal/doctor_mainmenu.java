@@ -5,11 +5,14 @@
  */
 package DoctorPortal;
 
+import DBConnectionP.DBConnection;
 import LoginForm.loginsection;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -18,16 +21,23 @@ import javax.swing.Timer;
  */
 public class doctor_mainmenu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form doctor_mainmenu
-     */
+    DBConnection conn = new DBConnection();
     
-     //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
-        //        String d = sdf.format(jDateChooser1.getDate());
-        //        registrationdate.setText(d);
-
-        //        String i = phone1.getText()+phone2.getText();
-        //        patientidd.setText(i);
+    void showtime(){
+        new Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("hh:mm:ss a");
+            timegetting.setText(t.format(d));
+        }).start();   
+    }
+    
+    void showdate(){
+        new Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd");
+            registrationdate.setText(t.format(d));
+        }).start();
+    }
     
     public doctor_mainmenu() {
         initComponents();
@@ -55,27 +65,28 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        ap_patlname_ed = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         registrationdate = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
-        patientidd = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        ap_patid_ed = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         appointmentid_ed = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
-        jTextField3 = new javax.swing.JTextField();
+        getingid = new javax.swing.JButton();
+        ap_patage_ed = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        ap_patgender_ed = new javax.swing.JTextField();
+        ap_patfname_ed = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         dd_username_tv = new javax.swing.JLabel();
         dd_id_tv = new javax.swing.JTextField();
         _appid_error = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        apptable = new javax.swing.JTable();
         logout = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
@@ -104,11 +115,12 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         jPanel3.add(jLabel5);
         jLabel5.setBounds(30, 240, 90, 30);
 
-        jTextField2.setEditable(false);
-        jTextField2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel3.add(jTextField2);
-        jTextField2.setBounds(130, 240, 150, 30);
+        ap_patlname_ed.setEditable(false);
+        ap_patlname_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        ap_patlname_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ap_patlname_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel3.add(ap_patlname_ed);
+        ap_patlname_ed.setBounds(130, 240, 150, 30);
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel8.setText("First Name");
@@ -133,52 +145,12 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         jPanel3.add(jButton4);
         jButton4.setBounds(290, 420, 150, 40);
 
-        patientidd.setEditable(false);
-        patientidd.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        patientidd.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        patientidd.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel3.add(patientidd);
-        patientidd.setBounds(130, 140, 59, 30);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "ApID", "PID", "P-F-Name", "P-L-Name"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, true, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
-
-        jPanel3.add(jScrollPane1);
-        jScrollPane1.setBounds(560, 130, 350, 320);
+        ap_patid_ed.setEditable(false);
+        ap_patid_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        ap_patid_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ap_patid_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel3.add(ap_patid_ed);
+        ap_patid_ed.setBounds(130, 140, 59, 30);
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel4.setText("Appoint ID : ");
@@ -196,22 +168,23 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         jPanel3.add(appointmentid_ed);
         appointmentid_ed.setBounds(130, 100, 59, 30);
 
-        jButton6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton6.setText("Get");
-        jButton6.setBorder(new javax.swing.border.MatteBorder(null));
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        getingid.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        getingid.setText("Get");
+        getingid.setBorder(new javax.swing.border.MatteBorder(null));
+        getingid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                getingidActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton6);
-        jButton6.setBounds(210, 100, 70, 30);
+        jPanel3.add(getingid);
+        getingid.setBounds(220, 100, 60, 30);
 
-        jTextField3.setEditable(false);
-        jTextField3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel3.add(jTextField3);
-        jTextField3.setBounds(130, 290, 150, 30);
+        ap_patage_ed.setEditable(false);
+        ap_patage_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        ap_patage_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ap_patage_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel3.add(ap_patage_ed);
+        ap_patage_ed.setBounds(130, 290, 150, 30);
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel7.setText("Age");
@@ -223,17 +196,19 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         jPanel3.add(jLabel9);
         jLabel9.setBounds(50, 340, 50, 30);
 
-        jTextField5.setEditable(false);
-        jTextField5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel3.add(jTextField5);
-        jTextField5.setBounds(130, 340, 150, 30);
+        ap_patgender_ed.setEditable(false);
+        ap_patgender_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        ap_patgender_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ap_patgender_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel3.add(ap_patgender_ed);
+        ap_patgender_ed.setBounds(130, 340, 150, 30);
 
-        jTextField6.setEditable(false);
-        jTextField6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel3.add(jTextField6);
-        jTextField6.setBounds(130, 190, 150, 30);
+        ap_patfname_ed.setEditable(false);
+        ap_patfname_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        ap_patfname_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ap_patfname_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel3.add(ap_patfname_ed);
+        ap_patfname_ed.setBounds(130, 190, 150, 30);
 
         jLabel20.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel20.setText("D ID : ");
@@ -263,6 +238,31 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         _appid_error.setText("*");
         jPanel3.add(_appid_error);
         _appid_error.setBounds(190, 110, 20, 10);
+
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        apptable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "AppID", "DID", "PatID", "PFName", "PLName", "Status", "APDate"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(apptable);
+
+        jScrollPane2.setViewportView(jScrollPane1);
+
+        jPanel3.add(jScrollPane2);
+        jScrollPane2.setBounds(550, 120, 350, 330);
 
         jPanel4.add(jPanel3);
         jPanel3.setBounds(10, 170, 920, 490);
@@ -319,29 +319,46 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_logoutActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void getingidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getingidActionPerformed
         if(appointmentid_ed.getText().equals("")){
             _appid_error.setVisible(true);
         }
-    }//GEN-LAST:event_jButton6ActionPerformed
+        if(appointmentid_ed.getText().equals("")){_appid_error.setVisible(true);}
+        else{
+            boolean ispresnt1 = false;
+            _appid_error.setVisible(false);
+            try{
+                conn.OpenConnection();
+//                String query = "select rpid , fname,lname,age,gname from RegPatient p ,gender g where p.sexid=g.gid and rpid="+appointmentid_ed.getText();
+                String query = "select apid ,p.rpid ,fname , lname ,age  , gname from appointment a , regpatient p , gender g where p.sexid=g.gid and  a.rpid=p.rpid and a.apid="+appointmentid_ed.getText();
+                conn.GetData(query);
+                while(conn.rst.next()){
+                    ispresnt1 = true;
+                    ap_patid_ed.setText(String.valueOf(conn.rst.getInt("rpid")));
+                    ap_patfname_ed.setText(conn.rst.getString("fname"));
+                    ap_patlname_ed.setText(conn.rst.getString("lname"));
+                    ap_patgender_ed.setText(conn.rst.getString("gname"));
+                    ap_patage_ed.setText(String.valueOf(conn.rst.getInt("age")));
+                   break;
+                }
+                conn.CloseConnection();
+                if(ispresnt1 == false){
+                    ap_patid_ed.setText("");
+                    ap_patfname_ed.setText("");
+                    ap_patlname_ed.setText("");
+                    ap_patgender_ed.setText("");
+                    ap_patage_ed.setText("");
+                    JOptionPane.showMessageDialog(null, "Sorry Not Found such Patient");
+                    
+                }
+            }catch(SQLException e ){System.out.println(e);}
+            
+        }
+        
+    }//GEN-LAST:event_getingidActionPerformed
 
     
-    void showtime(){
-        new Timer(0, (ActionEvent ae) -> {
-            Date d = new Date();
-            SimpleDateFormat t = new SimpleDateFormat("hh:mm:ss a");
-            timegetting.setText(t.format(d));
-        }).start();   
-    }
     
-    void showdate(){
-        new Timer(0, (ActionEvent ae) -> {
-            Date d = new Date();
-            SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd");
-            registrationdate.setText(t.format(d));
-        }).start();
-        
-    }
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -375,11 +392,17 @@ public class doctor_mainmenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel _appid_error;
+    private javax.swing.JTextField ap_patage_ed;
+    private javax.swing.JTextField ap_patfname_ed;
+    private javax.swing.JTextField ap_patgender_ed;
+    private javax.swing.JTextField ap_patid_ed;
+    private javax.swing.JTextField ap_patlname_ed;
     private javax.swing.JTextField appointmentid_ed;
+    private javax.swing.JTable apptable;
     private javax.swing.JTextField dd_id_tv;
     private javax.swing.JLabel dd_username_tv;
+    private javax.swing.JButton getingid;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel18;
@@ -394,13 +417,8 @@ public class doctor_mainmenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton logout;
-    private javax.swing.JTextField patientidd;
     private javax.swing.JTextField registrationdate;
     private javax.swing.JLabel timegetting;
     // End of variables declaration//GEN-END:variables

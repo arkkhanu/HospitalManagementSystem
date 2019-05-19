@@ -46,6 +46,7 @@ public class admin_internal_rooms extends javax.swing.JFrame {
         updatedata.setVisible(false);
         
         showdata();
+        showdate();
         showtime();
         getWardtype();
         getRoomCat();
@@ -131,7 +132,7 @@ public class admin_internal_rooms extends javax.swing.JFrame {
         registrationdate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         registrationdate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel1.add(registrationdate);
-        registrationdate.setBounds(250, 20, 140, 30);
+        registrationdate.setBounds(250, 10, 140, 30);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel2.setText("Room ID");

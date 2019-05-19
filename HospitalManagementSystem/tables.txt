@@ -271,4 +271,33 @@ Trigger created.
 
 //////////////////////////////////////////////////////////////////////////
 
+SQL> create table room (rrid number primary key , rcid number , wid number, rstatus varchar(4) not null , nid number , foreign key(rcid) references roomcategory(rcid), foreign key(wid) references deptward(wid), foreign key(nid) references nurse(nid));
+
+Table created.
+
+SQL> create sequence room_sequence
+  2  start with 1
+  3  increment by 1;
+
+Sequence created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create or replace trigger room_trigger
+  2  before insert on room
+  3  for each row
+  4  begin
+  5  select room_sequence.nextval into :new.rrid from dual;
+  6* end;
+SQL> /
+
+Trigger created.
+
+////////////////////////////////////////////////////////////
+
+
+
+
+
 

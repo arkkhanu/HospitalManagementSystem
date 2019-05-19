@@ -6,11 +6,14 @@
 package AdminpPortal;
 
 import AdminpPortal.admin_detailsclasses.admin_details_opt;
+import DBConnectionP.DBConnection;
 import LoginForm.loginsection;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -19,13 +22,20 @@ import javax.swing.Timer;
  */
 public class admin_salary extends javax.swing.JFrame {
 
-    /**
-     * Creates new form admin_salary
-     */
+    DBConnection conn = new DBConnection();
+    
+    int usertype = -1 , id=-1;
+    String tblname = null , clmidname = null;
+    
     public admin_salary() {
         initComponents();
         showtime();
         showdate();
+        
+        _empid_error.setVisible(false);
+        _usertype_error.setVisible(false);
+        _searching_error.setVisible(false);
+        
     }
 
     /**
@@ -43,25 +53,24 @@ public class admin_salary extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
+        checkedout = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         registrationdate = new javax.swing.JTextField();
-        salarytype = new javax.swing.JComboBox<>();
-        jTextField10 = new javax.swing.JTextField();
-        jButton7 = new javax.swing.JButton();
+        s_salarytype_combo = new javax.swing.JComboBox<>();
+        s_lname_ed = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
+        s_salay_ed = new javax.swing.JTextField();
+        s_fname_ed = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
+        s_employeid_ed = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextField14 = new javax.swing.JTextField();
-        jButton12 = new javax.swing.JButton();
+        s_status_ed = new javax.swing.JTextField();
+        gettingdate = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        jTextField15 = new javax.swing.JTextField();
+        s_date_ed = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jTextField16 = new javax.swing.JTextField();
+        s_salaryid_tv = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton15 = new javax.swing.JButton();
@@ -69,6 +78,10 @@ public class admin_salary extends javax.swing.JFrame {
         jButton16 = new javax.swing.JButton();
         jButton17 = new javax.swing.JButton();
         searching = new javax.swing.JTextField();
+        gettingid = new javax.swing.JButton();
+        _usertype_error = new javax.swing.JLabel();
+        _empid_error = new javax.swing.JLabel();
+        _searching_error = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         a_doctor_btn = new javax.swing.JButton();
@@ -122,11 +135,16 @@ public class admin_salary extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(null);
 
-        jButton6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton6.setText("Generate Salary");
-        jButton6.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton6);
-        jButton6.setBounds(110, 430, 140, 30);
+        checkedout.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        checkedout.setText("CheckedOut Salary");
+        checkedout.setBorder(new javax.swing.border.MatteBorder(null));
+        checkedout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkedoutActionPerformed(evt);
+            }
+        });
+        jPanel1.add(checkedout);
+        checkedout.setBounds(110, 430, 140, 30);
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel4.setText("Status");
@@ -139,98 +157,102 @@ public class admin_salary extends javax.swing.JFrame {
         jPanel1.add(registrationdate);
         registrationdate.setBounds(260, 20, 140, 30);
 
-        salarytype.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        salarytype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Type", "Doctor", "Receptionist", "Nurse" }));
-        jPanel1.add(salarytype);
-        salarytype.setBounds(110, 80, 140, 30);
+        s_salarytype_combo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        s_salarytype_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Type", "Doctor", "Receptionist", "Nurse" }));
+        s_salarytype_combo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                s_salarytype_comboActionPerformed(evt);
+            }
+        });
+        jPanel1.add(s_salarytype_combo);
+        s_salarytype_combo.setBounds(110, 80, 140, 30);
 
-        jTextField10.setEditable(false);
-        jTextField10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField10.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField10);
-        jTextField10.setBounds(110, 240, 140, 30);
-
-        jButton7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton7.setText("Check");
-        jButton7.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton7);
-        jButton7.setBounds(190, 160, 60, 30);
+        s_lname_ed.setEditable(false);
+        s_lname_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        s_lname_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(s_lname_ed);
+        s_lname_ed.setBounds(110, 240, 140, 30);
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel5.setText("ID of Employee ");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(310, 90, 94, 20);
+        jLabel5.setBounds(400, 90, 100, 30);
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel7.setText("E-F-Name");
         jPanel1.add(jLabel7);
         jLabel7.setBounds(30, 200, 60, 30);
 
-        jTextField11.setEditable(false);
-        jTextField11.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField11.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField11);
-        jTextField11.setBounds(110, 280, 140, 30);
+        s_salay_ed.setEditable(false);
+        s_salay_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        s_salay_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(s_salay_ed);
+        s_salay_ed.setBounds(110, 280, 140, 30);
 
-        jTextField12.setEditable(false);
-        jTextField12.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField12.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField12);
-        jTextField12.setBounds(110, 200, 140, 30);
+        s_fname_ed.setEditable(false);
+        s_fname_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        s_fname_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(s_fname_ed);
+        s_fname_ed.setBounds(110, 200, 140, 30);
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel8.setText("E-L-Name");
         jPanel1.add(jLabel8);
         jLabel8.setBounds(30, 240, 60, 30);
 
-        jTextField13.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField13.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jTextField13.addKeyListener(new java.awt.event.KeyAdapter() {
+        s_employeid_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        s_employeid_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        s_employeid_ed.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField13KeyTyped(evt);
+                s_employeid_edKeyTyped(evt);
             }
         });
-        jPanel1.add(jTextField13);
-        jTextField13.setBounds(110, 160, 70, 30);
+        jPanel1.add(s_employeid_ed);
+        s_employeid_ed.setBounds(110, 160, 60, 30);
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel9.setText("Salary");
         jPanel1.add(jLabel9);
         jLabel9.setBounds(50, 280, 40, 30);
 
-        jTextField14.setEditable(false);
-        jTextField14.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField14.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField14);
-        jTextField14.setBounds(110, 370, 140, 30);
+        s_status_ed.setEditable(false);
+        s_status_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        s_status_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(s_status_ed);
+        s_status_ed.setBounds(110, 370, 140, 30);
 
-        jButton12.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton12.setText("Get");
-        jButton12.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton12);
-        jButton12.setBounds(210, 330, 40, 30);
+        gettingdate.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        gettingdate.setText("Get");
+        gettingdate.setBorder(new javax.swing.border.MatteBorder(null));
+        gettingdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gettingdateActionPerformed(evt);
+            }
+        });
+        jPanel1.add(gettingdate);
+        gettingdate.setBounds(210, 330, 40, 30);
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel10.setText("Date");
         jPanel1.add(jLabel10);
         jLabel10.setBounds(60, 330, 30, 30);
 
-        jTextField15.setEditable(false);
-        jTextField15.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField15.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField15);
-        jTextField15.setBounds(110, 330, 90, 30);
+        s_date_ed.setEditable(false);
+        s_date_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        s_date_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(s_date_ed);
+        s_date_ed.setBounds(110, 330, 90, 30);
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel11.setText("Salary ID");
         jPanel1.add(jLabel11);
         jLabel11.setBounds(30, 120, 60, 30);
 
-        jTextField16.setEditable(false);
-        jTextField16.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField16.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField16);
-        jTextField16.setBounds(110, 120, 140, 30);
+        s_salaryid_tv.setEditable(false);
+        s_salaryid_tv.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        s_salaryid_tv.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(s_salaryid_tv);
+        s_salaryid_tv.setBounds(110, 120, 60, 30);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -259,6 +281,11 @@ public class admin_salary extends javax.swing.JFrame {
                 "SalID", "E-ID", "Month", "Salary", "Status"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jPanel1.add(jScrollPane1);
@@ -268,7 +295,7 @@ public class admin_salary extends javax.swing.JFrame {
         jButton15.setText("Print");
         jButton15.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel1.add(jButton15);
-        jButton15.setBounds(600, 120, 60, 30);
+        jButton15.setBounds(620, 120, 60, 30);
 
         jLabel12.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel12.setText("ID of Employee ");
@@ -279,13 +306,13 @@ public class admin_salary extends javax.swing.JFrame {
         jButton16.setText("Check");
         jButton16.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel1.add(jButton16);
-        jButton16.setBounds(430, 120, 60, 30);
+        jButton16.setBounds(540, 120, 60, 30);
 
         jButton17.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jButton17.setText("Reset");
         jButton17.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel1.add(jButton17);
-        jButton17.setBounds(520, 120, 60, 30);
+        jButton17.setBounds(310, 120, 60, 30);
 
         searching.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         searching.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
@@ -295,7 +322,39 @@ public class admin_salary extends javax.swing.JFrame {
             }
         });
         jPanel1.add(searching);
-        searching.setBounds(310, 120, 100, 30);
+        searching.setBounds(400, 120, 100, 30);
+
+        gettingid.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        gettingid.setText("Get");
+        gettingid.setBorder(new javax.swing.border.MatteBorder(null));
+        gettingid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gettingidActionPerformed(evt);
+            }
+        });
+        jPanel1.add(gettingid);
+        gettingid.setBounds(200, 160, 50, 30);
+
+        _usertype_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _usertype_error.setForeground(new java.awt.Color(255, 0, 0));
+        _usertype_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _usertype_error.setText("*");
+        jPanel1.add(_usertype_error);
+        _usertype_error.setBounds(250, 90, 20, 10);
+
+        _empid_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _empid_error.setForeground(new java.awt.Color(255, 0, 0));
+        _empid_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _empid_error.setText("*");
+        jPanel1.add(_empid_error);
+        _empid_error.setBounds(170, 170, 20, 10);
+
+        _searching_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _searching_error.setForeground(new java.awt.Color(255, 0, 0));
+        _searching_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _searching_error.setText("*");
+        jPanel1.add(_searching_error);
+        _searching_error.setBounds(500, 130, 20, 10);
 
         jPanel4.add(jPanel1);
         jPanel1.setBounds(230, 160, 700, 500);
@@ -412,7 +471,7 @@ public class admin_salary extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_searchingKeyTyped
 
-    private void jTextField13KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField13KeyTyped
+    private void s_employeid_edKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_s_employeid_edKeyTyped
        
         char c = evt.getKeyChar();
         if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
@@ -420,7 +479,7 @@ public class admin_salary extends javax.swing.JFrame {
             evt.consume();
         }
         
-    }//GEN-LAST:event_jTextField13KeyTyped
+    }//GEN-LAST:event_s_employeid_edKeyTyped
 
     private void a_doctor_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_doctor_btnActionPerformed
         admin_adddoctor add = new admin_adddoctor();
@@ -464,6 +523,78 @@ public class admin_salary extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_logoutActionPerformed
 
+    private void s_salarytype_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s_salarytype_comboActionPerformed
+        
+        if(s_salarytype_combo.getSelectedIndex() == 0 ){usertype = 0;_usertype_error.setVisible(true);}
+        if(s_salarytype_combo.getSelectedIndex() == 1 )
+        {usertype = 1;_usertype_error.setVisible(false);tblname="doctor";clmidname="did";}
+        if(s_salarytype_combo.getSelectedIndex() == 2 )
+        {usertype = 2;_usertype_error.setVisible(false);tblname="recept";clmidname="rid";}
+        if(s_salarytype_combo.getSelectedIndex() == 3 )
+        {usertype = 3;_usertype_error.setVisible(false);tblname="nurse";clmidname="nid";}
+        
+        
+    }//GEN-LAST:event_s_salarytype_comboActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void gettingidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gettingidActionPerformed
+        
+    }//GEN-LAST:event_gettingidActionPerformed
+
+    private void gettingdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gettingdateActionPerformed
+        
+        boolean chek = false;
+        if(s_salarytype_combo.getSelectedIndex()==0){_usertype_error.setVisible(true);chek=false;}
+        if(s_employeid_ed.getText().equals("")){_empid_error.setVisible(true);chek=false;}
+        
+        if(s_salarytype_combo.getSelectedIndex()!=0 && !s_employeid_ed.getText().isEmpty()){chek=true;}
+        
+        if(chek==false){JOptionPane.showMessageDialog(null, "Please Fill the Fileds");}
+        if(chek==true){
+            _empid_error.setVisible(false);
+            _usertype_error.setVisible(false);
+            try{}catch(Exception e ){System.out.println(e);}
+            
+            
+        }
+        
+      /*  if(!rr_nurseid_et.getText().isEmpty()){
+            boolean found = false;
+            _nurse_error.setVisible(false);
+           try{
+               conn.OpenConnection();
+               String query = "select nfname,nlname from nurse where nid="+rr_nurseid_et.getText();
+               conn.GetData(query);
+               while(conn.rst.next()){
+                   found = true;
+                   rr_nfname.setText(conn.rst.getString("nfname"));
+                   rr_nlname.setText(conn.rst.getString("nlname"));
+                   break;
+               }
+               
+            if(found == false){
+                JOptionPane.showMessageDialog(null, "Sorry ..! Not Found such Nurse");
+                rr_nurseid_et.setText("");
+                rr_nfname.setText("");
+                rr_nlname.setText("");
+            }   
+           }catch(SQLException e ){System.out.println(e);}
+           
+        }*/
+    }//GEN-LAST:event_gettingdateActionPerformed
+
+    private void checkedoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkedoutActionPerformed
+        boolean chkempty=false;
+        if(s_employeid_ed.getText().equals("")){chkempty=false;_empid_error.setVisible(true);}
+        if(s_salarytype_combo.getSelectedIndex() == 0){chkempty=false;_usertype_error.setVisible(true);}
+        if(s_employeid_ed.getText().equals("")){chkempty=false;_empid_error.setVisible(true);}
+        
+        
+    }//GEN-LAST:event_checkedoutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -492,18 +623,21 @@ public class admin_salary extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel _empid_error;
+    private javax.swing.JLabel _searching_error;
+    private javax.swing.JLabel _usertype_error;
     private javax.swing.JButton a_detail_btn;
     private javax.swing.JButton a_doctor_btn;
     private javax.swing.JButton a_internall_btn;
     private javax.swing.JButton a_nurse_btn;
     private javax.swing.JButton a_receptionist_btn;
     private javax.swing.JButton a_salay_btn;
-    private javax.swing.JButton jButton12;
+    private javax.swing.JButton checkedout;
+    private javax.swing.JButton gettingdate;
+    private javax.swing.JButton gettingid;
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -520,16 +654,16 @@ public class admin_salary extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField16;
     private javax.swing.JButton logout;
     private javax.swing.JTextField registrationdate;
-    private javax.swing.JComboBox<String> salarytype;
+    private javax.swing.JTextField s_date_ed;
+    private javax.swing.JTextField s_employeid_ed;
+    private javax.swing.JTextField s_fname_ed;
+    private javax.swing.JTextField s_lname_ed;
+    private javax.swing.JTextField s_salaryid_tv;
+    private javax.swing.JComboBox<String> s_salarytype_combo;
+    private javax.swing.JTextField s_salay_ed;
+    private javax.swing.JTextField s_status_ed;
     private javax.swing.JTextField searching;
     private javax.swing.JLabel timegetting;
     // End of variables declaration//GEN-END:variables

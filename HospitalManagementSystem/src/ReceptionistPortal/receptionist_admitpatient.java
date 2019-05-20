@@ -5,11 +5,15 @@
  */
 package ReceptionistPortal;
 
+import DBConnectionP.DBConnection;
 import LoginForm.loginsection;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,13 +21,27 @@ import java.util.Date;
  */
 public class receptionist_admitpatient extends javax.swing.JFrame {
 
+    DBConnection conn = new DBConnection();
+    
     int id = -1;
     String username = null;
+    int roomcatid=-1 , wardtypeid=-1 , roomno1 = -1 , roomno2 = -1;
+    String roomcats = null , wardtypes = null;
    
     public receptionist_admitpatient() {
         initComponents();
         showdate();
         showtime();
+        
+        _patid_error.setVisible(false);
+        _roomcate_error.setVisible(false);
+        _roomget_error.setVisible(false);
+        _roomno_error.setVisible(false);
+        _wardtype_error.setVisible(false);
+        _patdes_error.setVisible(false);
+        
+        getWardtype();
+        getRoomCat();
     }
 
     public receptionist_admitpatient(int id ,String username) {
@@ -34,6 +52,17 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
         this.username=username;
         rr_patrecp_tv.setText(String.valueOf(id));
         receptionistname.setText(username);
+        
+        _patid_error.setVisible(false);
+        _roomcate_error.setVisible(false);
+        _roomget_error.setVisible(false);
+        _roomno_error.setVisible(false);
+        _wardtype_error.setVisible(false);
+        _patdes_error.setVisible(false);
+        
+        getWardtype();
+        getRoomCat();
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -52,33 +81,44 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         getroom = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        ad_rcat_combo = new javax.swing.JComboBox<>();
+        ad_ward_combo = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        ad_doclname_ed = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        patientid = new javax.swing.JTextField();
+        ad_chksts_ed = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        chkavailblity1 = new javax.swing.JButton();
+        ad_chkroomno_ed = new javax.swing.JTextField();
+        resetAll = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        chkavailblity2 = new javax.swing.JButton();
-        jTextField5 = new javax.swing.JTextField();
-        chkavailblity3 = new javax.swing.JButton();
-        patientidd = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        ad_patdes_ed = new javax.swing.JTextField();
+        admitit = new javax.swing.JButton();
+        ad_roomget_ed = new javax.swing.JTextField();
+        getroomavil = new javax.swing.JButton();
+        ad_id_tv = new javax.swing.JTextField();
+        ad_patlname_ed = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         registrationdate = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         rr_patrecp_tv = new javax.swing.JTextField();
         receptionistname = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        _roomget_error = new javax.swing.JLabel();
+        _roomcate_error = new javax.swing.JLabel();
+        _wardtype_error = new javax.swing.JLabel();
+        ad_patfname_ed = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        ad_docfname_ed = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        ad_patid_ed = new javax.swing.JTextField();
+        _roomno_error = new javax.swing.JLabel();
+        _patid_error = new javax.swing.JLabel();
+        getpatient = new javax.swing.JButton();
+        _patdes_error = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         rp_registration_btn = new javax.swing.JButton();
@@ -137,141 +177,177 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
         getroom.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         getroom.setText("Get");
         getroom.setBorder(new javax.swing.border.MatteBorder(null));
+        getroom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getroomActionPerformed(evt);
+            }
+        });
         jPanel1.add(getroom);
-        getroom.setBounds(220, 320, 80, 30);
+        getroom.setBounds(240, 330, 60, 30);
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel3.setText("Room Category  ");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(20, 90, 110, 20);
+        jLabel3.setBounds(20, 90, 110, 30);
 
-        jComboBox1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox1);
-        jComboBox1.setBounds(20, 120, 100, 30);
+        ad_rcat_combo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        ad_rcat_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Type" }));
+        ad_rcat_combo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ad_rcat_comboActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ad_rcat_combo);
+        ad_rcat_combo.setBounds(20, 120, 100, 30);
 
-        jComboBox2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox2);
-        jComboBox2.setBounds(140, 120, 120, 30);
+        ad_ward_combo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        ad_ward_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Ward" }));
+        ad_ward_combo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ad_ward_comboActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ad_ward_combo);
+        ad_ward_combo.setBounds(150, 120, 120, 30);
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel5.setText("Ward Typ");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(150, 90, 110, 20);
+        jLabel5.setBounds(150, 90, 110, 30);
 
-        jTextField1.setEditable(false);
-        jTextField1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField1);
-        jTextField1.setBounds(470, 270, 160, 30);
+        ad_doclname_ed.setEditable(false);
+        ad_doclname_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        ad_doclname_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ad_doclname_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(ad_doclname_ed);
+        ad_doclname_ed.setBounds(470, 310, 160, 30);
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel9.setText("Doctor");
+        jLabel9.setText("Doctor FN");
         jPanel1.add(jLabel9);
-        jLabel9.setBounds(400, 270, 50, 30);
+        jLabel9.setBounds(380, 270, 70, 30);
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel11.setText("Admit ID");
         jPanel1.add(jLabel11);
-        jLabel11.setBounds(40, 180, 60, 30);
+        jLabel11.setBounds(60, 170, 60, 30);
 
-        patientid.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        patientid.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                patientidKeyTyped(evt);
-            }
-        });
-        jPanel1.add(patientid);
-        patientid.setBounds(140, 220, 70, 30);
+        ad_chksts_ed.setEditable(false);
+        ad_chksts_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        ad_chksts_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ad_chksts_ed.setText("IN");
+        ad_chksts_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(ad_chksts_ed);
+        ad_chksts_ed.setBounds(470, 220, 70, 30);
 
         jLabel12.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel12.setText("Status");
         jPanel1.add(jLabel12);
         jLabel12.setBounds(400, 220, 50, 30);
 
-        jComboBox3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "In", "Out" }));
-        jPanel1.add(jComboBox3);
-        jComboBox3.setBounds(470, 220, 56, 30);
-
         jLabel13.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel13.setText("Patient ID");
+        jLabel13.setText("Patient OPID");
         jPanel1.add(jLabel13);
-        jLabel13.setBounds(40, 220, 60, 30);
+        jLabel13.setBounds(40, 210, 80, 30);
 
         jLabel14.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel14.setText("Room No");
         jPanel1.add(jLabel14);
-        jLabel14.setBounds(280, 80, 70, 30);
+        jLabel14.setBounds(320, 90, 70, 30);
 
-        jTextField3.setEditable(false);
-        jTextField3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField3);
-        jTextField3.setBounds(280, 120, 80, 30);
+        ad_chkroomno_ed.setEditable(false);
+        ad_chkroomno_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        ad_chkroomno_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ad_chkroomno_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(ad_chkroomno_ed);
+        ad_chkroomno_ed.setBounds(320, 120, 70, 30);
 
-        chkavailblity1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        chkavailblity1.setText("Check ");
-        chkavailblity1.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(chkavailblity1);
-        chkavailblity1.setBounds(220, 220, 80, 30);
+        resetAll.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        resetAll.setText("Reset");
+        resetAll.setBorder(new javax.swing.border.MatteBorder(null));
+        resetAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetAllActionPerformed(evt);
+            }
+        });
+        jPanel1.add(resetAll);
+        resetAll.setBounds(240, 170, 60, 30);
 
         jLabel15.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel15.setText("Room No");
         jPanel1.add(jLabel15);
-        jLabel15.setBounds(40, 320, 70, 30);
+        jLabel15.setBounds(60, 330, 60, 30);
 
         jLabel16.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel16.setText("Disease");
         jPanel1.add(jLabel16);
-        jLabel16.setBounds(50, 370, 60, 30);
+        jLabel16.setBounds(70, 370, 50, 30);
 
-        jTextField4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField4);
-        jTextField4.setBounds(140, 370, 500, 30);
+        ad_patdes_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        ad_patdes_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        ad_patdes_ed.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ad_patdes_edKeyTyped(evt);
+            }
+        });
+        jPanel1.add(ad_patdes_ed);
+        ad_patdes_ed.setBounds(140, 370, 490, 30);
 
-        chkavailblity2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        chkavailblity2.setText("Admit");
-        chkavailblity2.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(chkavailblity2);
-        chkavailblity2.setBounds(280, 430, 130, 40);
+        admitit.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        admitit.setText("Admit");
+        admitit.setBorder(new javax.swing.border.MatteBorder(null));
+        admitit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                admititActionPerformed(evt);
+            }
+        });
+        jPanel1.add(admitit);
+        admitit.setBounds(280, 430, 130, 40);
 
-        jTextField5.setEditable(false);
-        jTextField5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField5);
-        jTextField5.setBounds(140, 320, 70, 30);
+        ad_roomget_ed.setEditable(false);
+        ad_roomget_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        ad_roomget_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ad_roomget_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(ad_roomget_ed);
+        ad_roomget_ed.setBounds(140, 330, 70, 30);
 
-        chkavailblity3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        chkavailblity3.setText("Check ");
-        chkavailblity3.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(chkavailblity3);
-        chkavailblity3.setBounds(390, 120, 90, 30);
+        getroomavil.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        getroomavil.setText("Check ");
+        getroomavil.setBorder(new javax.swing.border.MatteBorder(null));
+        getroomavil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getroomavilActionPerformed(evt);
+            }
+        });
+        jPanel1.add(getroomavil);
+        getroomavil.setBounds(420, 120, 60, 30);
 
-        patientidd.setEditable(false);
-        patientidd.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        patientidd.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(patientidd);
-        patientidd.setBounds(140, 180, 59, 30);
+        ad_id_tv.setEditable(false);
+        ad_id_tv.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        ad_id_tv.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ad_id_tv.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(ad_id_tv);
+        ad_id_tv.setBounds(140, 170, 70, 30);
 
-        jTextField6.setEditable(false);
-        jTextField6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField6);
-        jTextField6.setBounds(140, 270, 160, 30);
+        ad_patlname_ed.setEditable(false);
+        ad_patlname_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        ad_patlname_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ad_patlname_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(ad_patlname_ed);
+        ad_patlname_ed.setBounds(140, 290, 160, 30);
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel10.setText("Patient Name");
+        jLabel10.setText("Patient L Name");
         jPanel1.add(jLabel10);
-        jLabel10.setBounds(20, 270, 90, 30);
+        jLabel10.setBounds(30, 290, 90, 30);
 
         registrationdate.setEditable(false);
         registrationdate.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        registrationdate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         registrationdate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         registrationdate.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel1.add(registrationdate);
-        registrationdate.setBounds(220, 20, 140, 30);
+        registrationdate.setBounds(220, 10, 140, 30);
 
         jLabel20.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel20.setText("R ID : ");
@@ -294,6 +370,94 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
         jLabel18.setText("R Name : ");
         jPanel1.add(jLabel18);
         jLabel18.setBounds(450, 60, 60, 30);
+
+        _roomget_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _roomget_error.setForeground(new java.awt.Color(255, 0, 0));
+        _roomget_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _roomget_error.setText("*");
+        jPanel1.add(_roomget_error);
+        _roomget_error.setBounds(210, 340, 20, 10);
+
+        _roomcate_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _roomcate_error.setForeground(new java.awt.Color(255, 0, 0));
+        _roomcate_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _roomcate_error.setText("*");
+        jPanel1.add(_roomcate_error);
+        _roomcate_error.setBounds(120, 130, 20, 10);
+
+        _wardtype_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _wardtype_error.setForeground(new java.awt.Color(255, 0, 0));
+        _wardtype_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _wardtype_error.setText("*");
+        jPanel1.add(_wardtype_error);
+        _wardtype_error.setBounds(270, 130, 20, 10);
+
+        ad_patfname_ed.setEditable(false);
+        ad_patfname_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        ad_patfname_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ad_patfname_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(ad_patfname_ed);
+        ad_patfname_ed.setBounds(140, 250, 160, 30);
+
+        jLabel17.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel17.setText("Patient F Name");
+        jPanel1.add(jLabel17);
+        jLabel17.setBounds(30, 250, 90, 30);
+
+        ad_docfname_ed.setEditable(false);
+        ad_docfname_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        ad_docfname_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ad_docfname_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(ad_docfname_ed);
+        ad_docfname_ed.setBounds(470, 270, 160, 30);
+
+        jLabel21.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel21.setText("Doctor LN");
+        jPanel1.add(jLabel21);
+        jLabel21.setBounds(380, 310, 70, 30);
+
+        ad_patid_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        ad_patid_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ad_patid_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        ad_patid_ed.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ad_patid_edKeyTyped(evt);
+            }
+        });
+        jPanel1.add(ad_patid_ed);
+        ad_patid_ed.setBounds(140, 210, 70, 30);
+
+        _roomno_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _roomno_error.setForeground(new java.awt.Color(255, 0, 0));
+        _roomno_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _roomno_error.setText("*");
+        jPanel1.add(_roomno_error);
+        _roomno_error.setBounds(390, 130, 20, 10);
+
+        _patid_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _patid_error.setForeground(new java.awt.Color(255, 0, 0));
+        _patid_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _patid_error.setText("*");
+        jPanel1.add(_patid_error);
+        _patid_error.setBounds(210, 220, 20, 10);
+
+        getpatient.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        getpatient.setText("Check ");
+        getpatient.setBorder(new javax.swing.border.MatteBorder(null));
+        getpatient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getpatientActionPerformed(evt);
+            }
+        });
+        jPanel1.add(getpatient);
+        getpatient.setBounds(240, 210, 60, 30);
+
+        _patdes_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _patdes_error.setForeground(new java.awt.Color(255, 0, 0));
+        _patdes_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _patdes_error.setText("*");
+        jPanel1.add(_patdes_error);
+        _patdes_error.setBounds(630, 380, 20, 10);
 
         jPanel4.add(jPanel1);
         jPanel1.setBounds(250, 170, 670, 490);
@@ -420,17 +584,32 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
             SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd");
             registrationdate.setText(t.format(d));
         }).start();
-        
     }
     
-    private void patientidKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_patientidKeyTyped
-        char c = evt.getKeyChar();
-        if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
-            getToolkit().beep();
-            evt.consume();
-        }
-    }//GEN-LAST:event_patientidKeyTyped
-
+    private void getWardtype(){
+        try{
+            conn.OpenConnection();
+            String query="select * from deptward";
+            conn.GetData(query);
+            while(conn.rst.next()){
+                String gname =conn.rst.getString("wname");
+                ad_ward_combo.addItem(gname);
+            }
+            conn.CloseConnection();
+        }catch(SQLException e){ System.out.println(e);}
+    }
+    private void getRoomCat(){
+        try{
+            conn.OpenConnection();
+            String query="select * from roomcategory";
+            conn.GetData(query);
+            while(conn.rst.next()){
+                String gname =conn.rst.getString("rcatname");
+                ad_rcat_combo.addItem(gname);
+            }
+            conn.CloseConnection();
+        }catch(SQLException e){ System.out.println(e);}
+    }
 
     private void logoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutbtnActionPerformed
         LoginForm.loginsection lfl = new loginsection();
@@ -486,6 +665,227 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_rp_appointment_btnActionPerformed
 
+    private void ad_patid_edKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ad_patid_edKeyTyped
+        char c = evt.getKeyChar();
+        if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_ad_patid_edKeyTyped
+
+    private void ad_patdes_edKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ad_patdes_edKeyTyped
+        char c = evt.getKeyChar();
+        if(!(Character.isAlphabetic(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE)  || (c==KeyEvent.VK_SPACE))){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_ad_patdes_edKeyTyped
+
+    private void ad_rcat_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ad_rcat_comboActionPerformed
+        if(ad_rcat_combo.getSelectedItem().equals("Select Cate")){roomcats=null;}
+        else{
+            _roomcate_error.setVisible(false);
+            roomcats=String.valueOf(ad_rcat_combo.getSelectedItem());
+            try{
+                conn.OpenConnection();
+                String query= "select * from roomcategory";
+                conn.GetData(query);
+                while(conn.rst.next()){
+                int    s1 = conn.rst.getInt("rcid");
+                String s2 = conn.rst.getString("rcatname");
+                if(s2.equals(roomcats)){
+                    roomcatid=s1;
+//                    System.out.println(s1 + " : " + s2 + " : " + cityid); 
+                  }
+                }
+                conn.CloseConnection();
+            }catch(SQLException e){System.out.println(e);}
+        }
+    }//GEN-LAST:event_ad_rcat_comboActionPerformed
+
+    private void ad_ward_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ad_ward_comboActionPerformed
+        if(ad_ward_combo.getSelectedItem().equals("Select Ward")){wardtypes=null;}
+        else{
+            _wardtype_error.setVisible(false);
+            wardtypes=String.valueOf(ad_ward_combo.getSelectedItem());
+            try{
+                conn.OpenConnection();
+                String query= "select * from deptward";
+                conn.GetData(query);
+                while(conn.rst.next()){
+                int    s1 = conn.rst.getInt("wid");
+                String s2 = conn.rst.getString("wname");
+                if(s2.equals(wardtypes)){
+                    wardtypeid=s1;
+//                    System.out.println(s1 + " : " + s2 + " : " + cityid); 
+                  }
+                }
+                conn.CloseConnection();
+            }catch(SQLException e){System.out.println(e);}
+        }
+    }//GEN-LAST:event_ad_ward_comboActionPerformed
+
+    private void getroomavilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getroomavilActionPerformed
+          boolean emptyfld = false;
+          if(ad_rcat_combo.getSelectedItem().equals("Select Type")){emptyfld=false;_roomcate_error.setVisible(true);}
+          if(ad_ward_combo.getSelectedItem().equals("Select Ward")){emptyfld=false;_wardtype_error.setVisible(true);}
+          
+          if(!ad_rcat_combo.getSelectedItem().equals("Select Type")
+             && !ad_ward_combo.getSelectedItem().equals("Select Ward") ){emptyfld=true;}
+          if(emptyfld == false){JOptionPane.showMessageDialog(null, "Please Fill the Fileds");}
+          if(emptyfld == true){
+              _roomcate_error.setVisible(false);
+              _wardtype_error.setVisible(false);
+              try{
+                  conn.OpenConnection();
+                  boolean found = false;
+//                  select rrid , rcatname , wname from room r , deptward dw , roomcategory rc where r.rcid=rc.rcid and r.wid=dw.wid and rstatus='OUT';
+                  String query="select rrid , rcatname , wname from room r , deptward dw , roomcategory rc where r.rcid=rc.rcid and r.wid=dw.wid and rstatus='OUT'";
+                  conn.GetData(query);
+                  while(conn.rst.next()){
+                      int    c1 = conn.rst.getInt("rrid");
+                      String c2 = conn.rst.getString("rcatname");
+                      String c3 = conn.rst.getString("wname");
+                      if(roomcats.equals(c2) && wardtypes.equals(c3)){
+                          found=true;
+                          roomno1=c1;
+                          ad_chkroomno_ed.setText(String.valueOf(roomno1));
+                          break;
+                      }
+                  }
+                  if(found==false){
+                   ad_chkroomno_ed.setText("");
+                  JOptionPane.showMessageDialog(null, "Sorry ..! Not Available ");
+                  }
+              }catch(SQLException e ){System.out.println(e);}
+          }
+          
+    }//GEN-LAST:event_getroomavilActionPerformed
+
+    private void resetAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetAllActionPerformed
+        _patid_error.setVisible(false);
+        _roomcate_error.setVisible(false);
+        _roomget_error.setVisible(false);
+        _roomno_error.setVisible(false);
+        _wardtype_error.setVisible(false);
+        _patdes_error.setVisible(false);
+        
+        ad_chkroomno_ed.setText("");
+        ad_roomget_ed.setText("");
+        ad_docfname_ed.setText("");
+        ad_doclname_ed.setText("");
+        ad_patdes_ed.setText("");
+        ad_patid_ed.setText("");
+        ad_patfname_ed.setText("");
+        ad_patlname_ed.setText("");
+        
+        ad_ward_combo.setSelectedIndex(0);
+        ad_rcat_combo.setSelectedIndex(0);
+        
+    }//GEN-LAST:event_resetAllActionPerformed
+
+    private void getpatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getpatientActionPerformed
+        if(ad_patid_ed.getText().equals("")){_patid_error.setVisible(true);}
+        if(!ad_patid_ed.getText().isEmpty()){
+            boolean found = false;
+            _patid_error.setVisible(false);
+           try{
+               conn.OpenConnection();
+// select optid , fname,lname ,dfname , dlname from patientopt p , regpatient rp , doctor d where p.rpid=rp.rpid and p.did=d.did and p.optid=12;              
+               String query = "select optid , fname,lname ,dfname , dlname from patientopt p , regpatient rp , doctor d where p.rpid=rp.rpid and p.did=d.did and p.optid="+ad_patid_ed.getText();
+               conn.GetData(query);
+               while(conn.rst.next()){
+                   found = true;
+                   ad_patfname_ed.setText(conn.rst.getString("fname"));
+                   ad_patlname_ed.setText(conn.rst.getString("lname"));
+                   ad_docfname_ed.setText(conn.rst.getString("dfname"));
+                   ad_doclname_ed.setText(conn.rst.getString("dlname"));
+                   break;
+               }
+               
+            if(found == false){
+                ad_patid_ed.setText("");
+                ad_patfname_ed.setText("");
+                ad_patlname_ed.setText("");
+                ad_docfname_ed.setText("");
+                ad_doclname_ed.setText("");
+                JOptionPane.showMessageDialog(null, "Sorry ..! Not Found such Nurse");
+            }   
+           }catch(SQLException e ){System.out.println(e);}
+           
+        }
+    }//GEN-LAST:event_getpatientActionPerformed
+
+    private void getroomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getroomActionPerformed
+        if(ad_chkroomno_ed.getText().equals("")){_roomno_error.setVisible(true);_roomget_error.setVisible(true);}
+        if(!ad_chkroomno_ed.getText().isEmpty()){
+            _roomno_error.setVisible(false);
+            _roomget_error.setVisible(false);
+            ad_roomget_ed.setText(ad_chkroomno_ed.getText());
+        }
+    }//GEN-LAST:event_getroomActionPerformed
+
+    private void admititActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_admititActionPerformed
+        boolean emptychk = false;
+        if(ad_chkroomno_ed.getText().equals("")){_roomno_error.setVisible(true);emptychk = false;}
+        if(ad_patid_ed.getText().equals("")){_patid_error.setVisible(true);emptychk = false;}
+        if(ad_patdes_ed.getText().equals("")){_patdes_error.setVisible(true);emptychk = false;}
+        
+        if(!ad_chkroomno_ed.getText().isEmpty()
+           && !ad_patid_ed.getText().isEmpty()
+           && !ad_patdes_ed.getText().isEmpty()){emptychk=true;}
+        if(emptychk == false){JOptionPane.showMessageDialog(null, "Please Fill the Fileds");}
+        if(emptychk == true){
+            
+            _patid_error.setVisible(false);
+            _roomcate_error.setVisible(false);
+            _roomget_error.setVisible(false);
+            _roomno_error.setVisible(false);
+            _wardtype_error.setVisible(false);
+            _patdes_error.setVisible(false);
+            
+            try{
+                boolean anotherone=false;
+                conn.OpenConnection();
+                String query1 = "insert into admitpatient (rid,optid,rrid,adtstatus,ddise,chkin,chkout) values "
+                + "( "+rr_patrecp_tv.getText()+" , "+ad_patid_ed.getText()+" , "+ad_roomget_ed.getText()
+                +" , 'IN' , '"+ad_patdes_ed.getText()+"' , to_date('"+registrationdate.getText()+"','yyyy-MM-dd') , null )";
+                int flag1 = conn.InsertUpdateDelete(query1);
+                if(flag1 == 1){
+                        anotherone = true;
+                        
+                }else{System.out.println("problem flag1");}
+                
+                if(anotherone == true ){
+                    String query2 = "update room set rstatus='IN' where rrid="+ad_roomget_ed.getText();
+                    int flag2 = conn.InsertUpdateDelete(query2);
+                    if(flag2 == 1 ){
+                        roomcatid=-1;
+                        wardtypeid=-1;
+                        roomno1=-1;
+                        roomno2=-1;
+                        roomcats=null;
+                        wardtypes=null;
+                        JOptionPane.showMessageDialog(null, "Successfully Admited..!");
+                        ad_chkroomno_ed.setText("");
+                        ad_roomget_ed.setText("");
+                        ad_docfname_ed.setText("");
+                        ad_doclname_ed.setText("");
+                        ad_patdes_ed.setText("");
+                        ad_patid_ed.setText("");
+                        ad_patfname_ed.setText("");
+                        ad_patlname_ed.setText("");
+                        ad_ward_combo.setSelectedIndex(0);
+                        ad_rcat_combo.setSelectedIndex(0);
+                    }else{System.out.println("flag 2 problem");}
+                }
+                else{System.out.println("another problem");}
+            }catch(HeadlessException e ){System.out.println(e);}
+            
+        }
+        
+    }//GEN-LAST:event_admititActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -512,21 +912,34 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new receptionist_admitpatient().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new receptionist_admitpatient().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton chkavailblity1;
-    private javax.swing.JButton chkavailblity2;
-    private javax.swing.JButton chkavailblity3;
+    private javax.swing.JLabel _patdes_error;
+    private javax.swing.JLabel _patid_error;
+    private javax.swing.JLabel _roomcate_error;
+    private javax.swing.JLabel _roomget_error;
+    private javax.swing.JLabel _roomno_error;
+    private javax.swing.JLabel _wardtype_error;
+    private javax.swing.JTextField ad_chkroomno_ed;
+    private javax.swing.JTextField ad_chksts_ed;
+    private javax.swing.JTextField ad_docfname_ed;
+    private javax.swing.JTextField ad_doclname_ed;
+    private javax.swing.JTextField ad_id_tv;
+    private javax.swing.JTextField ad_patdes_ed;
+    private javax.swing.JTextField ad_patfname_ed;
+    private javax.swing.JTextField ad_patid_ed;
+    private javax.swing.JTextField ad_patlname_ed;
+    private javax.swing.JComboBox<String> ad_rcat_combo;
+    private javax.swing.JTextField ad_roomget_ed;
+    private javax.swing.JComboBox<String> ad_ward_combo;
+    private javax.swing.JButton admitit;
+    private javax.swing.JButton getpatient;
     private javax.swing.JButton getroom;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JButton getroomavil;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -535,9 +948,11 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -545,16 +960,10 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JButton logoutbtn;
-    private javax.swing.JTextField patientid;
-    private javax.swing.JTextField patientidd;
     private javax.swing.JLabel receptionistname;
     private javax.swing.JTextField registrationdate;
+    private javax.swing.JButton resetAll;
     private javax.swing.JButton rp_admit_btn;
     private javax.swing.JButton rp_admit_details;
     private javax.swing.JButton rp_appointment_btn;

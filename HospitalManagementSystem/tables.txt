@@ -297,6 +297,36 @@ Trigger created.
 ////////////////////////////////////////////////////////////
 
 
+SQL> create table admitpatient(adtdid number primary key ,rid number , optid number , rrid number , adtstatus varchar(4) not null , ddise varchar(40) not null , chkin date not null , chkout date  , foreign key(rid) references recept(rid) , foreign key(optid) references patientopt(optid) , foreign key(rrid) references room(rrid));
+
+Table created.
+
+SQL> create sequence admitpatient_sequence
+  2  start with 1
+  3  increment by 1;
+
+Sequence created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create or replace trigger admitpatient_trigger
+  2  before insert on admitpatient
+  3  for each row
+  4  begin
+  5  select admitpatient_sequence.nextval into :new.adtdid from dual;
+  6* end;
+SQL> /
+
+Trigger created.
+
+///////////////////////////////////////////////////////////
+
+
+
+
+
+
 
 
 

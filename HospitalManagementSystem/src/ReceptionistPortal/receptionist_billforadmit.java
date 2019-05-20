@@ -79,6 +79,8 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         rr_patrecp_tv = new javax.swing.JTextField();
         receptionistname = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        ad_patfname_ed = new javax.swing.JTextField();
+        ad_patlname_ed = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         rp_registration_btn = new javax.swing.JButton();
@@ -235,7 +237,7 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         jTextField6.setEditable(false);
         jTextField6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel1.add(jTextField6);
-        jTextField6.setBounds(140, 210, 170, 30);
+        jTextField6.setBounds(140, 210, 70, 30);
 
         jLabel19.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel19.setText("Discharge Date");
@@ -280,6 +282,20 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         jLabel18.setText("R Name : ");
         jPanel1.add(jLabel18);
         jLabel18.setBounds(450, 60, 60, 30);
+
+        ad_patfname_ed.setEditable(false);
+        ad_patfname_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        ad_patfname_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ad_patfname_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(ad_patfname_ed);
+        ad_patfname_ed.setBounds(240, 210, 160, 30);
+
+        ad_patlname_ed.setEditable(false);
+        ad_patlname_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        ad_patlname_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ad_patlname_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(ad_patlname_ed);
+        ad_patlname_ed.setBounds(430, 210, 160, 30);
 
         jPanel4.add(jPanel1);
         jPanel1.setBounds(250, 170, 670, 490);
@@ -555,6 +571,8 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField ad_patfname_ed;
+    private javax.swing.JTextField ad_patlname_ed;
     private javax.swing.JTextField admitid;
     private javax.swing.JTextField amountbox;
     private javax.swing.JButton chkamount;

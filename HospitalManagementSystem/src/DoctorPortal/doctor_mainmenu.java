@@ -12,9 +12,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -45,15 +47,19 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         showdate();
         showtime();
         _appid_error.setVisible(false);
+        showingdata();
     }
 
     public doctor_mainmenu(int id , String username){
         initComponents();
         showdate();
         showtime();
+        
         _appid_error.setVisible(false);
         dd_id_tv.setText(String.valueOf(id));
         dd_username_tv.setText(username);
+        showingdata();
+        
     }
     
     
@@ -93,6 +99,8 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         ap_patstatus_ed = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        aptable1 = new javax.swing.JTable();
         logout = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         timegetting = new javax.swing.JLabel();
@@ -272,6 +280,27 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         jPanel3.add(jLabel11);
         jLabel11.setBounds(60, 310, 110, 30);
 
+        aptable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ApID", "PID", "PFName", "PLName", "ApData"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(aptable1);
+
+        jPanel3.add(jScrollPane1);
+        jScrollPane1.setBounds(470, 160, 440, 300);
+
         jPanel4.add(jPanel3);
         jPanel3.setBounds(10, 170, 920, 490);
 
@@ -313,7 +342,51 @@ public class doctor_mainmenu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void showingdata(){
+        ArrayList<doctorappclass.doctorapp> list = userlist();
+        DefaultTableModel model = (DefaultTableModel) aptable1.getModel();
+        Object[] row = new Object[5];
+        for(int i=0 ; i<list.size() ; i++){
+            row[0] = list.get(i).getApid();
+            row[1] = list.get(i).getRpid();
+            row[2] = list.get(i).getFname();
+            row[3] = list.get(i).getLname();
+            row[4] = list.get(i).getApdate();
+            model.addRow(row);
+            System.out.println(list.get(i).getApid());
+        }
+    }
     
+    private ArrayList<doctorappclass.doctorapp> userlist() {
+            ArrayList<doctorappclass.doctorapp> userList = new ArrayList<>();
+            try{
+                conn.OpenConnection();
+//    select apid , a.rpid, a.did ,fname , lname , status , apdate from appointment a , regpatient p , doctor d  where a.rpid=p.rpid and a.did=d.did and status='Empty' and a.did=4;            
+//                SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd");
+//                String ds="2019-05-20";
+//                String query= "select apid , a.rpid, a.did ,fname , lname , status , apdate from appointment a , regpatient p , doctor d  where a.rpid=p.rpid and a.did=d.did and status='Empty' and a.did="+dd_id_tv.getText()+" and apdate=to_date('"+ds+"','dd-MM-yyyy')";
+                String query= "select apid , a.rpid, a.did ,fname , lname , status , apdate from appointment a , regpatient p , doctor d  where a.rpid=p.rpid and a.did=d.did and status='Empty' and a.did="+dd_id_tv.getText();
+//                String query= "select apid , a.rpid, a.did ,fname , lname , status , apdate from appointment a , regpatient p , doctor d  where a.rpid=p.rpid and a.did=d.did and status='Empty' and a.did="+dd_id_tv.getText()+" and apdate=to_date('"+registrationdate.getText()+"','dd-DD-yyyy')";
+                conn.GetData(query);
+                doctorappclass ddc = new doctorappclass();
+                doctorappclass.doctorapp dap;
+                while(conn.rst.next()){
+                    dap = ddc.new doctorapp(
+                    conn.rst.getInt("apid"),
+                    conn.rst.getInt("rpid"),
+                    conn.rst.getInt("did"),
+                    conn.rst.getString("fname"),
+                    conn.rst.getString("lname"),
+                    conn.rst.getString("apdate"),
+                    conn.rst.getString("status")
+                    );
+                 userList.add(dap);   
+                }
+                conn.CloseConnection();
+            }catch(SQLException e ){System.out.println(e);}
+        
+     return userList;
+    }
     
     
     
@@ -379,7 +452,7 @@ public class doctor_mainmenu extends javax.swing.JFrame {
     }//GEN-LAST:event_getingidActionPerformed
 
     private void checkedbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkedbtnActionPerformed
-       
+           
         if(appointmentid_ed.getText().equals("")){_appid_error.setVisible(true);}
         if(!appointmentid_ed.getText().isEmpty()){
             _appid_error.setVisible(false);
@@ -397,6 +470,9 @@ public class doctor_mainmenu extends javax.swing.JFrame {
                     ap_patage_ed.setText("");
                     ap_pataptdate_ed.setText("");
                     ap_patstatus_ed.setText("");
+                    DefaultTableModel model1 = (DefaultTableModel) aptable1.getModel();
+                    model1.setRowCount(0);
+                    showingdata();
                }
            }catch(HeadlessException e ){System.out.println(e);}
         }
@@ -446,6 +522,7 @@ public class doctor_mainmenu extends javax.swing.JFrame {
     private javax.swing.JTextField ap_patlname_ed;
     private javax.swing.JTextField ap_patstatus_ed;
     private javax.swing.JTextField appointmentid_ed;
+    private javax.swing.JTable aptable1;
     private javax.swing.JButton checkedbtn;
     private javax.swing.JTextField dd_id_tv;
     private javax.swing.JLabel dd_username_tv;
@@ -465,6 +542,7 @@ public class doctor_mainmenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton logout;
     private javax.swing.JTextField registrationdate;
     private javax.swing.JLabel timegetting;

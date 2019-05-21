@@ -39,6 +39,7 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
         _roomno_error.setVisible(false);
         _wardtype_error.setVisible(false);
         _patdes_error.setVisible(false);
+        ad_id_tv.setText(conn.getID("select adtdid from admitpatient ORDER BY adtdid DESC Fetch first 1 rows only"));
         
         getWardtype();
         getRoomCat();
@@ -59,6 +60,7 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
         _roomno_error.setVisible(false);
         _wardtype_error.setVisible(false);
         _patdes_error.setVisible(false);
+        ad_id_tv.setText(conn.getID("select adtdid from admitpatient ORDER BY adtdid DESC Fetch first 1 rows only"));
         
         getWardtype();
         getRoomCat();
@@ -877,6 +879,8 @@ public class receptionist_admitpatient extends javax.swing.JFrame {
                         ad_patlname_ed.setText("");
                         ad_ward_combo.setSelectedIndex(0);
                         ad_rcat_combo.setSelectedIndex(0);
+                        
+                        ad_id_tv.setText(conn.getID("select adtdid from admitpatient ORDER BY adtdid DESC Fetch first 1 rows only"));
                     }else{System.out.println("flag 2 problem");}
                 }
                 else{System.out.println("another problem");}

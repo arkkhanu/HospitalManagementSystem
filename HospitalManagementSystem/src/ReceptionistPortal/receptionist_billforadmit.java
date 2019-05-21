@@ -57,30 +57,34 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         timegetting = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        dischargedate = new javax.swing.JTextField();
+        bl_discharge_ed = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        chkamount = new javax.swing.JButton();
-        chkavailblity2 = new javax.swing.JButton();
-        admitid = new javax.swing.JTextField();
+        gettingchkamount = new javax.swing.JButton();
+        checkedoutbtn = new javax.swing.JButton();
+        bl_adid_ed = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        days = new javax.swing.JTextField();
-        chkavailblity3 = new javax.swing.JButton();
+        bl_days_ed = new javax.swing.JTextField();
+        gettingadmitid = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
-        amountbox = new javax.swing.JTextField();
+        bl_amount_ed = new javax.swing.JTextField();
         dischargedateget = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        bl_patid_ed = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         registrationdate = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        bl_id_tv = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         rr_patrecp_tv = new javax.swing.JTextField();
         receptionistname = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        ad_patfname_ed = new javax.swing.JTextField();
-        ad_patlname_ed = new javax.swing.JTextField();
+        bl_patfname_ed = new javax.swing.JTextField();
+        bl_status_ed = new javax.swing.JTextField();
+        bl_paidstatus_ed = new javax.swing.JTextField();
+        _admitid_error = new javax.swing.JLabel();
+        bl_patlname_ed = new javax.swing.JTextField();
+        _amount_error = new javax.swing.JLabel();
+        _discharge_error = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         rp_registration_btn = new javax.swing.JButton();
@@ -141,82 +145,77 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         jPanel1.add(jLabel10);
         jLabel10.setBounds(20, 150, 70, 30);
 
-        dischargedate.setEditable(false);
-        dischargedate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(dischargedate);
-        dischargedate.setBounds(140, 270, 170, 30);
+        bl_discharge_ed.setEditable(false);
+        bl_discharge_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(bl_discharge_ed);
+        bl_discharge_ed.setBounds(140, 270, 170, 30);
 
         jLabel12.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel12.setText("Amount");
         jPanel1.add(jLabel12);
         jLabel12.setBounds(20, 370, 70, 30);
 
-        jComboBox3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "In", "Out" }));
-        jPanel1.add(jComboBox3);
-        jComboBox3.setBounds(330, 320, 60, 30);
-
-        chkamount.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        chkamount.setText("Get");
-        chkamount.setBorder(new javax.swing.border.MatteBorder(null));
-        chkamount.addActionListener(new java.awt.event.ActionListener() {
+        gettingchkamount.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        gettingchkamount.setText("Get");
+        gettingchkamount.setBorder(new javax.swing.border.MatteBorder(null));
+        gettingchkamount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkamountActionPerformed(evt);
+                gettingchkamountActionPerformed(evt);
             }
         });
-        jPanel1.add(chkamount);
-        chkamount.setBounds(330, 370, 60, 30);
+        jPanel1.add(gettingchkamount);
+        gettingchkamount.setBounds(340, 370, 60, 30);
 
-        chkavailblity2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        chkavailblity2.setText("Check Out");
-        chkavailblity2.setBorder(new javax.swing.border.MatteBorder(null));
-        chkavailblity2.addActionListener(new java.awt.event.ActionListener() {
+        checkedoutbtn.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        checkedoutbtn.setText("Check Out");
+        checkedoutbtn.setBorder(new javax.swing.border.MatteBorder(null));
+        checkedoutbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkavailblity2ActionPerformed(evt);
+                checkedoutbtnActionPerformed(evt);
             }
         });
-        jPanel1.add(chkavailblity2);
-        chkavailblity2.setBounds(490, 420, 130, 40);
+        jPanel1.add(checkedoutbtn);
+        checkedoutbtn.setBounds(490, 420, 130, 40);
 
-        admitid.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        admitid.addKeyListener(new java.awt.event.KeyAdapter() {
+        bl_adid_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        bl_adid_ed.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                admitidKeyTyped(evt);
+                bl_adid_edKeyTyped(evt);
             }
         });
-        jPanel1.add(admitid);
-        admitid.setBounds(140, 150, 70, 30);
+        jPanel1.add(bl_adid_ed);
+        bl_adid_ed.setBounds(140, 150, 70, 30);
 
         jLabel14.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel14.setText("Patient ID");
         jPanel1.add(jLabel14);
         jLabel14.setBounds(20, 210, 70, 30);
 
-        days.setEditable(false);
-        days.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(days);
-        days.setBounds(140, 320, 70, 30);
+        bl_days_ed.setEditable(false);
+        bl_days_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(bl_days_ed);
+        bl_days_ed.setBounds(140, 320, 70, 30);
 
-        chkavailblity3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        chkavailblity3.setText("Check ");
-        chkavailblity3.setBorder(new javax.swing.border.MatteBorder(null));
-        chkavailblity3.addActionListener(new java.awt.event.ActionListener() {
+        gettingadmitid.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        gettingadmitid.setText("Get");
+        gettingadmitid.setBorder(new javax.swing.border.MatteBorder(null));
+        gettingadmitid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkavailblity3ActionPerformed(evt);
+                gettingadmitidActionPerformed(evt);
             }
         });
-        jPanel1.add(chkavailblity3);
-        chkavailblity3.setBounds(230, 150, 80, 30);
+        jPanel1.add(gettingadmitid);
+        gettingadmitid.setBounds(240, 150, 70, 30);
 
         jLabel15.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel15.setText("Status");
         jPanel1.add(jLabel15);
-        jLabel15.setBounds(250, 320, 60, 30);
+        jLabel15.setBounds(270, 320, 40, 30);
 
-        amountbox.setEditable(false);
-        amountbox.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(amountbox);
-        amountbox.setBounds(140, 370, 170, 30);
+        bl_amount_ed.setEditable(false);
+        bl_amount_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(bl_amount_ed);
+        bl_amount_ed.setBounds(140, 370, 170, 30);
 
         dischargedateget.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         dischargedateget.setText("Get");
@@ -227,17 +226,17 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
             }
         });
         jPanel1.add(dischargedateget);
-        dischargedateget.setBounds(330, 270, 60, 30);
+        dischargedateget.setBounds(340, 270, 60, 30);
 
         jLabel16.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel16.setText("Days");
         jPanel1.add(jLabel16);
         jLabel16.setBounds(20, 320, 70, 30);
 
-        jTextField6.setEditable(false);
-        jTextField6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField6);
-        jTextField6.setBounds(140, 210, 70, 30);
+        bl_patid_ed.setEditable(false);
+        bl_patid_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(bl_patid_ed);
+        bl_patid_ed.setBounds(140, 210, 70, 30);
 
         jLabel19.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel19.setText("Discharge Date");
@@ -249,12 +248,12 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         registrationdate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         registrationdate.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel1.add(registrationdate);
-        registrationdate.setBounds(200, 20, 140, 30);
+        registrationdate.setBounds(200, 10, 140, 30);
 
-        jTextField4.setEditable(false);
-        jTextField4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(jTextField4);
-        jTextField4.setBounds(140, 100, 70, 30);
+        bl_id_tv.setEditable(false);
+        bl_id_tv.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(bl_id_tv);
+        bl_id_tv.setBounds(140, 100, 70, 30);
 
         jLabel13.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel13.setText("Bill ID");
@@ -283,19 +282,56 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         jPanel1.add(jLabel18);
         jLabel18.setBounds(450, 60, 60, 30);
 
-        ad_patfname_ed.setEditable(false);
-        ad_patfname_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        ad_patfname_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        ad_patfname_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(ad_patfname_ed);
-        ad_patfname_ed.setBounds(240, 210, 160, 30);
+        bl_patfname_ed.setEditable(false);
+        bl_patfname_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        bl_patfname_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        bl_patfname_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(bl_patfname_ed);
+        bl_patfname_ed.setBounds(240, 210, 160, 30);
 
-        ad_patlname_ed.setEditable(false);
-        ad_patlname_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        ad_patlname_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        ad_patlname_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        jPanel1.add(ad_patlname_ed);
-        ad_patlname_ed.setBounds(430, 210, 160, 30);
+        bl_status_ed.setEditable(false);
+        bl_status_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        bl_status_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        bl_status_ed.setText("OUT");
+        bl_status_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(bl_status_ed);
+        bl_status_ed.setBounds(340, 320, 60, 30);
+
+        bl_paidstatus_ed.setEditable(false);
+        bl_paidstatus_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        bl_paidstatus_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        bl_paidstatus_ed.setText("UNPAID");
+        bl_paidstatus_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(bl_paidstatus_ed);
+        bl_paidstatus_ed.setBounds(480, 270, 110, 60);
+
+        _admitid_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _admitid_error.setForeground(new java.awt.Color(255, 0, 0));
+        _admitid_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _admitid_error.setText("*");
+        jPanel1.add(_admitid_error);
+        _admitid_error.setBounds(210, 160, 20, 10);
+
+        bl_patlname_ed.setEditable(false);
+        bl_patlname_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        bl_patlname_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        bl_patlname_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(bl_patlname_ed);
+        bl_patlname_ed.setBounds(430, 210, 160, 30);
+
+        _amount_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _amount_error.setForeground(new java.awt.Color(255, 0, 0));
+        _amount_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _amount_error.setText("*");
+        jPanel1.add(_amount_error);
+        _amount_error.setBounds(310, 380, 20, 10);
+
+        _discharge_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _discharge_error.setForeground(new java.awt.Color(255, 0, 0));
+        _discharge_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _discharge_error.setText("*");
+        jPanel1.add(_discharge_error);
+        _discharge_error.setBounds(310, 280, 20, 10);
 
         jPanel4.add(jPanel1);
         jPanel1.setBounds(250, 170, 670, 490);
@@ -427,38 +463,38 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
     
     
     
-    private void chkamountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkamountActionPerformed
+    private void gettingchkamountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gettingchkamountActionPerformed
         
         try{
-            if(days.getText() == null || days.getText().equals("")){
+            if(bl_days_ed.getText() == null || bl_days_ed.getText().equals("")){
                 JOptionPane.showMessageDialog(null, "First get Discharge Date\n");
                 
             }
             else{
-                long tday = Long.parseLong(days.getText());
+                long tday = Long.parseLong(bl_days_ed.getText());
                 // per day 1000 rupees; 
                 String amount = String.valueOf(tday*1000);
-                amountbox.setText(amount);
+                bl_amount_ed.setText(amount);
                 System.out.println(tday);
             }
         }catch(NumberFormatException e ){System.out.println(e);}
         
-    }//GEN-LAST:event_chkamountActionPerformed
+    }//GEN-LAST:event_gettingchkamountActionPerformed
 
-    private void chkavailblity2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkavailblity2ActionPerformed
+    private void checkedoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkedoutbtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_chkavailblity2ActionPerformed
+    }//GEN-LAST:event_checkedoutbtnActionPerformed
 
-    private void chkavailblity3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkavailblity3ActionPerformed
+    private void gettingadmitidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gettingadmitidActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_chkavailblity3ActionPerformed
+    }//GEN-LAST:event_gettingadmitidActionPerformed
 
     private void dischargedategetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dischargedategetActionPerformed
                 
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
         dischargedatee = sdf.format(date);
-        dischargedate.setText(dischargedatee);
+        bl_discharge_ed.setText(dischargedatee);
         
 //        String dd1 = dischargedate.getText();
         String dd1 = todaydate;
@@ -470,7 +506,7 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
             Date d2 = sdf.parse(dd2);
             diff = d1.getDate()-d2.getDate();
             String totaldays = String.valueOf(diff);
-            days.setText(totaldays);
+            bl_days_ed.setText(totaldays);
         }catch(ParseException e){System.out.println(e);}
         
         
@@ -478,14 +514,14 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         System.out.println(diff);
     }//GEN-LAST:event_dischargedategetActionPerformed
 
-    private void admitidKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_admitidKeyTyped
+    private void bl_adid_edKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bl_adid_edKeyTyped
         
         char c = evt.getKeyChar();
         if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
             getToolkit().beep();
             evt.consume();
         }
-    }//GEN-LAST:event_admitidKeyTyped
+    }//GEN-LAST:event_bl_adid_edKeyTyped
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
         LoginForm.loginsection lfl = new loginsection();
@@ -571,17 +607,23 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField ad_patfname_ed;
-    private javax.swing.JTextField ad_patlname_ed;
-    private javax.swing.JTextField admitid;
-    private javax.swing.JTextField amountbox;
-    private javax.swing.JButton chkamount;
-    private javax.swing.JButton chkavailblity2;
-    private javax.swing.JButton chkavailblity3;
-    private javax.swing.JTextField days;
-    private javax.swing.JTextField dischargedate;
+    private javax.swing.JLabel _admitid_error;
+    private javax.swing.JLabel _amount_error;
+    private javax.swing.JLabel _discharge_error;
+    private javax.swing.JTextField bl_adid_ed;
+    private javax.swing.JTextField bl_amount_ed;
+    private javax.swing.JTextField bl_days_ed;
+    private javax.swing.JTextField bl_discharge_ed;
+    private javax.swing.JTextField bl_id_tv;
+    private javax.swing.JTextField bl_paidstatus_ed;
+    private javax.swing.JTextField bl_patfname_ed;
+    private javax.swing.JTextField bl_patid_ed;
+    private javax.swing.JTextField bl_patlname_ed;
+    private javax.swing.JTextField bl_status_ed;
+    private javax.swing.JButton checkedoutbtn;
     private javax.swing.JButton dischargedateget;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JButton gettingadmitid;
+    private javax.swing.JButton gettingchkamount;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -597,8 +639,6 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JButton logout;
     private javax.swing.JLabel receptionistname;
     private javax.swing.JTextField registrationdate;

@@ -322,6 +322,34 @@ Trigger created.
 
 ///////////////////////////////////////////////////////////
 
+SQL> create table patientbill(billid number primary key , adtdid number , gendate date not null , totalamount number not null , billstatus varchar(7) not null,rid number , foreign key(adtdid) references admitpatient(adtdid), foreign key(rid) references recept(rid));
+
+Table created.
+
+
+SQL> create sequence patientbill_sequence
+  2  start with 1
+  3  increment by 1;
+
+Sequence created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create or replace trigger patientbill_trigger
+  2  before insert on patientbill
+  3  for each row
+  4  begin
+  5  select patientbill_sequence.nextval into :new.billid from dual;
+  6* end;
+SQL> /
+
+Trigger created.
+
+
+
+
+
 
 
 

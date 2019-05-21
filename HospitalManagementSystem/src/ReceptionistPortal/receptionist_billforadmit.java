@@ -5,9 +5,12 @@
  */
 package ReceptionistPortal;
 
+import DBConnectionP.DBConnection;
 import LoginForm.loginsection;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,15 +24,25 @@ import javax.swing.Timer;
  */
 public class receptionist_billforadmit extends javax.swing.JFrame {
 
-    int id = -1;
+    DBConnection conn = new DBConnection();
+    
+    int id = -1 , ramount=-1 , roomno=-1;
     String username = null;
     String dischargedatee = null;
     String todaydate = null;
+    String chkinDate = null;
+    String chkoutDate = null;
+    
   
     public receptionist_billforadmit() {
         initComponents();
         showtime();
         showdate();
+        
+        _admitid_error.setVisible(false);
+        _searching_error.setVisible(false);
+        _discharge_error.setVisible(false);
+        bl_id_tv.setText(conn.getID("select billid from patientbill ORDER BY billid DESC Fetch first 1 rows only"));
     }
 
     public receptionist_billforadmit(int id , String username) {
@@ -40,6 +53,13 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         this.username=username;
         rr_patrecp_tv.setText(String.valueOf(id));
         receptionistname.setText(username);
+        
+        _admitid_error.setVisible(false);
+        _searching_error.setVisible(false);
+        _discharge_error.setVisible(false);
+        
+        bl_id_tv.setText(conn.getID("select billid from patientbill ORDER BY billid DESC Fetch first 1 rows only"));
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,7 +79,7 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         bl_discharge_ed = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        gettingchkamount = new javax.swing.JButton();
+        resetall = new javax.swing.JButton();
         checkedoutbtn = new javax.swing.JButton();
         bl_adid_ed = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
@@ -67,7 +87,7 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         gettingadmitid = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         bl_amount_ed = new javax.swing.JTextField();
-        dischargedateget = new javax.swing.JButton();
+        gettingdischargedate = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         bl_patid_ed = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
@@ -81,10 +101,14 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         bl_patfname_ed = new javax.swing.JTextField();
         bl_status_ed = new javax.swing.JTextField();
         bl_paidstatus_ed = new javax.swing.JTextField();
-        _admitid_error = new javax.swing.JLabel();
+        _searching_error = new javax.swing.JLabel();
         bl_patlname_ed = new javax.swing.JTextField();
-        _amount_error = new javax.swing.JLabel();
         _discharge_error = new javax.swing.JLabel();
+        searching = new javax.swing.JButton();
+        bl_searchingid_ed = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        _admitid_error = new javax.swing.JLabel();
+        bl_chkindate_ed = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         rp_registration_btn = new javax.swing.JButton();
@@ -143,9 +167,11 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel10.setText("Admit ID");
         jPanel1.add(jLabel10);
-        jLabel10.setBounds(20, 150, 70, 30);
+        jLabel10.setBounds(50, 170, 60, 30);
 
         bl_discharge_ed.setEditable(false);
+        bl_discharge_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        bl_discharge_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         bl_discharge_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel1.add(bl_discharge_ed);
         bl_discharge_ed.setBounds(140, 270, 170, 30);
@@ -153,18 +179,18 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel12.setText("Amount");
         jPanel1.add(jLabel12);
-        jLabel12.setBounds(20, 370, 70, 30);
+        jLabel12.setBounds(60, 370, 50, 30);
 
-        gettingchkamount.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        gettingchkamount.setText("Get");
-        gettingchkamount.setBorder(new javax.swing.border.MatteBorder(null));
-        gettingchkamount.addActionListener(new java.awt.event.ActionListener() {
+        resetall.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        resetall.setText("Reset");
+        resetall.setBorder(new javax.swing.border.MatteBorder(null));
+        resetall.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gettingchkamountActionPerformed(evt);
+                resetallActionPerformed(evt);
             }
         });
-        jPanel1.add(gettingchkamount);
-        gettingchkamount.setBounds(340, 370, 60, 30);
+        jPanel1.add(resetall);
+        resetall.setBounds(240, 130, 70, 30);
 
         checkedoutbtn.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         checkedoutbtn.setText("Check Out");
@@ -175,8 +201,10 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
             }
         });
         jPanel1.add(checkedoutbtn);
-        checkedoutbtn.setBounds(490, 420, 130, 40);
+        checkedoutbtn.setBounds(480, 420, 130, 40);
 
+        bl_adid_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        bl_adid_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         bl_adid_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         bl_adid_ed.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -184,14 +212,16 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
             }
         });
         jPanel1.add(bl_adid_ed);
-        bl_adid_ed.setBounds(140, 150, 70, 30);
+        bl_adid_ed.setBounds(140, 170, 70, 30);
 
         jLabel14.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel14.setText("Patient ID");
         jPanel1.add(jLabel14);
-        jLabel14.setBounds(20, 210, 70, 30);
+        jLabel14.setBounds(50, 220, 70, 30);
 
         bl_days_ed.setEditable(false);
+        bl_days_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        bl_days_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         bl_days_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel1.add(bl_days_ed);
         bl_days_ed.setBounds(140, 320, 70, 30);
@@ -205,7 +235,7 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
             }
         });
         jPanel1.add(gettingadmitid);
-        gettingadmitid.setBounds(240, 150, 70, 30);
+        gettingadmitid.setBounds(240, 170, 70, 30);
 
         jLabel15.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel15.setText("Status");
@@ -213,30 +243,34 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         jLabel15.setBounds(270, 320, 40, 30);
 
         bl_amount_ed.setEditable(false);
+        bl_amount_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        bl_amount_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         bl_amount_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel1.add(bl_amount_ed);
         bl_amount_ed.setBounds(140, 370, 170, 30);
 
-        dischargedateget.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        dischargedateget.setText("Get");
-        dischargedateget.setBorder(new javax.swing.border.MatteBorder(null));
-        dischargedateget.addActionListener(new java.awt.event.ActionListener() {
+        gettingdischargedate.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        gettingdischargedate.setText("Get");
+        gettingdischargedate.setBorder(new javax.swing.border.MatteBorder(null));
+        gettingdischargedate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dischargedategetActionPerformed(evt);
+                gettingdischargedateActionPerformed(evt);
             }
         });
-        jPanel1.add(dischargedateget);
-        dischargedateget.setBounds(340, 270, 60, 30);
+        jPanel1.add(gettingdischargedate);
+        gettingdischargedate.setBounds(340, 270, 60, 30);
 
         jLabel16.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel16.setText("Days");
         jPanel1.add(jLabel16);
-        jLabel16.setBounds(20, 320, 70, 30);
+        jLabel16.setBounds(70, 320, 40, 30);
 
         bl_patid_ed.setEditable(false);
+        bl_patid_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        bl_patid_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         bl_patid_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel1.add(bl_patid_ed);
-        bl_patid_ed.setBounds(140, 210, 70, 30);
+        bl_patid_ed.setBounds(140, 220, 70, 30);
 
         jLabel19.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel19.setText("Discharge Date");
@@ -245,20 +279,23 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
 
         registrationdate.setEditable(false);
         registrationdate.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        registrationdate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         registrationdate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         registrationdate.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel1.add(registrationdate);
         registrationdate.setBounds(200, 10, 140, 30);
 
         bl_id_tv.setEditable(false);
+        bl_id_tv.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        bl_id_tv.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         bl_id_tv.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel1.add(bl_id_tv);
-        bl_id_tv.setBounds(140, 100, 70, 30);
+        bl_id_tv.setBounds(140, 130, 70, 30);
 
         jLabel13.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel13.setText("Bill ID");
+        jLabel13.setText("Bill Search");
         jPanel1.add(jLabel13);
-        jLabel13.setBounds(20, 100, 70, 30);
+        jLabel13.setBounds(50, 90, 80, 30);
 
         jLabel20.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel20.setText("R ID : ");
@@ -287,7 +324,7 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         bl_patfname_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         bl_patfname_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel1.add(bl_patfname_ed);
-        bl_patfname_ed.setBounds(240, 210, 160, 30);
+        bl_patfname_ed.setBounds(240, 220, 160, 30);
 
         bl_status_ed.setEditable(false);
         bl_status_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
@@ -303,28 +340,21 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         bl_paidstatus_ed.setText("UNPAID");
         bl_paidstatus_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel1.add(bl_paidstatus_ed);
-        bl_paidstatus_ed.setBounds(480, 270, 110, 60);
+        bl_paidstatus_ed.setBounds(480, 340, 130, 60);
 
-        _admitid_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        _admitid_error.setForeground(new java.awt.Color(255, 0, 0));
-        _admitid_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        _admitid_error.setText("*");
-        jPanel1.add(_admitid_error);
-        _admitid_error.setBounds(210, 160, 20, 10);
+        _searching_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _searching_error.setForeground(new java.awt.Color(255, 0, 0));
+        _searching_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _searching_error.setText("*");
+        jPanel1.add(_searching_error);
+        _searching_error.setBounds(210, 100, 20, 10);
 
         bl_patlname_ed.setEditable(false);
         bl_patlname_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         bl_patlname_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         bl_patlname_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
         jPanel1.add(bl_patlname_ed);
-        bl_patlname_ed.setBounds(430, 210, 160, 30);
-
-        _amount_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        _amount_error.setForeground(new java.awt.Color(255, 0, 0));
-        _amount_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        _amount_error.setText("*");
-        jPanel1.add(_amount_error);
-        _amount_error.setBounds(310, 380, 20, 10);
+        bl_patlname_ed.setBounds(430, 220, 160, 30);
 
         _discharge_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         _discharge_error.setForeground(new java.awt.Color(255, 0, 0));
@@ -332,6 +362,42 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         _discharge_error.setText("*");
         jPanel1.add(_discharge_error);
         _discharge_error.setBounds(310, 280, 20, 10);
+
+        searching.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        searching.setText("Search");
+        searching.setBorder(new javax.swing.border.MatteBorder(null));
+        searching.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchingActionPerformed(evt);
+            }
+        });
+        jPanel1.add(searching);
+        searching.setBounds(240, 90, 70, 30);
+
+        bl_searchingid_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        bl_searchingid_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        bl_searchingid_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(bl_searchingid_ed);
+        bl_searchingid_ed.setBounds(140, 90, 70, 30);
+
+        jLabel17.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel17.setText("Bill ID");
+        jPanel1.add(jLabel17);
+        jLabel17.setBounds(70, 130, 50, 30);
+
+        _admitid_error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _admitid_error.setForeground(new java.awt.Color(255, 0, 0));
+        _admitid_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _admitid_error.setText("*");
+        jPanel1.add(_admitid_error);
+        _admitid_error.setBounds(210, 180, 20, 10);
+
+        bl_chkindate_ed.setEditable(false);
+        bl_chkindate_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        bl_chkindate_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        bl_chkindate_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        jPanel1.add(bl_chkindate_ed);
+        bl_chkindate_ed.setBounds(430, 270, 160, 30);
 
         jPanel4.add(jPanel1);
         jPanel1.setBounds(250, 170, 670, 490);
@@ -463,33 +529,127 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
     
     
     
-    private void gettingchkamountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gettingchkamountActionPerformed
+    private void resetallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetallActionPerformed
         
-        try{
-            if(bl_days_ed.getText() == null || bl_days_ed.getText().equals("")){
-                JOptionPane.showMessageDialog(null, "First get Discharge Date\n");
-                
-            }
-            else{
-                long tday = Long.parseLong(bl_days_ed.getText());
-                // per day 1000 rupees; 
-                String amount = String.valueOf(tday*1000);
-                bl_amount_ed.setText(amount);
-                System.out.println(tday);
-            }
-        }catch(NumberFormatException e ){System.out.println(e);}
+        _admitid_error.setVisible(false);
+        _searching_error.setVisible(false);
+        _discharge_error.setVisible(false);
         
-    }//GEN-LAST:event_gettingchkamountActionPerformed
+        checkedoutbtn.setVisible(true);
+        gettingadmitid.setVisible(true);
+        gettingdischargedate.setVisible(true);
+        bl_adid_ed.setEditable(true);
+        
+        bl_id_tv.setText(conn.getID("select billid from patientbill ORDER BY billid DESC Fetch first 1 rows only"));
+        bl_searchingid_ed.setText("");
+        bl_adid_ed.setText("");
+        bl_patid_ed.setText("");
+        bl_patfname_ed.setText("");
+        bl_patlname_ed.setText("");
+        bl_discharge_ed.setText("");
+        bl_days_ed.setText("");
+        bl_amount_ed.setText("");
+        bl_chkindate_ed.setText("");
+        
+        
+        
+    }//GEN-LAST:event_resetallActionPerformed
 
     private void checkedoutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkedoutbtnActionPerformed
-        // TODO add your handling code here:
+        boolean emptyfld = false;
+        if(bl_discharge_ed.getText().equals("")){_discharge_error.setVisible(true); emptyfld=false;}
+        if(bl_adid_ed.getText().equals("")){_admitid_error.setVisible(true);emptyfld=false;}
+        
+        if(!bl_discharge_ed.getText().isEmpty() 
+           && !bl_adid_ed.getText().isEmpty() ){emptyfld=true;}
+        
+        if(emptyfld == false){JOptionPane.showMessageDialog(null, "Please Fill the Fileds");}
+        if(emptyfld == true){
+            _discharge_error.setVisible(false);
+            _admitid_error.setVisible(false);
+            
+            try{
+                boolean another1 = false;
+                boolean another2 = false; 
+                conn.OpenConnection();
+                String query = "insert into patientbill (adtdid,gendate,totalamount,billstatus,rid) values ("
+                +bl_adid_ed.getText()+" , to_date('"+bl_discharge_ed.getText()+"','yyyy-MM-dd') , "+bl_amount_ed.getText()
+                +" , 'PAID' , "+rr_patrecp_tv.getText()+")";
+                int flag = conn.InsertUpdateDelete(query);
+                if(flag == 1 ){another1 = true;}
+                
+                if(another1 == true){
+                   String query2 = "update admitpatient set chkout=to_date('"+bl_discharge_ed.getText()+"','yyyy-MM-dd') "
+                           + " where adtdid="+bl_adid_ed.getText();
+                   int flag2 = conn.InsertUpdateDelete(query2);
+                   
+                   if(flag2 == 1 ){another2=true;}
+               
+                }else{System.out.println("another 1 problem ");}
+               
+                if(another2 == true){
+                   String query3 = "update room set rstatus='OUT' where rrid="+roomno;
+                   int flag3 = conn.InsertUpdateDelete(query3);
+                   
+                   if(flag3 == 1 ){
+                       JOptionPane.showMessageDialog(null, "Successfully CheckedOut..!");
+                    bl_id_tv.setText(conn.getID("select billid from patientbill ORDER BY billid DESC Fetch first 1 rows only"));
+                    
+                    bl_searchingid_ed.setText("");
+                    bl_adid_ed.setText("");
+                    bl_patid_ed.setText("");
+                    bl_patfname_ed.setText("");
+                    bl_patlname_ed.setText("");
+                    bl_discharge_ed.setText("");
+                    bl_days_ed.setText("");
+                    bl_amount_ed.setText("");
+                    bl_chkindate_ed.setText("");
+                   }
+               }else{System.out.println("another 2 problem ");}
+            
+            }catch(HeadlessException e ){System.out.println(e);}
+        }
+        
     }//GEN-LAST:event_checkedoutbtnActionPerformed
 
     private void gettingadmitidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gettingadmitidActionPerformed
-        // TODO add your handling code here:
+        if(bl_adid_ed.getText().equals("")){_admitid_error.setVisible(true);}
+        if(!bl_adid_ed.getText().isEmpty()){
+            _admitid_error.setVisible(false);
+            boolean found = false;
+           try{
+               conn.OpenConnection();
+               String query = "select  ad.adtdid,opt.rpid,fname,lname , chkin , ramount , r.rrid , chkout from admitpatient ad "
+               + ", patientopt opt , regpatient rgp , room r , roomcategory rc where ad.optid=opt.optid and "
+               + "  opt.rpid=rgp.rpid and r.rcid=rc.rcid and ad.rrid=r.rrid and ad.adtdid="+bl_adid_ed.getText()+ " and chkout is null";
+               conn.GetData(query);
+               while(conn.rst.next()){
+                   found = true;
+                   bl_patid_ed.setText(String.valueOf(conn.rst.getInt("rpid")));
+                   bl_patfname_ed.setText(conn.rst.getString("fname"));
+                   bl_patlname_ed.setText(conn.rst.getString("lname"));
+                   String ddate=conn.rst.getString("chkin");
+                   ramount=conn.rst.getInt("ramount");
+                   chkoutDate=conn.rst.getString("chkout");
+                   roomno = conn.rst.getInt("rrid");
+                   chkinDate=ddate.substring(0,10);
+                   bl_chkindate_ed.setText(chkinDate);
+                   System.out.println(chkinDate + " : " + chkoutDate + " : "+roomno);
+                   break;
+               }
+               
+            if(found == false){
+                JOptionPane.showMessageDialog(null, "Sorry ..! Not Found such Admit Paitent");
+                bl_adid_ed.setText("");
+                bl_patid_ed.setText("");
+                bl_patid_ed.setText("");
+                bl_patlname_ed.setText("");
+            }   
+           }catch(SQLException e ){System.out.println(e);}
+        }
     }//GEN-LAST:event_gettingadmitidActionPerformed
 
-    private void dischargedategetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dischargedategetActionPerformed
+    private void gettingdischargedateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gettingdischargedateActionPerformed
                 
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
@@ -499,6 +659,7 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
 //        String dd1 = dischargedate.getText();
         String dd1 = todaydate;
         String dd2 = "2019-05-01";
+//        String dd2 = chkinDate;
         long diff =-1;
         try{
             
@@ -507,12 +668,38 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
             diff = d1.getDate()-d2.getDate();
             String totaldays = String.valueOf(diff);
             bl_days_ed.setText(totaldays);
+            String amount=null;
+            long tday = Long.parseLong(bl_days_ed.getText());
+                // per day 1000 rupees; 
+                if(tday==0){
+                    amount = String.valueOf(tday+(ramount/2));
+                }
+                else{
+                    amount = String.valueOf(tday*ramount);
+                }
+                bl_amount_ed.setText(amount);
+                System.out.println(tday);
         }catch(ParseException e){System.out.println(e);}
         
         
         
         System.out.println(diff);
-    }//GEN-LAST:event_dischargedategetActionPerformed
+        
+//        try{
+//            if(bl_days_ed.getText() == null || bl_days_ed.getText().equals("")){
+//                JOptionPane.showMessageDialog(null, "First get Discharge Date\n");
+//                
+//            }
+//            else{
+//                long tday = Long.parseLong(bl_days_ed.getText());
+//                // per day 1000 rupees; 
+//                String amount = String.valueOf(tday*1000);
+//                bl_amount_ed.setText(amount);
+//                System.out.println(tday);
+//            }
+//        }catch(NumberFormatException e ){System.out.println(e);}
+        
+    }//GEN-LAST:event_gettingdischargedateActionPerformed
 
     private void bl_adid_edKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bl_adid_edKeyTyped
         
@@ -577,6 +764,77 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_rp_appointment_btnActionPerformed
 
+    private void searchingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchingActionPerformed
+        
+        _searching_error.setVisible(false);
+        _discharge_error.setVisible(false);
+        
+        bl_id_tv.setText("");
+        bl_adid_ed.setText("");
+        bl_patid_ed.setText("");
+        bl_patfname_ed.setText("");
+        bl_patlname_ed.setText("");
+        bl_amount_ed.setText("");
+        bl_discharge_ed.setText("");
+        bl_days_ed.setText("");
+        bl_amount_ed.setText("");
+        bl_chkindate_ed.setText("");
+        
+        
+        if(bl_searchingid_ed.getText().equals("")){_searching_error.setVisible(true);}
+        if(!bl_searchingid_ed.getText().isEmpty()){
+            
+            _searching_error.setVisible(false);
+            checkedoutbtn.setVisible(false);
+            gettingadmitid.setVisible(false);
+            gettingdischargedate.setVisible(false);
+            bl_adid_ed.setEditable(false);
+             boolean found = false;
+         /*  try{
+               conn.OpenConnection();
+               String query = "select  ad.adtdid,opt.rpid,fname,lname , chkin , ramount from admitpatient ad "
+               + ", patientopt opt , regpatient rgp , room r , roomcategory rc where ad.optid=opt.optid and "
+               + "  opt.rpid=rgp.rpid and r.rcid=rc.rcid and ad.rrid=r.rrid and ad.adtdid="+bl_adid_ed.getText();
+               conn.GetData(query);
+               while(conn.rst.next()){
+                   found = true;
+                   bl_patid_ed.setText(String.valueOf(conn.rst.getInt("rpid")));
+                   bl_patfname_ed.setText(conn.rst.getString("fname"));
+                   bl_patlname_ed.setText(conn.rst.getString("lname"));
+                   String ddate=conn.rst.getString("chkin");
+                   chkinDate=ddate.substring(0,10);
+                   System.out.println(chkinDate);
+                   break;
+               }
+               
+            if(found == false){
+                JOptionPane.showMessageDialog(null, "Sorry ..! Not Found such Bill Paitent");
+                bl_id_tv.setText(conn.getID("select rrid from room ORDER BY rrid DESC Fetch first 1 rows only"));
+                
+                bl_adid_ed.setText("");
+                bl_patid_ed.setText("");
+                bl_patfname_ed.setText("");
+                bl_patlname_ed.setText("");
+                bl_amount_ed.setText("");
+                bl_discharge_ed.setText("");
+                bl_days_ed.setText("");
+                bl_amount_ed.setText("");
+                bl_chkindate_ed.setText("");
+                bl_status_ed.setText("OUT");
+                bl_paidstatus_ed.setText("UNPAID");
+                checkedoutbtn.setVisible(true);
+                gettingadmitid.setVisible(true);
+                gettingchkamount.setVisible(true);
+                gettingdischargedate.setVisible(true);
+                bl_adid_ed.setEditable(true);
+                
+            }   
+           }catch(SQLException e ){System.out.println(e);}*/
+            
+        }
+        
+    }//GEN-LAST:event_searchingActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -608,10 +866,11 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel _admitid_error;
-    private javax.swing.JLabel _amount_error;
     private javax.swing.JLabel _discharge_error;
+    private javax.swing.JLabel _searching_error;
     private javax.swing.JTextField bl_adid_ed;
     private javax.swing.JTextField bl_amount_ed;
+    private javax.swing.JTextField bl_chkindate_ed;
     private javax.swing.JTextField bl_days_ed;
     private javax.swing.JTextField bl_discharge_ed;
     private javax.swing.JTextField bl_id_tv;
@@ -619,11 +878,11 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
     private javax.swing.JTextField bl_patfname_ed;
     private javax.swing.JTextField bl_patid_ed;
     private javax.swing.JTextField bl_patlname_ed;
+    private javax.swing.JTextField bl_searchingid_ed;
     private javax.swing.JTextField bl_status_ed;
     private javax.swing.JButton checkedoutbtn;
-    private javax.swing.JButton dischargedateget;
     private javax.swing.JButton gettingadmitid;
-    private javax.swing.JButton gettingchkamount;
+    private javax.swing.JButton gettingdischargedate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -632,6 +891,7 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
@@ -642,6 +902,7 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
     private javax.swing.JButton logout;
     private javax.swing.JLabel receptionistname;
     private javax.swing.JTextField registrationdate;
+    private javax.swing.JButton resetall;
     private javax.swing.JButton rp_admit_btn;
     private javax.swing.JButton rp_admit_details;
     private javax.swing.JButton rp_appointment_btn;
@@ -651,6 +912,7 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
     private javax.swing.JButton rp_opt_details;
     private javax.swing.JButton rp_registration_btn;
     private javax.swing.JTextField rr_patrecp_tv;
+    private javax.swing.JButton searching;
     private javax.swing.JLabel timegetting;
     // End of variables declaration//GEN-END:variables
 }

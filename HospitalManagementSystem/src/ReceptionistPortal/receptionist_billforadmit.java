@@ -579,7 +579,7 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
                 if(flag == 1 ){another1 = true;}
                 
                 if(another1 == true){
-                   String query2 = "update admitpatient set chkout=to_date('"+bl_discharge_ed.getText()+"','yyyy-MM-dd') "
+                   String query2 = "update admitpatient set adtstatus='OUT' , chkout=to_date('"+bl_discharge_ed.getText()+"','yyyy-MM-dd') "
                            + " where adtdid="+bl_adid_ed.getText();
                    int flag2 = conn.InsertUpdateDelete(query2);
                    
@@ -769,7 +769,6 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         _searching_error.setVisible(false);
         _discharge_error.setVisible(false);
         
-        bl_id_tv.setText("");
         bl_adid_ed.setText("");
         bl_patid_ed.setText("");
         bl_patfname_ed.setText("");
@@ -790,46 +789,54 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
             gettingdischargedate.setVisible(false);
             bl_adid_ed.setEditable(false);
              boolean found = false;
-         /*  try{
+           try{
                conn.OpenConnection();
-               String query = "select  ad.adtdid,opt.rpid,fname,lname , chkin , ramount from admitpatient ad "
-               + ", patientopt opt , regpatient rgp , room r , roomcategory rc where ad.optid=opt.optid and "
-               + "  opt.rpid=rgp.rpid and r.rcid=rc.rcid and ad.rrid=r.rrid and ad.adtdid="+bl_adid_ed.getText();
+               String query = "select billid, ad.adtdid , opt.rpid , fname , lname, chkin , gendate , totalamount , billstatus ,ad.adtstatus from  patientbill pb,admitpatient ad , patientopt opt , regpatient rgp  where ad.optid=opt.optid and opt.rpid=rgp.rpid  and pb.adtdid=ad.adtdid and billid="+bl_searchingid_ed.getText();
                conn.GetData(query);
                while(conn.rst.next()){
                    found = true;
-                   bl_patid_ed.setText(String.valueOf(conn.rst.getInt("rpid")));
-                   bl_patfname_ed.setText(conn.rst.getString("fname"));
-                   bl_patlname_ed.setText(conn.rst.getString("lname"));
-                   String ddate=conn.rst.getString("chkin");
-                   chkinDate=ddate.substring(0,10);
-                   System.out.println(chkinDate);
+                    ////
+                    bl_id_tv.setText(String.valueOf(conn.rst.getInt("billid")));
+                    bl_adid_ed.setText(String.valueOf(conn.rst.getInt("adtdid")));  
+                    bl_patid_ed.setText(String.valueOf(conn.rst.getInt("rpid")));
+                    bl_patfname_ed.setText(conn.rst.getString("fname"));
+                    bl_patlname_ed.setText(conn.rst.getString("lname"));
+                    bl_discharge_ed.setText(conn.rst.getString("gendate"));
+                    bl_chkindate_ed.setText(conn.rst.getString("chkin"));
+                    bl_amount_ed.setText(String.valueOf(conn.rst.getInt("totalamount")));
+//                    bl_days_ed.setText(conn.rst.getString(""));
+
+                    bl_status_ed.setText(conn.rst.getString("adtstatus"));
+                    bl_paidstatus_ed.setText(conn.rst.getString("billstatus"));
+                   ////
                    break;
                }
                
             if(found == false){
                 JOptionPane.showMessageDialog(null, "Sorry ..! Not Found such Bill Paitent");
-                bl_id_tv.setText(conn.getID("select rrid from room ORDER BY rrid DESC Fetch first 1 rows only"));
+                
+                bl_id_tv.setText(conn.getID("select billid from patientbill ORDER BY billid DESC Fetch first 1 rows only"));
                 
                 bl_adid_ed.setText("");
                 bl_patid_ed.setText("");
                 bl_patfname_ed.setText("");
                 bl_patlname_ed.setText("");
-                bl_amount_ed.setText("");
                 bl_discharge_ed.setText("");
-                bl_days_ed.setText("");
-                bl_amount_ed.setText("");
                 bl_chkindate_ed.setText("");
+                bl_amount_ed.setText("");
+                bl_days_ed.setText("");
+                
                 bl_status_ed.setText("OUT");
                 bl_paidstatus_ed.setText("UNPAID");
+                
                 checkedoutbtn.setVisible(true);
                 gettingadmitid.setVisible(true);
-                gettingchkamount.setVisible(true);
                 gettingdischargedate.setVisible(true);
                 bl_adid_ed.setEditable(true);
                 
-            }   
-           }catch(SQLException e ){System.out.println(e);}*/
+            } 
+           conn.CloseConnection(); 
+           }catch(SQLException e ){System.out.println(e);}
             
         }
         

@@ -825,6 +825,7 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
                 bl_chkindate_ed.setText("");
                 bl_amount_ed.setText("");
                 bl_days_ed.setText("");
+                bl_searchingid_ed.setText("");
                 
                 bl_status_ed.setText("OUT");
                 bl_paidstatus_ed.setText("UNPAID");

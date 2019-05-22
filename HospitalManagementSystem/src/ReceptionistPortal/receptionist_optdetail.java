@@ -7,9 +7,14 @@ package ReceptionistPortal;
 
 import DBConnectionP.DBConnection;
 import LoginForm.loginsection;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
@@ -17,6 +22,8 @@ import java.util.ArrayList;
  */
 public class receptionist_optdetail extends javax.swing.JFrame {
 
+    
+    DBConnection conn = new DBConnection();
     int id= -1;
     String username=null;
  
@@ -24,14 +31,20 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         initComponents();
 //        show_user();
 //        fillcombo();
+          _error.setVisible(false);
+          showdate();
+          showtime();
     }
 
     public receptionist_optdetail(int id , String username) {
         initComponents();
+        showdate();
+        showtime();
         this.id=id;
         this.username=username;
         rr_patrecp_tv.setText(String.valueOf(id));
         receptionistname.setText(username);
+        _error.setVisible(false);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,7 +96,6 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         rp_bill_for_admit = new javax.swing.JButton();
         rp_opt_details = new javax.swing.JButton();
         rp_admit_details = new javax.swing.JButton();
-        rp_chk_room = new javax.swing.JButton();
         rp_opt_btn = new javax.swing.JButton();
         rp_appointment_btn = new javax.swing.JButton();
 
@@ -368,7 +380,7 @@ public class receptionist_optdetail extends javax.swing.JFrame {
             }
         });
         jPanel2.add(rp_opt_details);
-        rp_opt_details.setBounds(10, 440, 190, 40);
+        rp_opt_details.setBounds(10, 380, 190, 40);
 
         rp_admit_details.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         rp_admit_details.setText("Admited Patient Detail");
@@ -379,18 +391,7 @@ public class receptionist_optdetail extends javax.swing.JFrame {
             }
         });
         jPanel2.add(rp_admit_details);
-        rp_admit_details.setBounds(10, 380, 190, 40);
-
-        rp_chk_room.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        rp_chk_room.setText("Check Room");
-        rp_chk_room.setBorder(new javax.swing.border.MatteBorder(null));
-        rp_chk_room.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rp_chk_roomActionPerformed(evt);
-            }
-        });
-        jPanel2.add(rp_chk_room);
-        rp_chk_room.setBounds(10, 320, 190, 40);
+        rp_admit_details.setBounds(10, 320, 190, 40);
 
         rp_opt_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         rp_opt_btn.setText("Add OPT");
@@ -424,7 +425,22 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    void showtime(){
+        new Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("hh:mm:ss a");
+            timegetting.setText(t.format(d));
+        }).start();   
+    }
     
+    void showdate(){
+        new Timer(0, (ActionEvent ae) -> {
+            Date d = new Date();
+            SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd");
+            registrationdate.setText(t.format(d));
+        }).start();
+        
+    }
     
   
     
@@ -465,12 +481,6 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_rp_admit_detailsActionPerformed
 
-    private void rp_chk_roomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_chk_roomActionPerformed
-        receptionist_checkroom rchr  = new receptionist_checkroom(id,username);
-        rchr.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_rp_chk_roomActionPerformed
-
     private void rp_opt_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_opt_btnActionPerformed
         receptionist_opt ropt = new receptionist_opt(id,username);
         ropt.setVisible(true);
@@ -496,11 +506,48 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         if(!searching_ed.getText().isEmpty()){
         
             _error.setVisible(false);
+            boolean found = false;
+            try{
+                String query = "select optid ,rp.rpid , fname , lname , ge.gname , rp.age , dfname , dlname , "
+                + "entdate from patientopt p , regpatient rp , doctor d , gender ge  where p.rpid=rp.rpid and "
+                + "p.did=d.did and rp.sexid=ge.gid and p.optid="+searching_ed.getText();
+                conn.OpenConnection();
+                conn.GetData(query);
+                while(conn.rst.next()){
+                    found=true;
+                    optid_ed.setText(String.valueOf(conn.rst.getInt("optid")));
+                    pfname_ed.setText(conn.rst.getString("fname"));
+                    plname_ed.setText(conn.rst.getString("lname"));
+                    prid_ed.setText(String.valueOf(conn.rst.getInt("rpid")));
+                    age_ed.setText(String.valueOf(conn.rst.getInt("age")));
+                    gender_ed.setText(conn.rst.getString("gname"));
+                    dfname_ed.setText(conn.rst.getString("dfname"));
+                    dlname_ed.setText(conn.rst.getString("dlname"));
+                    String chkin = (conn.rst.getString("entdate"));
+                    chkin_ed.setText(chkin.substring(0,10));
+                    break;
+                }
+                if(found == false){
+                    JOptionPane.showMessageDialog(null, "Sorry ..! Not Found such OPT Paitent");
+                    searching_ed.setText("");
+                    optid_ed.setText("");
+                    pfname_ed.setText("");
+                    plname_ed.setText("");
+                    prid_ed.setText("");
+                    age_ed.setText("");
+                    gender_ed.setText("");
+                    dfname_ed.setText("");
+                    dlname_ed.setText("");
+                    chkin_ed.setText("");
+                    
+                }
+            }catch(SQLException e ){System.out.println(e);}
         }
         
     }//GEN-LAST:event_searchingActionPerformed
 
     private void resetAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetAllActionPerformed
+        
         searching_ed.setText("");
         optid_ed.setText("");
         pfname_ed.setText("");
@@ -511,6 +558,7 @@ public class receptionist_optdetail extends javax.swing.JFrame {
         dfname_ed.setText("");
         dlname_ed.setText("");
         chkin_ed.setText("");
+        
     }//GEN-LAST:event_resetAllActionPerformed
 
     /**
@@ -575,7 +623,6 @@ public class receptionist_optdetail extends javax.swing.JFrame {
     private javax.swing.JButton rp_admit_details;
     private javax.swing.JButton rp_appointment_btn;
     private javax.swing.JButton rp_bill_for_admit;
-    private javax.swing.JButton rp_chk_room;
     private javax.swing.JButton rp_opt_btn;
     private javax.swing.JButton rp_opt_details;
     private javax.swing.JButton rp_registration_btn;

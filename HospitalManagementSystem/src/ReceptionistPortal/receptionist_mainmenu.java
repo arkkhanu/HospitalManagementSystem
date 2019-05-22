@@ -131,7 +131,6 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
         rp_bill_for_admit = new javax.swing.JButton();
         rp_opt_details = new javax.swing.JButton();
         rp_admit_details = new javax.swing.JButton();
-        rp_chk_room = new javax.swing.JButton();
         rp_opt_btn = new javax.swing.JButton();
         rp_appointment_btn = new javax.swing.JButton();
 
@@ -478,7 +477,7 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
             }
         });
         jPanel2.add(rp_opt_details);
-        rp_opt_details.setBounds(10, 440, 190, 40);
+        rp_opt_details.setBounds(10, 390, 190, 40);
 
         rp_admit_details.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         rp_admit_details.setText("Admited Patient Detail");
@@ -489,18 +488,7 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
             }
         });
         jPanel2.add(rp_admit_details);
-        rp_admit_details.setBounds(10, 380, 190, 40);
-
-        rp_chk_room.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        rp_chk_room.setText("Check Room");
-        rp_chk_room.setBorder(new javax.swing.border.MatteBorder(null));
-        rp_chk_room.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rp_chk_roomActionPerformed(evt);
-            }
-        });
-        jPanel2.add(rp_chk_room);
-        rp_chk_room.setBounds(10, 320, 190, 40);
+        rp_admit_details.setBounds(10, 330, 190, 40);
 
         rp_opt_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         rp_opt_btn.setText("Add OPT");
@@ -626,12 +614,6 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
         adpd.setVisible(true);
         dispose();
     }//GEN-LAST:event_rp_admit_detailsActionPerformed
-
-    private void rp_chk_roomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_chk_roomActionPerformed
-        receptionist_checkroom rchr  = new receptionist_checkroom(id,username);
-        rchr.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_rp_chk_roomActionPerformed
 
     private void rp_opt_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_opt_btnActionPerformed
         receptionist_opt ropt = new receptionist_opt(id,username);
@@ -890,7 +872,6 @@ public class receptionist_mainmenu extends javax.swing.JFrame {
     private javax.swing.JButton rp_admit_details;
     private javax.swing.JButton rp_appointment_btn;
     private javax.swing.JButton rp_bill_for_admit;
-    private javax.swing.JButton rp_chk_room;
     private javax.swing.JButton rp_opt_btn;
     private javax.swing.JButton rp_opt_details;
     private javax.swing.JButton rp_registration_btn;

@@ -116,7 +116,6 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         rp_bill_for_admit = new javax.swing.JButton();
         rp_opt_details = new javax.swing.JButton();
         rp_admit_details = new javax.swing.JButton();
-        rp_chk_room = new javax.swing.JButton();
         rp_opt_btn = new javax.swing.JButton();
         rp_appointment_btn = new javax.swing.JButton();
 
@@ -377,6 +376,11 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         bl_searchingid_ed.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         bl_searchingid_ed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         bl_searchingid_ed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        bl_searchingid_ed.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                bl_searchingid_edKeyTyped(evt);
+            }
+        });
         jPanel1.add(bl_searchingid_ed);
         bl_searchingid_ed.setBounds(140, 90, 70, 30);
 
@@ -453,7 +457,7 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
             }
         });
         jPanel2.add(rp_opt_details);
-        rp_opt_details.setBounds(10, 440, 190, 40);
+        rp_opt_details.setBounds(10, 390, 190, 40);
 
         rp_admit_details.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         rp_admit_details.setText("Admited Patient Detail");
@@ -464,18 +468,7 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
             }
         });
         jPanel2.add(rp_admit_details);
-        rp_admit_details.setBounds(10, 380, 190, 40);
-
-        rp_chk_room.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        rp_chk_room.setText("Check Room");
-        rp_chk_room.setBorder(new javax.swing.border.MatteBorder(null));
-        rp_chk_room.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rp_chk_roomActionPerformed(evt);
-            }
-        });
-        jPanel2.add(rp_chk_room);
-        rp_chk_room.setBounds(10, 320, 190, 40);
+        rp_admit_details.setBounds(10, 330, 190, 40);
 
         rp_opt_btn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         rp_opt_btn.setText("Add OPT");
@@ -746,12 +739,6 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_rp_admit_detailsActionPerformed
 
-    private void rp_chk_roomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_chk_roomActionPerformed
-        receptionist_checkroom rchr  = new receptionist_checkroom(id,username);
-        rchr.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_rp_chk_roomActionPerformed
-
     private void rp_opt_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rp_opt_btnActionPerformed
         receptionist_opt ropt = new receptionist_opt(id,username);
         ropt.setVisible(true);
@@ -843,6 +830,14 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         
     }//GEN-LAST:event_searchingActionPerformed
 
+    private void bl_searchingid_edKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bl_searchingid_edKeyTyped
+        char c = evt.getKeyChar();
+        if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_bl_searchingid_edKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -915,7 +910,6 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
     private javax.swing.JButton rp_admit_details;
     private javax.swing.JButton rp_appointment_btn;
     private javax.swing.JButton rp_bill_for_admit;
-    private javax.swing.JButton rp_chk_room;
     private javax.swing.JButton rp_opt_btn;
     private javax.swing.JButton rp_opt_details;
     private javax.swing.JButton rp_registration_btn;

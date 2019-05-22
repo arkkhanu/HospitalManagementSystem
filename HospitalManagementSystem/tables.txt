@@ -347,6 +347,36 @@ SQL> /
 Trigger created.
 
 
+////////////////////////////////////////////////////////////
+
+
+SQL> create view admitpatient_view as select  ad.adtdid,r.nid,adtstatus,ad.optid,opt.did,opt.rid,opt.rpid,fname,lname ,rgp.age, chkin , ramount , r.rrid , chkout , gname , rc.rcatname , wname from admitpatient ad , patientopt opt , regpatient rgp , room r , roomcategory rc , gender ge , deptward dw where ad.optid=opt.optid and opt.rpid=rgp.rpid and r.rcid=rc.rcid and rgp.sexid=ge.gid and r.wid=dw.wid and ad.rrid=r.rrid with read only;
+
+
+///////////////////////////////////////////////////
+
+Wrote file afiedt.buf
+
+  1  create or replace trigger gender_after_update
+  2  after update
+  3  on gender
+  4  for each row
+  5  declare
+  6  v_gname varchar(8);
+  7  begin
+  8  select user into v_gname
+  9  from dual;
+ 10  insert into gender_audit
+ 11  (gid,
+ 12  gname_befor,
+ 13  gname_after,username)
+ 14  Values
+ 15  (:new.gid,
+ 16  :old.gname,
+ 17  :new.gname,
+ 18  v_gname);
+ 19* end;
+SQL> /
 
 
 

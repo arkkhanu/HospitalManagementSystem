@@ -38,15 +38,16 @@ public class admin_details_doctor extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jButton15 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jButton17 = new javax.swing.JButton();
         jButton16 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
         timegetting = new javax.swing.JLabel();
         searching = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        _error = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1147, 680));
@@ -62,6 +63,56 @@ public class admin_details_doctor extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pictures/admin (1).png"))); // NOI18N
         jPanel1.add(jLabel1);
         jLabel1.setBounds(50, 10, 130, 130);
+
+        jButton15.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jButton15.setText("Back");
+        jButton15.setBorder(new javax.swing.border.MatteBorder(null));
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton15);
+        jButton15.setBounds(970, 70, 80, 30);
+
+        jLabel6.setBackground(new java.awt.Color(0, 102, 153));
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("                              ADMIN Portal");
+        jLabel6.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 0, 0)));
+        jLabel6.setOpaque(true);
+        jPanel1.add(jLabel6);
+        jLabel6.setBounds(230, 50, 910, 70);
+
+        jButton17.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton17.setText("Reset");
+        jButton17.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(jButton17);
+        jButton17.setBounds(550, 180, 60, 30);
+
+        jButton16.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton16.setText("Check");
+        jButton16.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.add(jButton16);
+        jButton16.setBounds(460, 180, 60, 30);
+
+        timegetting.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        timegetting.setText("Time");
+        jPanel1.add(timegetting);
+        timegetting.setBounds(560, 10, 120, 30);
+
+        searching.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        searching.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        searching.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                searchingKeyTyped(evt);
+            }
+        });
+        jPanel1.add(searching);
+        searching.setBounds(340, 180, 90, 30);
+
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -92,7 +143,7 @@ public class admin_details_doctor extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "DID", "F-Name", "L-Name", "DOB", "Age", "Sex", "Ph-No", "City", "Reg-Date", "Email", "Password", "Address", "Dept", "Qualification", "Salary"
+                "ADTDID", "F-Name", "L-Name", "DOB", "Age", "Sex", "Ph-No", "City", "Reg-Date", "Email", "Password", "Dept", "Qualification", "Salary", "Address"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -104,62 +155,21 @@ public class admin_details_doctor extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(14).setPreferredWidth(120);
+        }
 
-        jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 200, 1120, 420);
+        jScrollPane2.setViewportView(jScrollPane1);
 
-        jButton15.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton15.setText("Back");
-        jButton15.setBorder(new javax.swing.border.MatteBorder(null));
-        jButton15.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton15ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton15);
-        jButton15.setBounds(970, 70, 80, 30);
+        jPanel1.add(jScrollPane2);
+        jScrollPane2.setBounds(20, 240, 1100, 350);
 
-        jLabel6.setBackground(new java.awt.Color(0, 102, 153));
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("                              ADMIN Portal");
-        jLabel6.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 0, 0)));
-        jLabel6.setOpaque(true);
-        jPanel1.add(jLabel6);
-        jLabel6.setBounds(230, 50, 910, 70);
-
-        jButton17.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton17.setText("Reset");
-        jButton17.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton17);
-        jButton17.setBounds(540, 150, 60, 30);
-
-        jButton16.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton16.setText("Check");
-        jButton16.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton16);
-        jButton16.setBounds(450, 150, 60, 30);
-
-        jButton18.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton18.setText("Print");
-        jButton18.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton18);
-        jButton18.setBounds(620, 150, 60, 30);
-
-        timegetting.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        timegetting.setText("Time");
-        jPanel1.add(timegetting);
-        timegetting.setBounds(560, 10, 120, 30);
-
-        searching.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        searching.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
-        searching.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                searchingKeyTyped(evt);
-            }
-        });
-        jPanel1.add(searching);
-        searching.setBounds(340, 150, 90, 30);
+        _error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _error.setForeground(new java.awt.Color(255, 0, 0));
+        _error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _error.setText("*");
+        jPanel1.add(_error);
+        _error.setBounds(430, 190, 20, 10);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1140, 640);
@@ -227,14 +237,15 @@ public class admin_details_doctor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel _error;
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField searching;
     private javax.swing.JLabel timegetting;

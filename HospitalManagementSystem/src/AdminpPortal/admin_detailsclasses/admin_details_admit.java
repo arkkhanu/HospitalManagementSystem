@@ -6,11 +6,15 @@
 package AdminpPortal.admin_detailsclasses;
 
 import AdminpPortal.admin_details;
+import DBConnectionP.DBConnection;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,12 +22,13 @@ import javax.swing.Timer;
  */
 public class admin_details_admit extends javax.swing.JFrame {
 
-    /**
-     * Creates new form admin_details_admit
-     */
+    DBConnection conn = new DBConnection();
+    
     public admin_details_admit() {
         initComponents();
+        _error.setVisible(false);
         showtime();
+        showdata();
     }
 
     /**
@@ -37,15 +42,16 @@ public class admin_details_admit extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jButton15 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jButton17 = new javax.swing.JButton();
         jButton16 = new javax.swing.JButton();
         searching = new javax.swing.JTextField();
-        jButton18 = new javax.swing.JButton();
         timegetting = new javax.swing.JLabel();
+        _error = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1147, 680));
@@ -61,51 +67,6 @@ public class admin_details_admit extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pictures/admin (1).png"))); // NOI18N
         jPanel1.add(jLabel1);
         jLabel1.setBounds(50, 10, 130, 130);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "AdID", "PID", "F-Name", "L-Name", "Age", "Sex", "Doctor", "Recept", "Room", "RoomType", "Ward", "Nurse", "Reg-Date", "Status", "Disch-Date"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
-
-        jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 200, 1100, 410);
 
         jButton15.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jButton15.setText("Back");
@@ -131,13 +92,18 @@ public class admin_details_admit extends javax.swing.JFrame {
         jButton17.setText("Reset");
         jButton17.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel1.add(jButton17);
-        jButton17.setBounds(540, 150, 60, 30);
+        jButton17.setBounds(570, 180, 60, 30);
 
         jButton16.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jButton16.setText("Check");
         jButton16.setBorder(new javax.swing.border.MatteBorder(null));
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton16);
-        jButton16.setBounds(450, 150, 60, 30);
+        jButton16.setBounds(490, 180, 60, 30);
 
         searching.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         searching.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
@@ -147,18 +113,45 @@ public class admin_details_admit extends javax.swing.JFrame {
             }
         });
         jPanel1.add(searching);
-        searching.setBounds(340, 150, 90, 30);
-
-        jButton18.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton18.setText("Print");
-        jButton18.setBorder(new javax.swing.border.MatteBorder(null));
-        jPanel1.add(jButton18);
-        jButton18.setBounds(620, 150, 60, 30);
+        searching.setBounds(340, 180, 120, 30);
 
         timegetting.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         timegetting.setText("Time");
         jPanel1.add(timegetting);
         timegetting.setBounds(540, 10, 120, 30);
+
+        _error.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        _error.setForeground(new java.awt.Color(255, 0, 0));
+        _error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        _error.setText("*");
+        jPanel1.add(_error);
+        _error.setBounds(460, 190, 20, 10);
+
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ADTDID", "OPTID", "RPID", "F-Name", "L-Name", "Age", "Sex", "Room", "RoomType", "Ward", "Reg-Date", "Status", "Disch-Date", "Recept", "Nurse", "Doctor"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        jScrollPane2.setViewportView(jScrollPane1);
+
+        jPanel1.add(jScrollPane2);
+        jScrollPane2.setBounds(20, 240, 1080, 380);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1120, 650);
@@ -175,6 +168,71 @@ public class admin_details_admit extends javax.swing.JFrame {
         }).start();   
     }
     
+    public void showdata(){
+        ArrayList<detailingclass.admitdetails> users = ListUsers(searching.getText());
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        Object[] row = new Object[16];
+        for(int i=0 ; i<users.size() ; i++){
+            row[0] = users.get(i).getAdtdid();
+            row[1] = users.get(i).getOptid();
+            row[2] = users.get(i).getRpid();
+            row[3] = users.get(i).getPfname();
+            row[4] = users.get(i).getPlname();
+            row[5] = users.get(i).getPage();
+            row[6] = users.get(i).getPsex();
+            row[7] = users.get(i).getRoom();
+            row[8] = users.get(i).getRoomtype();
+            row[9] = users.get(i).getWard();
+            row[10] = users.get(i).getChkin();
+            row[11] = users.get(i).getStatus();
+            row[12] = users.get(i).getChkout();
+            row[13] = users.get(i).getRid();
+            row[14] = users.get(i).getNid();
+            row[15] = users.get(i).getDid();
+            model.addRow(row);
+            System.out.println(users.get(i).getAdtdid());
+        }
+        
+    
+    }
+    
+    public ArrayList<detailingclass.admitdetails> ListUsers(String valu){
+        ArrayList<detailingclass.admitdetails> userList = new ArrayList<>();
+        
+        try{
+            conn.OpenConnection();
+//            String query = "select  ad.adtdid , ad.optid , opt.rpid , rgp.age , r.rrid , opt.rid , r.nid , opt.did , fname , lname , gname , rc.rcatname , wname , adtstatus , chkin , ramount  , chkout from admitpatient ad , patientopt opt , regpatient rgp , room r , roomcategory rc , gender ge , deptward dw where ad.optid=opt.optid and opt.rpid=rgp.rpid and r.rcid=rc.rcid and rgp.sexid=ge.gid and r.wid=dw.wid and ad.rrid=r.rrid";
+            String query = "select  adtdid , optid , rpid , age , rrid , rid , nid , did , fname , lname , gname , rcatname , wname , adtstatus , chkin , ramount  , chkout from admitpatient_view where fname like '%"+valu+"%'" ;
+            conn.GetData(query);
+            detailingclass dc = new detailingclass();
+            detailingclass.admitdetails dad ;
+            while(conn.rst.next()){
+                dad = dc.new admitdetails(
+                     conn.rst.getInt("adtdid"),
+                     conn.rst.getInt("optid"),
+                     conn.rst.getInt("rpid"),
+                     conn.rst.getInt("age"),   
+                     conn.rst.getInt("rrid"),
+                     conn.rst.getInt("rid"),   
+                     conn.rst.getInt("nid"),
+                     conn.rst.getInt("did"),   
+                     conn.rst.getString("fname"),
+                     conn.rst.getString("lname"),
+                     conn.rst.getString("gname"),   
+                     conn.rst.getString("rcatname"),
+                     conn.rst.getString("wname"),   
+                     conn.rst.getString("adtstatus"),
+                     conn.rst.getString("chkin"),
+                     conn.rst.getString("chkout")   
+                );
+                userList.add(dad);
+            }
+        }catch(SQLException e){System.out.println(e);}
+        
+       return userList; 
+    } 
+    
+    
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
        
         admin_details ad = new admin_details();
@@ -184,11 +242,19 @@ public class admin_details_admit extends javax.swing.JFrame {
 
     private void searchingKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchingKeyTyped
         char c = evt.getKeyChar();
-        if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
+        if(!(Character.isAlphabetic(c) || (c==KeyEvent.VK_BACK_SPACE)  || (c==KeyEvent.VK_DELETE) )){
             getToolkit().beep();
             evt.consume();
         }
     }//GEN-LAST:event_searchingKeyTyped
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        if(searching.getText().equals("")){_error.setVisible(true);}
+        if(!searching.getText().isEmpty()){
+            _error.setVisible(false);
+            showdata();
+        }
+    }//GEN-LAST:event_jButton16ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,22 +284,21 @@ public class admin_details_admit extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new admin_details_admit().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new admin_details_admit().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel _error;
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField searching;
     private javax.swing.JLabel timegetting;

@@ -1,0 +1,50 @@
+///////////////////////////////////////////////////////
+
+create or replace procedure p_nurse is
+cursor c_emp is select * from nurse;
+r_emp c_emp%ROWTYPE;
+begin
+open c_emp;
+loop
+fetch c_emp into r_emp;
+exit when c_emp%NOTFOUND;
+DBMS_OUTPUT.put_line(r_emp.nid || ' , ' || r_emp.nfname || ' , ' || r_emp.nlname || ' , ' || r_emp.salery);
+end loop;
+close c_emp;
+end;
+
+////////////////////////////////////////////////////////
+
+declare
+	cursor cursor_nurse is select nid , salery from nurse;
+	var_simplies cursor_nurse%ROWTYPE;
+begin
+	if not cursor_nurse%ISOPEN then
+	open cursor_nurse;
+	end if;
+loop
+	fetch cursor_nurse into var_simplies;
+	exit when cursor_nurse%NOTFOUND;
+DBMS_OUTPUT.put_line('nid: [' || var_simplies.nid || '] salery: [ ' || var_simplies.salery || ']');
+end loop;
+close cursor_nurse;
+end;
+/
+
+
+/////////////////////////////////////////////
+
+
+declare
+      cursor c_countemps is select count(*), sum(salery) from nurse;
+      v_count NUMBER;
+      v_sum NUMBER;
+  begin
+      open c_countEmps;
+      fetch c_countEmps into v_count, v_sum;
+      close c_countEmps;
+      DBMS_OUTPUT.put_line('number of Nurses is:'||v_count);
+      DBMS_OUTPUT.put_line('sum of emp salaries is:'||v_sum);
+  end;
+/
+

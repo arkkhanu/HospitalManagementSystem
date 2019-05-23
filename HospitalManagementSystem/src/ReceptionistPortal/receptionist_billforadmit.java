@@ -10,6 +10,7 @@ import LoginForm.loginsection;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.print.PrinterException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -597,6 +598,9 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
                     bl_days_ed.setText("");
                     bl_amount_ed.setText("");
                     bl_chkindate_ed.setText("");
+//                    try{
+//                        bl_chkindate_ed.print();
+//                    }catch(PrinterException e ){System.out.println(e);}
                    }
                }else{System.out.println("another 2 problem ");}
             
@@ -651,8 +655,8 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         
 //        String dd1 = dischargedate.getText();
         String dd1 = todaydate;
-        String dd2 = "2019-05-01";
-//        String dd2 = chkinDate;
+//        String dd2 = "2019-05-01";
+        String dd2 = chkinDate;
         long diff =-1;
         try{
             

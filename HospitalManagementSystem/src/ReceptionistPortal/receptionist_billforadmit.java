@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.Timer;
 
 /**
@@ -521,6 +522,25 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
         }).start(); 
     }
     
+    public void billprint(int billid , int adtdid, int rpid , String fn , String ln , String chkin , String chkout,int bill , String billstatus,String rec){
+        String ss = "\n*************************************************************\n\n"
+                  + "                  Hospital Management System                   \n"
+                  + "\n=============================================================\n"
+                  + "\n BILL ID      : "+billid + "\t\t Receptionist : "+rec
+                  + "\n Amit ID      : "+adtdid
+                  + "\n Patient ID   : "+rpid
+                  + "\n Patient Name : "+fn +"   "+ln
+                  + "\n Checked In   : "+chkin 
+                  + "\n Checked Out  : "+chkout 
+                  + "\n Bill Amount  : "+bill
+                + "\n\n STATUS       : "+billstatus;
+        JTextArea JTextArea = new JTextArea();
+        JTextArea.setText(ss);
+        try{
+            JTextArea.print();
+        }catch(PrinterException e ){System.out.println(e);}
+        
+    }
     
     
     private void resetallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetallActionPerformed
@@ -588,7 +608,7 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
                    if(flag3 == 1 ){
                        JOptionPane.showMessageDialog(null, "Successfully CheckedOut..!");
                     bl_id_tv.setText(conn.getID("select billid from patientbill ORDER BY billid DESC Fetch first 1 rows only"));
-                    
+                  billprint(Integer.valueOf(bl_id_tv.getText()) , Integer.valueOf(bl_adid_ed.getText()),Integer.valueOf(bl_patid_ed.getText())  , bl_patfname_ed.getText() , bl_patlname_ed.getText() ,bl_chkindate_ed.getText() , bl_discharge_ed.getText(),Integer.valueOf(bl_amount_ed.getText()) , bl_paidstatus_ed.getText(),receptionistname.getText());  
                     bl_searchingid_ed.setText("");
                     bl_adid_ed.setText("");
                     bl_patid_ed.setText("");
@@ -598,9 +618,7 @@ public class receptionist_billforadmit extends javax.swing.JFrame {
                     bl_days_ed.setText("");
                     bl_amount_ed.setText("");
                     bl_chkindate_ed.setText("");
-//                    try{
-//                        bl_chkindate_ed.print();
-//                    }catch(PrinterException e ){System.out.println(e);}
+                  
                    }
                }else{System.out.println("another 2 problem ");}
             

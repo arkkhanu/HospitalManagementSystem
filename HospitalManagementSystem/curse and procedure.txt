@@ -29,7 +29,7 @@ DBMS_OUTPUT.put_line('nid: [' || var_simplies.nid || '] salery: [ ' || var_simpl
 end loop;
 close cursor_nurse;
 end;
-/
+
 
 
 /////////////////////////////////////////////
@@ -48,3 +48,13 @@ declare
   end;
 /
 
+////////////////////////////////////////////////////
+trigger for Delete
+
+create or replace trigger delete_trigger
+before delete on a1
+for each row
+begin
+delete from a2 aa where aa.c5 = :old.c1;
+end;
+/
